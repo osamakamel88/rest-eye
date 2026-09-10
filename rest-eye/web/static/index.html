@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>REST-EYE | الحارس الذكي لمطابخ ومخازن المطاعم بالذكاء الاصطناعي</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,10 +13,18 @@
 
   <!-- Top Navbar -->
   <header class="navbar">
-    <div class="brand">
-      <span class="brand-icon">👁️</span>
-      <div class="brand-title">
-        REST-EYE <span class="badge-tag">الحارس الذكي للمطاعم</span>
+    <div class="navbar-brand-row">
+      <div class="brand">
+        <span class="brand-icon">👁️</span>
+        <div class="brand-title">
+          REST-EYE <span class="badge-tag">الحارس الذكي للمطاعم</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="https://wa.me/?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AD%D8%AC%D8%B2%20%D8%AF%D9%8A%D9%85%D9%88%20%D9%84%D9%86%D8%B8%D8%A7%D9%85%20REST-EYE%20%D9%84%D9%85%D8%B7%D8%B9%D9%85%D9%8A" target="_blank" class="btn-primary btn-call-cta">
+          📞 احجز ديمو لمطعمك
+        </a>
       </div>
     </div>
 
@@ -26,15 +34,9 @@
         🌟 المميزات والقيمة للأعمال
       </button>
       <button class="nav-tab" id="tab-demo-btn" onclick="switchMainTab('demo')">
-        🎮 تجربة النظام لايف (Live Demo)
+        🎮 تجربة النظام لايف (Demo)
       </button>
     </nav>
-
-    <div class="header-actions">
-      <a href="https://wa.me/?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AD%D8%AC%D8%B2%20%D8%AF%D9%8A%D9%85%D9%88%20%D9%84%D9%86%D8%B8%D8%A7%D9%85%20REST-EYE%20%D9%84%D9%85%D8%B7%D8%B9%D9%85%D9%8A" target="_blank" class="btn-primary" style="background: #2563eb; text-decoration: none;">
-        📞 احجز ديمو لمطعمك
-      </a>
-    </div>
   </header>
 
   <!-- ========================================== -->
@@ -328,7 +330,7 @@
         </div>
       </div>
 
-      <div style="display: flex; gap: 8px;">
+      <div class="demo-action-buttons">
         <button class="btn-primary" style="background: #059669;" onclick="openUploadModal()">
           📤 رفع فيديو للفحص
         </button>
@@ -360,7 +362,7 @@
             </div>
 
             <div class="speed-selector">
-              <span style="font-size: 11px; color: var(--text-muted); font-weight: 600;">السرعة والتايملابس:</span>
+              <span>السرعة والتايملابس:</span>
               <button class="btn-speed" id="spd-025" onclick="setSpeed(0.25)">0.25x بطيء</button>
               <button class="btn-speed" id="spd-05" onclick="setSpeed(0.5)">0.5x</button>
               <button class="btn-speed active" id="spd-1" onclick="setSpeed(1.0)">1.0x عادي</button>
@@ -377,7 +379,7 @@
               <button class="btn-toggle active" id="tog-hud" onclick="toggleOverlay('hud')">📊 بيانات الشاشة</button>
             </div>
 
-            <div style="display: flex; gap: 8px;">
+            <div class="controls-zone-btns">
               <button class="btn-primary" id="btn-draw-zone" onclick="startDrawingZone()">
                 ✏️ رسم منطقة محظورة بالماوس
               </button>
@@ -392,7 +394,7 @@
         </div>
 
         <!-- Current Source Banner -->
-        <div style="background: #111827; border: 1px solid #374151; padding: 10px 16px; border-radius: 8px; font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
+        <div style="background: #111827; border: 1px solid #374151; padding: 10px 16px; border-radius: 8px; font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
           <span>المصدر الحالي: <strong id="val-source" style="color: var(--text-main);">-</strong></span>
           <span>محرك الذكاء الاصطناعي: <strong style="color: var(--accent-emerald);">YOLO11-Pose (رصد حركة اليد للفم + تتبع الوضعيات)</strong></span>
         </div>
@@ -408,7 +410,7 @@
             </button>
           </div>
           <div class="panel-body" style="padding-bottom: 8px;">
-            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+            <div class="audit-input-container" style="display: flex; gap: 8px; margin-bottom: 12px;">
               <input type="text" id="audit-note-input" placeholder="أضف ملاحظة تدقيق موثقة بالوقت (مثال: الشيف #143 أكل قطعة معجنات بدون إذن)..." style="flex: 1; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;">
               <select id="audit-severity" style="padding: 8px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;">
                 <option value="VIOLATION">🚨 مخالفة أكل</option>
