@@ -1,0 +1,36 @@
+[
+  {
+    "id": "alert_20260910_081646_13_298",
+    "timestamp": "2026-09-10 08:16:46",
+    "unix_time": 1789017406.3085017,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 13,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_081646_13_298.jpg",
+    "video_url": "/api/alerts/alert_20260910_081646_13_298.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.58,
+      "dist_ratio": 0.617,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_081656_24_972",
+    "timestamp": "2026-09-10 08:16:56",
+    "unix_time": 1789017416.9887762,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 24,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_081656_24_972.jpg",
+    "video_url": "/api/alerts/alert_20260910_081656_24_972.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.85,
+      "dist_ratio": 0.493,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  }
+]

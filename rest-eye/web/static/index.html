@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REST-EYE | Restaurant CCTV AI Sentry</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="brand">
+      <span class="brand-icon">👁️</span>
+      <div class="brand-title">
+        REST-EYE <span class="badge-tag">AI CCTV SENTRY</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="telemetry-pills">
+        <div class="pill">
+          <div class="pulse-dot"></div>
+          <span>Status: <strong id="val-status">ONLINE</strong></span>
+        </div>
+        <div class="pill">
+          <span>FPS: <strong id="val-fps">25.0</strong></span>
+        </div>
+        <div class="pill">
+          <span>Active Staff: <strong id="val-person-count">0</strong></span>
+        </div>
+        <div class="pill">
+          <span>Incidents: <strong id="val-alert-count" style="color: var(--accent-rose)">0</strong></span>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="openSourceModal()">
+        📹 Change Source
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Grid -->
+  <main class="dashboard-container">
+    
+    <!-- Left Column: Video & Zone Tools -->
+    <section class="video-column">
+      <div class="video-card">
+        <div class="video-wrapper" id="video-container">
+          <img id="stream-img" src="/api/stream" alt="Live Camera Stream" class="video-stream" onerror="handleStreamError()">
+          <canvas id="zone-canvas" class="drawing-canvas"></canvas>
+        </div>
+
+        <div class="controls-bar">
+          <div class="toggle-group">
+            <button class="btn-toggle active" id="tog-skel" onclick="toggleOverlay('skeleton')">🦴 Skeletons</button>
+            <button class="btn-toggle active" id="tog-box" onclick="toggleOverlay('boxes')">📦 Bounding Boxes</button>
+            <button class="btn-toggle active" id="tog-zones" onclick="toggleOverlay('zones')">🛑 Restricted Zones</button>
+            <button class="btn-toggle active" id="tog-hud" onclick="toggleOverlay('hud')">📊 HUD Telemetry</button>
+          </div>
+
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-primary" id="btn-draw-zone" onclick="startDrawingZone()">
+              ✏️ Draw Restricted Zone
+            </button>
+            <button class="btn-danger" id="btn-cancel-draw" style="display: none;" onclick="cancelDrawingZone()">
+              ✕ Cancel
+            </button>
+            <button class="btn-primary" id="btn-save-draw" style="display: none; background: #059669;" onclick="saveDrawnZone()">
+              ✓ Save Zone
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Current Source Banner -->
+      <div style="background: #111827; border: 1px solid #374151; padding: 10px 16px; border-radius: 8px; font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between;">
+        <span>Active Source: <strong id="val-source" style="color: var(--text-main);">-</strong></span>
+        <span>Detection Model: <strong style="color: var(--accent-emerald);">YOLO-Pose (Hand-to-Mouth + Posture Tracking)</strong></span>
+      </div>
+    </section>
+
+    <!-- Right Column: Personnel Stats & Alerts -->
+    <aside class="sidebar-column">
+      
+      <!-- Panel 1: Live Personnel Tracker -->
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span>👥 Personnel Live Activity</span>
+          </div>
+          <span id="active-staff-badge" class="badge-tag">0 Active</span>
+        </div>
+        <div class="panel-body" id="personnel-list">
+          <div style="text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 13px;">
+            Scanning camera stream for personnel...
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Incident Alerts Feed -->
+      <div class="panel-card" style="flex: 1;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span>🚨 Incident Log</span>
+          </div>
+          <span class="badge-tag" style="background: rgba(244, 63, 94, 0.2); color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.4);">
+            Auto Clip Recording
+          </span>
+        </div>
+        <div class="panel-body" id="alerts-list">
+          <div style="text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 13px;">
+            No violations recorded yet.
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- Modal: Video Playback -->
+  <div class="modal-backdrop" id="video-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-video-title">Incident Clip Playback</h3>
+        <button class="modal-close" onclick="closeVideoModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <video id="incident-player" controls style="width: 100%; border-radius: 6px; background: #000;" src=""></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Change Camera Source -->
+  <div class="modal-backdrop" id="source-modal">
+    <div class="modal-content" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3>Select Video / Camera Source</h3>
+        <button class="modal-close" onclick="closeSourceModal()">✕</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px;">Preset / Custom Input</label>
+          <input type="text" id="source-input" style="width: 100%; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff;" placeholder="D:\Downloads\a_restaurant_back_kitchen_wher.mp4 or RTSP url">
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-toggle" style="flex: 1;" onclick="setSourcePreset('sample')">🎬 Sample Video</button>
+          <button class="btn-toggle" style="flex: 1;" onclick="setSourcePreset('0')">📷 USB Webcam (0)</button>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">
+          <button class="btn-toggle" onclick="closeSourceModal()">Cancel</button>
+          <button class="btn-primary" onclick="submitSourceChange()">Apply Source</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

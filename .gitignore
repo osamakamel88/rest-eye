@@ -1,0 +1,27 @@
+# Python & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# PyTorch & YOLO weights
+*.pt
+*.onnx
+*.engine
+
+# Data & Video clips
+data/alerts/*.mp4
+data/alerts/*.jpg
+*.mp4
+*.avi
+*.mov
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
