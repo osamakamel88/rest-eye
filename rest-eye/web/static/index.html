@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>REST-EYE | Restaurant CCTV AI Sentry</title>
+  <title>REST-EYE | الحارس الذكي لمطابخ ومخازن المطاعم بالذكاء الاصطناعي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
@@ -13,174 +16,463 @@
     <div class="brand">
       <span class="brand-icon">👁️</span>
       <div class="brand-title">
-        REST-EYE <span class="badge-tag">AI CCTV SENTRY</span>
+        REST-EYE <span class="badge-tag">الحارس الذكي للمطاعم</span>
       </div>
     </div>
 
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs-wrapper">
+      <button class="nav-tab active" id="tab-landing-btn" onclick="switchMainTab('landing')">
+        🌟 المميزات والقيمة للأعمال
+      </button>
+      <button class="nav-tab" id="tab-demo-btn" onclick="switchMainTab('demo')">
+        🎮 تجربة النظام لايف (Live Demo)
+      </button>
+    </nav>
+
     <div class="header-actions">
-      <div class="telemetry-pills">
-        <div class="pill">
-          <div class="pulse-dot"></div>
-          <span>Status: <strong id="val-status">ONLINE</strong></span>
-        </div>
-        <div class="pill">
-          <span>FPS: <strong id="val-fps">25.0</strong></span>
-        </div>
-        <div class="pill">
-          <span>Speed: <strong id="val-speed" style="color: var(--accent-sky)">1.0x</strong></span>
-        </div>
-        <div class="pill">
-          <span>Active Staff: <strong id="val-person-count">0</strong></span>
-        </div>
-        <div class="pill">
-          <span>Incidents: <strong id="val-alert-count" style="color: var(--accent-rose)">0</strong></span>
-        </div>
-      </div>
-
-      <button class="btn-primary" style="background: #059669;" onclick="openUploadModal()">
-        📤 Upload Video
-      </button>
-
-      <button class="btn-primary" style="background: #4f46e5;" onclick="openConnectModal()">
-        ⚡ Connect Backend
-      </button>
-
-      <button class="btn-primary" onclick="openSourceModal()">
-        📹 Camera Source
-      </button>
+      <a href="https://wa.me/?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AD%D8%AC%D8%B2%20%D8%AF%D9%8A%D9%85%D9%88%20%D9%84%D9%86%D8%B8%D8%A7%D9%85%20REST-EYE%20%D9%84%D9%85%D8%B7%D8%B9%D9%85%D9%8A" target="_blank" class="btn-primary" style="background: #2563eb; text-decoration: none;">
+        📞 احجز ديمو لمطعمك
+      </a>
     </div>
   </header>
 
-  <!-- Main Dashboard Grid -->
-  <main class="dashboard-container">
-    
-    <!-- Left Column: Video, Speed Controller & Zone Tools -->
-    <section class="video-column">
-      <div class="video-card">
-        <div class="video-wrapper" id="video-container">
-          <img id="stream-img" src="/api/stream" alt="Live Camera Stream" class="video-stream" onerror="handleStreamError()">
-          <canvas id="zone-canvas" class="drawing-canvas"></canvas>
-        </div>
+  <!-- ========================================== -->
+  <!-- TAB 1: SMART HIGH-CONVERTING LANDING PAGE  -->
+  <!-- ========================================== -->
+  <div id="landing-tab-content" class="tab-content active">
 
-        <!-- Video Playback & Speed Timelapse Controller Bar -->
-        <div class="playback-speed-bar">
-          <div class="playback-controls">
-            <button class="btn-control" onclick="rewindVideo()" title="Rewind Video">⏪ Rewind</button>
-            <button class="btn-control" id="btn-pause" onclick="togglePauseVideo()" title="Pause / Play">⏸️ Pause</button>
-          </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-badge">
+        <span>🛡️ أول نظام ذكاء اصطناعي متخصص في حماية مخازن ومطابخ المطاعم في مصر والشرق الأوسط</span>
+      </div>
+      <h1 class="hero-title">
+        بتخسر كام ألف جنيه في المطبخ والمخزن <br>
+        <span class="highlight-text">من غير ما تحس كل شهر؟</span>
+      </h1>
+      <p class="hero-subtitle">
+        في ظل ارتفاع أسعار الخامات وتكلفة التشغيل، نظام <strong>REST-EYE</strong> بيحول كاميرات المراقبة العادية اللي عندك في المطعم أو الكافيه إلى <strong>حارس ذكي 24 ساعة</strong>: بيرصد الأكل غير المصرح من الموظفين، يحمي المخازن والثلاجات، ويقيس إنتاجية الشيفات بدقة متناهية وفيديوهات موثقة تلقائياً.
+      </p>
 
-          <div class="speed-selector">
-            <span style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Speed / Timelapse:</span>
-            <button class="btn-speed" id="spd-025" onclick="setSpeed(0.25)">0.25x</button>
-            <button class="btn-speed" id="spd-05" onclick="setSpeed(0.5)">0.5x</button>
-            <button class="btn-speed active" id="spd-1" onclick="setSpeed(1.0)">1.0x</button>
-            <button class="btn-speed" id="spd-2" onclick="setSpeed(2.0)">2.0x</button>
-            <button class="btn-speed" id="spd-4" onclick="setSpeed(4.0)">4.0x Timelapse</button>
-          </div>
-        </div>
-
-        <div class="controls-bar">
-          <div class="toggle-group">
-            <button class="btn-toggle active" id="tog-skel" onclick="toggleOverlay('skeleton')">🦴 Skeletons</button>
-            <button class="btn-toggle active" id="tog-box" onclick="toggleOverlay('boxes')">📦 Bounding Boxes</button>
-            <button class="btn-toggle active" id="tog-zones" onclick="toggleOverlay('zones')">🛑 Restricted Zones</button>
-            <button class="btn-toggle active" id="tog-hud" onclick="toggleOverlay('hud')">📊 HUD Telemetry</button>
-          </div>
-
-          <div style="display: flex; gap: 8px;">
-            <button class="btn-primary" id="btn-draw-zone" onclick="startDrawingZone()">
-              ✏️ Draw Restricted Zone
-            </button>
-            <button class="btn-danger" id="btn-cancel-draw" style="display: none;" onclick="cancelDrawingZone()">
-              ✕ Cancel
-            </button>
-            <button class="btn-primary" id="btn-save-draw" style="display: none; background: #059669;" onclick="saveDrawnZone()">
-              ✓ Save Zone
-            </button>
-          </div>
-        </div>
+      <div class="hero-cta-group">
+        <button class="btn-hero-primary" onclick="switchMainTab('demo')">
+          ⚡ جرب النظام لايف الآن (Interactive Demo)
+        </button>
+        <a href="#roi-calculator" class="btn-hero-secondary">
+          📊 احسب هتوفر كام شهرياً
+        </a>
       </div>
 
-      <!-- Current Source Banner -->
-      <div style="background: #111827; border: 1px solid #374151; padding: 10px 16px; border-radius: 8px; font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
-        <span>Active Source: <strong id="val-source" style="color: var(--text-main);">-</strong></span>
-        <span>AI Engine: <strong style="color: var(--accent-emerald);">YOLO11-Pose (Instant Hand-to-Mouth & Posture Classifier)</strong></span>
+      <!-- Live Trust Metrics -->
+      <div class="hero-stats-grid">
+        <div class="hero-stat-card">
+          <div class="stat-number">20% - 35%</div>
+          <div class="stat-label">توفير فوري في هادر الخامات المسحوبة والمستهلكة</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">متوافق مع كل كاميرات المراقبة الحالية (بدون هاردوير جديد)</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="stat-number">8 ثواني</div>
+          <div class="stat-label">تسجيل فيديو فوري وتنبيه لكل واقعة أكل أو اختراق مخزن</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="stat-number">4.0x</div>
+          <div class="stat-label">تدقيق ذكي ومراجعة شيفت 8 ساعات كامل في دقائق معدودة</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Egyptian Market Pain Point Section -->
+    <section class="problem-section">
+      <div class="section-header-center">
+        <span class="sub-badge">وجع السوق الحقيقي</span>
+        <h2 class="section-title">ليه إدارة المطبخ والمخزن بقت أصعب معضلة لأي صاحب مطعم؟</h2>
+        <p class="section-desc">مع التضخم وقفزات أسعار الجبن واللحوم والزبدة والخامات الغالية، أي تذوق عشوائي أو سحب غير محسوب بيقلب ربح الفرع لخسارة.</p>
       </div>
 
-      <!-- Panel 3: Video Audit & Notes with Timelapse -->
-      <div class="panel-card">
-        <div class="panel-header">
-          <div class="panel-title">
-            <span>📝 Audit Notes & Incident Timelapse</span>
-          </div>
-          <button class="btn-toggle" style="font-size: 11px; padding: 2px 8px;" onclick="exportAuditReport()">
-            📥 Export Report
-          </button>
+      <div class="cards-grid">
+        <div class="problem-card">
+          <div class="card-icon">🍔</div>
+          <h3>هادر الأكل والتذوق العشوائي (Staff Grazing)</h3>
+          <p>أكل الموظفين والشيفات من الخامات المجهزة أو التذوق المستمر بدون معايير بيكلف المطعم آلاف الجنيهات أسبوعياً بدون أي فواتير بيع تقابله.</p>
         </div>
-        <div class="panel-body" style="padding-bottom: 8px;">
-          <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-            <input type="text" id="audit-note-input" placeholder="Add timestamped audit note (e.g. Chef 143 eating unauthorized pastry)..." style="flex: 1; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;">
-            <select id="audit-severity" style="padding: 8px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;">
-              <option value="VIOLATION">🚨 Violation</option>
-              <option value="WARNING">⚠️ Warning</option>
-              <option value="NORMAL">ℹ️ General Note</option>
-            </select>
-            <button class="btn-primary" onclick="submitAuditNote()">Add Note</button>
+
+        <div class="problem-card">
+          <div class="card-icon">❄️</div>
+          <h3>تسريب ثلاجات التبريد والمخازن المقفولة</h3>
+          <p>دخول أشخاص غير مصرح لهم للمخازن الحساسة أو ثلاجات اللحوم والحلويات وسحب خامات غالية بدون إذن أو تسجيل حركة صرف رسمية.</p>
+        </div>
+
+        <div class="problem-card">
+          <div class="card-icon">👀</div>
+          <h3>استحالة متابعة الكاميرات 24/7 يدوياً</h3>
+          <p>المدير أو المالك مش هيقعد 8 ساعات قدام شاشات المراقبة يراقب 16 كاميرا. الكاميرات بتسجل وخلاص ومحدش بيشوف التجاوزات إلا بعد فوات الأوان.</p>
+        </div>
+
+        <div class="problem-card">
+          <div class="card-icon">⏱️</div>
+          <h3>ضعف الإنتاجية والتسكع في أوقات الذروة</h3>
+          <p>صعوبة معرفة هل الشيف ملتزم بوقفته على خط التجهيز والتحضير ولا جالس ومضيع وقت الأوردرات مما يسبب تأخير الطلبات وشكاوى الزبائن.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mindblowing Solutions & Features -->
+    <section class="features-section">
+      <div class="section-header-center">
+        <span class="sub-badge">حلول تكنولوجية جبارة</span>
+        <h2 class="section-title">إزاي REST-EYE بيحمي كل قرش في مطبخك؟</h2>
+        <p class="section-desc">مش مجرد كاميرات.. دي عين ذكية بتحلل السلوك البشري لحظة بلحظة بدون تدخل إنساني.</p>
+      </div>
+
+      <!-- Real Screenshots Showcase Grid -->
+      <div class="real-showcase-container">
+        
+        <!-- Showcase Card 1: Eating in Restricted Zone -->
+        <div class="real-showcase-card">
+          <div class="showcase-img-wrap">
+            <img src="/static/assets/eating_detection_real.png" alt="رصد فوري لواقعة أكل في منطقة محظورة" class="showcase-img">
+            <span class="showcase-badge alert">🚨 رصد فوري: أكل في منطقة المخزن المحظورة (Restricted Zone)</span>
           </div>
-          <div id="audit-notes-list" style="max-height: 180px; overflow-y: auto;">
-            <div style="text-align: center; color: var(--text-muted); padding: 10px 0; font-size: 12px;">
-              No audit notes added yet.
+          <div class="showcase-details">
+            <h3>🔴 كشف واقعة أكل وشرب حية أمام الكاميرا مباشرة</h3>
+            <p>
+              شاهد كيف يتعرف الذكاء الاصطناعي على حركة يد الموظف عند وصولها للفم، مع رسم الهيكل العظمي بدقة ورصد تواجده داخل المنطقة المحظورة المحددة باللون الأحمر <strong>(Restricted Inventory / Storage)</strong>، وتسجيل الواقعة فوراً في سجل التجاوزات.
+            </p>
+            <div class="showcase-tags">
+              <span class="tag">الهيكل العظمي المفصلي (Pose Keypoints)</span>
+              <span class="tag">كشف تلامس اليد والفم</span>
+              <span class="tag">منطقة محظورة تفاعلية (Polygon ROI)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Showcase Card 2: Multi-Chef Kitchen Overview & Posture Clocks -->
+        <div class="real-showcase-card">
+          <div class="showcase-img-wrap">
+            <img src="/static/assets/kitchen_overview_real.png" alt="تتبع شيفات المطبخ وعدادات الوقوف والجلوس" class="showcase-img">
+            <span class="showcase-badge success">👥 تتبع جماعي للشيفات وعدادات الإنتاجية (Standing vs Sitting)</span>
+          </div>
+          <div class="showcase-details">
+            <h3>🟢 تتبع متزامن لجميع الشيفات في المطبخ في نفس اللحظة</h3>
+            <p>
+              النظام يتابع حركة 7 شيفات معاً على خطوط التحضير، يحسب لكل شيف عداد وقوفه بالثواني والدقائق على محطته، ويكشف أي سلوك شرب أو تذوق جانبي على يمين الكاميرا تلقائياً بدون أي تشتت.
+            </p>
+            <div class="showcase-tags">
+              <span class="tag">تتبع متزامن لأكثر من 10 أشخاص</span>
+              <span class="tag">عداد وقوف وإنتاجية مستقل لكل شيف</span>
+              <span class="tag">تصفية العوائق وحواجز ترابيزات التجهيز</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="features-split-grid" style="margin-top: 40px;">
+        
+        <div class="feature-box">
+          <div class="feature-icon-badge">🎯</div>
+          <h3>1. كاشف الأكل والتذوق اللحظي (AI Eating & Drinking Sentry)</h3>
+          <p>بفضل خوارزميات تحليل الهيكل العظمي (Pose Keypoints)، النظام بيحسب فوراً المسافة بين يد الشيف وفمه وحركة الرأس. بمجرد قيام أي موظف بحركة الأكل أو الشرب داخل الأماكن غير المصرح بها، بيصدر إنذار فوري ويسجل فيديو الواقعة.</p>
+          <ul class="feature-list">
+            <li>✓ رصد حركات الأكل، الشرب، أو تذوق الخامات بالأصابع.</li>
+            <li>✓ تسجيل مقطع فيديو 8 ثواني موثق بتاريخ وثانية الواقعة ورقم الشيف.</li>
+            <li>✓ منع التنبيهات الكاذبة والتفرقة بين حركة الشغل الطبيعية والأكل.</li>
+          </ul>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-badge">📐</div>
+          <h3>2. الدوائر والمناطق المحظورة التفاعلية (Polygon Restricted Zones)</h3>
+          <p>حدد بالماوس مباشرة على شاشة الكاميرا أي منطقة حساسة (ثلاجة اللحوم، رف المكسرات والجبن، ترابيزة التحضير). لو أي شخص دخل أو أكل داخل المنطقة دي، النظام بيفعل الحماية فوراً.</p>
+          <ul class="feature-list">
+            <li>✓ رسم مناطق غير محدودة وتسميتها (مخزن الجبن، ثلاجة 1، خط التجهيز).</li>
+            <li>✓ تحديد سياسة خاصة لكل منطقة (ممنوع الأكل / ممنوع التسكع).</li>
+          </ul>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-badge">⏱️</div>
+          <h3>3. عداد الإنتاجية والوقوف vs الجلوس (Staff Dwell & Posture Clocks)</h3>
+          <p>لكل موظف في الكاميرا، السيستم بيحسب عداد دقيق: كام ثانية/دقيقة قضاها واقفاً على خط الإنتاج، وكام دقيقة قضاها جالساً أو متوقفاً عن العمل.</p>
+          <ul class="feature-list">
+            <li>✓ كشف وضعيات الجلوس والتكاسل داخل المطبخ.</li>
+            <li>✓ تنبيه التسكع (Loitering Alert) لو موظف واقف في المخزن بدون حركة.</li>
+          </ul>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-badge">⏩</div>
+          <h3>4. التدقيق الزمني السريع والفحص الشامل (4.0x Timelapse Audit)</h3>
+          <p>ارفع أي فيديو مسجل من الكاميرات القديمة، وشغل الفحص السريع بسرعة تصل لـ 4 أضعاف. النظام هيستخرج لك كل التجاوزات والأوقات المشبوهة في جدول تدقيق رسمي قابل للتحميل بضغطة واحدة.</p>
+          <ul class="feature-list">
+            <li>✓ مراجعة شيفتات كاملة في دقائق معدودة.</li>
+            <li>✓ إضافة ملاحظات تدقيق وتصدير تقرير جاهز للإدارة.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section class="calculator-section" id="roi-calculator">
+      <div class="calculator-container">
+        <div class="calc-header">
+          <span class="sub-badge">احسب وفورات مطعمك</span>
+          <h2>حاسبة العائد المالي المباشر على مطعمك</h2>
+          <p>شاهد بنفسك المبلغ اللي هيرجع في جيبك شهرياً بمجرد تشغيل REST-EYE</p>
+        </div>
+
+        <div class="calc-box">
+          <div class="calc-inputs">
+            <div class="input-group">
+              <label>متوسط مشتريات الخامات شهرياً (جنيه مصري):</label>
+              <input type="range" id="calc-food-cost" min="30000" max="1000000" step="10000" value="150000" oninput="updateRoiCalc()">
+              <div class="range-val" id="calc-food-val">150,000 ج.م</div>
+            </div>
+
+            <div class="input-group">
+              <label>عدد الشيفات والعاملين بالمطبخ والمخزن:</label>
+              <input type="range" id="calc-staff-count" min="2" max="50" step="1" value="6" oninput="updateRoiCalc()">
+              <div class="range-val" id="calc-staff-val">6 موظفين</div>
+            </div>
+          </div>
+
+          <div class="calc-results">
+            <div class="result-card highlight">
+              <span class="result-title">إجمالي التوفير المتوقع شهرياً</span>
+              <div class="result-number" id="calc-savings-monthly">27,000 ج.م</div>
+              <span class="result-sub">توفير مباشر في هادر الخامات + ساعات الإنتاجية الضائعة</span>
+            </div>
+
+            <div class="result-card">
+              <span class="result-title">التوفير السنوي الصافي لأرباحك</span>
+              <div class="result-number" id="calc-savings-yearly">324,000 ج.م</div>
+              <span class="result-sub">مبلغ يعادل افتتاح خط إنتاج جديد أو مضاعفة أرباح الفرع</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Right Column: Personnel Stats & Alerts -->
-    <aside class="sidebar-column">
+    <!-- How It Works in 3 Steps -->
+    <section class="steps-section">
+      <div class="section-header-center">
+        <span class="sub-badge">سهولة تامة بدون تعقيد</span>
+        <h2 class="section-title">كيف تبدأ في 3 خطوات بسيطة؟</h2>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h3>ربط كاميراتك الحالية في 5 دقائق</h3>
+          <p>بدون شراء أي كاميرات جديدة. النظام بيتصل مباشرة بجهاز الـ NVR/DVR أو الكاميرات الذكية اللي راكبة عندك عبر شبكة الواي فاي أو السيرفر.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h3>تحديد مناطق الحماية الحساسة</h3>
+          <p>ارسم بالماوس المناطق الحساسة في مطبخك (ثلاجات، أرفف مخازن، خطوط الساندوتشات والحلويات) بنقرة زر.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h3>استلام التنبيهات وفيديوهات التجاوزات</h3>
+          <p>السيستم بيبدأ العمل فوراً. هتوصلك إشعارات فورية بكل تجاوز مع لقطة ومقطع فيديو موثق لكل واقعة على موبايلك ولوحة التحكم.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="cta-banner">
+      <h2>جاهز تحمي أرباح مطعمك وتقضي على هادر الخامات تماماً؟</h2>
+      <p>احجز جلسة استشارة مجانية وديمو مخصص لمطعمك مع فريق Recode Developments</p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+        <button class="btn-hero-primary" onclick="switchMainTab('demo')">
+          🎮 جرب الديمو التفاعلي الآن
+        </button>
+        <a href="https://linkedin.com/in/osama-kamel-dev" target="_blank" class="btn-hero-secondary">
+          💬 تواصل مع فريق Recode Developments
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ========================================== -->
+  <!-- TAB 2: LIVE INTERACTIVE AI SENTRY DEMO     -->
+  <!-- ========================================== -->
+  <div id="demo-tab-content" class="tab-content">
+    
+    <!-- Top Demo Control Bar -->
+    <div class="demo-top-bar">
+      <div class="telemetry-pills">
+        <div class="pill">
+          <div class="pulse-dot"></div>
+          <span>حالة النظام: <strong id="val-status">ONLINE</strong></span>
+        </div>
+        <div class="pill">
+          <span>معدل الإطارات: <strong id="val-fps">25.0</strong></span>
+        </div>
+        <div class="pill">
+          <span>السرعة: <strong id="val-speed" style="color: var(--accent-sky)">1.0x</strong></span>
+        </div>
+        <div class="pill">
+          <span>الموظفين النشطين: <strong id="val-person-count">0</strong></span>
+        </div>
+        <div class="pill">
+          <span>التجاوزات المرصودة: <strong id="val-alert-count" style="color: var(--accent-rose)">0</strong></span>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 8px;">
+        <button class="btn-primary" style="background: #059669;" onclick="openUploadModal()">
+          📤 رفع فيديو للفحص
+        </button>
+        <button class="btn-primary" style="background: #4f46e5;" onclick="openConnectModal()">
+          ⚡ ربط سيرفر خارجي
+        </button>
+        <button class="btn-primary" onclick="openSourceModal()">
+          📹 مصدر الكاميرا
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Dashboard Grid -->
+    <main class="dashboard-container">
       
-      <!-- Panel 1: Live Personnel Tracker -->
-      <div class="panel-card">
-        <div class="panel-header">
-          <div class="panel-title">
-            <span>👥 Personnel Live Activity</span>
+      <!-- Left Column: Video, Speed Controller & Zone Tools -->
+      <section class="video-column">
+        <div class="video-card">
+          <div class="video-wrapper" id="video-container">
+            <img id="stream-img" src="/api/stream" alt="Live Camera Stream" class="video-stream" onerror="handleStreamError()">
+            <canvas id="zone-canvas" class="drawing-canvas"></canvas>
           </div>
-          <span id="active-staff-badge" class="badge-tag">0 Active</span>
-        </div>
-        <div class="panel-body" id="personnel-list" style="max-height: 240px;">
-          <div style="text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 13px;">
-            Scanning camera stream for personnel...
+
+          <!-- Video Playback & Speed Timelapse Controller Bar -->
+          <div class="playback-speed-bar">
+            <div class="playback-controls">
+              <button class="btn-control" onclick="rewindVideo()" title="Rewind Video">⏪ إعادة من البداية</button>
+              <button class="btn-control" id="btn-pause" onclick="togglePauseVideo()" title="Pause / Play">⏸️ إيقاف مؤقت</button>
+            </div>
+
+            <div class="speed-selector">
+              <span style="font-size: 11px; color: var(--text-muted); font-weight: 600;">السرعة والتايملابس:</span>
+              <button class="btn-speed" id="spd-025" onclick="setSpeed(0.25)">0.25x بطيء</button>
+              <button class="btn-speed" id="spd-05" onclick="setSpeed(0.5)">0.5x</button>
+              <button class="btn-speed active" id="spd-1" onclick="setSpeed(1.0)">1.0x عادي</button>
+              <button class="btn-speed" id="spd-2" onclick="setSpeed(2.0)">2.0x سريع</button>
+              <button class="btn-speed" id="spd-4" onclick="setSpeed(4.0)">4.0x تايملابس</button>
+            </div>
+          </div>
+
+          <div class="controls-bar">
+            <div class="toggle-group">
+              <button class="btn-toggle active" id="tog-skel" onclick="toggleOverlay('skeleton')">🦴 الهيكل العظمي</button>
+              <button class="btn-toggle active" id="tog-box" onclick="toggleOverlay('boxes')">📦 مربعات التتبع</button>
+              <button class="btn-toggle active" id="tog-zones" onclick="toggleOverlay('zones')">🛑 المناطق المحظورة</button>
+              <button class="btn-toggle active" id="tog-hud" onclick="toggleOverlay('hud')">📊 بيانات الشاشة</button>
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-primary" id="btn-draw-zone" onclick="startDrawingZone()">
+                ✏️ رسم منطقة محظورة بالماوس
+              </button>
+              <button class="btn-danger" id="btn-cancel-draw" style="display: none;" onclick="cancelDrawingZone()">
+                ✕ إلغاء
+              </button>
+              <button class="btn-primary" id="btn-save-draw" style="display: none; background: #059669;" onclick="saveDrawnZone()">
+                ✓ حفظ المنطقة
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Panel 2: Incident Alerts Feed -->
-      <div class="panel-card" style="flex: 1;">
-        <div class="panel-header">
-          <div class="panel-title">
-            <span>🚨 Incident Log</span>
-          </div>
-          <span class="badge-tag" style="background: rgba(244, 63, 94, 0.2); color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.4);">
-            Auto Clip Recording
-          </span>
+        <!-- Current Source Banner -->
+        <div style="background: #111827; border: 1px solid #374151; padding: 10px 16px; border-radius: 8px; font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
+          <span>المصدر الحالي: <strong id="val-source" style="color: var(--text-main);">-</strong></span>
+          <span>محرك الذكاء الاصطناعي: <strong style="color: var(--accent-emerald);">YOLO11-Pose (رصد حركة اليد للفم + تتبع الوضعيات)</strong></span>
         </div>
-        <div class="panel-body" id="alerts-list" style="max-height: 480px;">
-          <div style="text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 13px;">
-            No violations recorded yet.
+
+        <!-- Panel 3: Video Audit & Notes with Timelapse -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>📝 ملاحظات التدقيق والتايملابس (Audit Notes)</span>
+            </div>
+            <button class="btn-toggle" style="font-size: 11px; padding: 2px 8px;" onclick="exportAuditReport()">
+              📥 تصدير التقرير
+            </button>
+          </div>
+          <div class="panel-body" style="padding-bottom: 8px;">
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <input type="text" id="audit-note-input" placeholder="أضف ملاحظة تدقيق موثقة بالوقت (مثال: الشيف #143 أكل قطعة معجنات بدون إذن)..." style="flex: 1; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;">
+              <select id="audit-severity" style="padding: 8px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;">
+                <option value="VIOLATION">🚨 مخالفة أكل</option>
+                <option value="WARNING">⚠️ إنذار تسكع</option>
+                <option value="NORMAL">ℹ️ ملاحظة عامة</option>
+              </select>
+              <button class="btn-primary" onclick="submitAuditNote()">إضافة ملاحظة</button>
+            </div>
+            <div id="audit-notes-list" style="max-height: 180px; overflow-y: auto;">
+              <div style="text-align: center; color: var(--text-muted); padding: 10px 0; font-size: 12px;">
+                لا توجد ملاحظات تدقيق مسجلة حتى الآن.
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-    </aside>
+      <!-- Right Column: Personnel Stats & Alerts -->
+      <aside class="sidebar-column">
+        
+        <!-- Panel 1: Live Personnel Tracker -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>👥 نشاط الموظفين والشيفات الحي</span>
+            </div>
+            <span id="active-staff-badge" class="badge-tag">0 نشط</span>
+          </div>
+          <div class="panel-body" id="personnel-list" style="max-height: 240px;">
+            <div style="text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 13px;">
+              جاري فحص الكاميرا والبحث عن شيفات وموظفين...
+            </div>
+          </div>
+        </div>
 
-  </main>
+        <!-- Panel 2: Incident Alerts Feed -->
+        <div class="panel-card" style="flex: 1;">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>🚨 سجل التجاوزات والفيديوهات الموثقة</span>
+            </div>
+            <span class="badge-tag" style="background: rgba(244, 63, 94, 0.2); color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.4);">
+              تسجيل فيديو 8 ثواني تلقائي
+            </span>
+          </div>
+          <div class="panel-body" id="alerts-list" style="max-height: 480px;">
+            <div style="text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 13px;">
+              لم يتم رصد أي تجاوزات بعد.
+            </div>
+          </div>
+        </div>
 
-  <!-- Professional Footer -->
+      </aside>
+
+    </main>
+
+  </div>
+
+  <!-- Professional Footer Across Whole Solution -->
   <footer class="app-footer">
     <div class="footer-content">
-      <span>Designed & Developed by <a href="https://linkedin.com/in/osama-kamel-dev" target="_blank" rel="noopener noreferrer" class="footer-link">Recode Developments</a></span>
+      <span>تصميم وتطوير: <a href="https://linkedin.com/in/osama-kamel-dev" target="_blank" rel="noopener noreferrer" class="footer-link">Recode Developments</a></span>
       <span class="footer-divider">•</span>
-      <span>REST-EYE Enterprise AI Surveillance &shrinkage Control</span>
+      <span>REST-EYE Enterprise AI Surveillance & Shrinkage Control for Restaurants</span>
     </div>
   </footer>
 
@@ -188,7 +480,7 @@
   <div class="modal-backdrop" id="video-modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 id="modal-video-title">Incident Clip Playback</h3>
+        <h3 id="modal-video-title">فيديو الواقعة الموثق</h3>
         <button class="modal-close" onclick="closeVideoModal()">✕</button>
       </div>
       <div class="modal-body">
@@ -201,23 +493,23 @@
   <div class="modal-backdrop" id="upload-modal">
     <div class="modal-content" style="max-width: 480px;">
       <div class="modal-header">
-        <h3>Upload Video for AI Audit</h3>
+        <h3>رفع فيديو مطبخ للتدقيق بالذكاء الاصطناعي</h3>
         <button class="modal-close" onclick="closeUploadModal()">✕</button>
       </div>
       <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
         <div style="border: 2px dashed #374151; border-radius: 8px; padding: 24px; text-align: center; background: #1f2937;">
           <input type="file" id="video-file-input" accept="video/mp4,video/avi,video/quicktime,video/mkv" style="display: none;" onchange="handleFileSelected(event)">
           <div style="font-size: 32px; margin-bottom: 8px;">📹</div>
-          <p style="font-size: 13px; font-weight: 600; margin-bottom: 4px;">Click to select any CCTV or Kitchen Video</p>
-          <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Supports MP4, MOV, AVI, MKV</p>
+          <p style="font-size: 13px; font-weight: 600; margin-bottom: 4px;">اضغط لاختيار أي فيديو كاميرا مراقبة مسجل</p>
+          <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">يدعم MP4, MOV, AVI, MKV</p>
           <button class="btn-primary" style="margin: 0 auto;" onclick="document.getElementById('video-file-input').click()">
-            Browse File
+            اختيار ملف من الجهاز
           </button>
           <div id="upload-filename-preview" style="margin-top: 10px; font-size: 12px; color: var(--accent-emerald); font-weight: 600;"></div>
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 8px;">
-          <button class="btn-toggle" onclick="closeUploadModal()">Cancel</button>
-          <button class="btn-primary" id="btn-submit-upload" onclick="submitVideoUpload()" disabled>Upload & Analyze</button>
+          <button class="btn-toggle" onclick="closeUploadModal()">إلغاء</button>
+          <button class="btn-primary" id="btn-submit-upload" onclick="submitVideoUpload()" disabled>بدء الفحص والتحليل</button>
         </div>
       </div>
     </div>
@@ -227,24 +519,24 @@
   <div class="modal-backdrop" id="connect-modal">
     <div class="modal-content" style="max-width: 480px;">
       <div class="modal-header">
-        <h3>Connect REST-EYE AI Server</h3>
+        <h3>ربط سيرفر الذكاء الاصطناعي المباشر</h3>
         <button class="modal-close" onclick="closeConnectModal()">✕</button>
       </div>
       <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
         <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
-          When deployed on Vercel, connect to your restaurant's local AI edge box or cloud server URL (e.g. <code>http://192.168.1.50:8000</code> or <code>https://ai.your-restaurant.com</code>).
+          عند تشغيل النظام على Vercel، يمكنك ربطه بسيرفر مطعمك المحلي أو رابط Ngrok/Cloudflare لنقل البث الحي.
         </p>
         <div>
-          <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px;">AI Backend Server URL</label>
-          <input type="text" id="backend-url-input" style="width: 100%; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff;" placeholder="http://localhost:8000 or https://your-server.ngrok-free.app">
+          <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px;">رابط السيرفر (Backend URL)</label>
+          <input type="text" id="backend-url-input" style="width: 100%; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; text-align: left;" placeholder="http://localhost:8000 or https://your-tunnel.ngrok-free.app">
         </div>
         <div style="display: flex; gap: 8px;">
-          <button class="btn-toggle" style="flex: 1;" onclick="setBackendPreset('')">✨ Interactive Client Demo Mode</button>
-          <button class="btn-toggle" style="flex: 1;" onclick="setBackendPreset('http://localhost:8000')">🏠 Localhost (8000)</button>
+          <button class="btn-toggle" style="flex: 1;" onclick="setBackendPreset('')">✨ وضع الديمو التفاعلي</button>
+          <button class="btn-toggle" style="flex: 1;" onclick="setBackendPreset('http://localhost:8000')">🏠 السيرفر المحلي (8000)</button>
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">
-          <button class="btn-toggle" onclick="closeConnectModal()">Cancel</button>
-          <button class="btn-primary" onclick="submitBackendConnect()">Connect Server</button>
+          <button class="btn-toggle" onclick="closeConnectModal()">إلغاء</button>
+          <button class="btn-primary" onclick="submitBackendConnect()">حفظ والاتصال</button>
         </div>
       </div>
     </div>
@@ -254,21 +546,21 @@
   <div class="modal-backdrop" id="source-modal">
     <div class="modal-content" style="max-width: 480px;">
       <div class="modal-header">
-        <h3>Select Video / Camera Source</h3>
+        <h3>اختيار مصدر الكاميرا أو رابط الـ RTSP</h3>
         <button class="modal-close" onclick="closeSourceModal()">✕</button>
       </div>
       <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
         <div>
-          <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px;">Preset / Custom Input</label>
-          <input type="text" id="source-input" style="width: 100%; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff;" placeholder="D:\Downloads\a_restaurant_back_kitchen_wher.mp4 or RTSP url">
+          <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px;">رابط RTSP أو مسار الفيديو</label>
+          <input type="text" id="source-input" style="width: 100%; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; text-align: left;" placeholder="rtsp://admin:pass@192.168.1.100:554/Streaming/Channels/102">
         </div>
         <div style="display: flex; gap: 8px;">
-          <button class="btn-toggle" style="flex: 1;" onclick="setSourcePreset('sample')">🎬 Sample Video</button>
-          <button class="btn-toggle" style="flex: 1;" onclick="setSourcePreset('0')">📷 USB Webcam (0)</button>
+          <button class="btn-toggle" style="flex: 1;" onclick="setSourcePreset('sample')">🎬 فيديو تجريبي من المطبخ</button>
+          <button class="btn-toggle" style="flex: 1;" onclick="setSourcePreset('0')">📷 كاميرا اللابتوب / الويبكام</button>
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">
-          <button class="btn-toggle" onclick="closeSourceModal()">Cancel</button>
-          <button class="btn-primary" onclick="submitSourceChange()">Apply Source</button>
+          <button class="btn-toggle" onclick="closeSourceModal()">إلغاء</button>
+          <button class="btn-primary" onclick="submitSourceChange()">تطبيق المصدر</button>
         </div>
       </div>
     </div>

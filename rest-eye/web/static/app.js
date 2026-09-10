@@ -9,6 +9,45 @@ let backendUrl = "";
 let selectedUploadFile = null;
 let isVideoPaused = false;
 
+// Tab Switcher
+function switchMainTab(tab) {
+  const landingTab = document.getElementById("landing-tab-content");
+  const demoTab = document.getElementById("demo-tab-content");
+  const landingBtn = document.getElementById("tab-landing-btn");
+  const demoBtn = document.getElementById("tab-demo-btn");
+
+  if (tab === "demo") {
+    landingTab.classList.remove("active");
+    demoTab.classList.add("active");
+    landingBtn.classList.remove("active");
+    demoBtn.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    demoTab.classList.remove("active");
+    landingTab.classList.add("active");
+    demoBtn.classList.remove("active");
+    landingBtn.classList.add("active");
+  }
+}
+
+// Interactive ROI Calculator for Egyptian Restaurants
+function updateRoiCalc() {
+  const foodCost = parseFloat(document.getElementById("calc-food-cost").value) || 150000;
+  const staffCount = parseInt(document.getElementById("calc-staff-count").value) || 6;
+
+  document.getElementById("calc-food-val").innerText = `${foodCost.toLocaleString()} ج.م`;
+  document.getElementById("calc-staff-val").innerText = `${staffCount} موظفين`;
+
+  // Savings estimate: 15% raw food shrinkage reduction + 3,000 EGP per staff idle time recovery
+  const foodSavings = foodCost * 0.15;
+  const productivitySavings = staffCount * 750;
+  const totalMonthlySavings = Math.round(foodSavings + productivitySavings);
+  const totalYearlySavings = totalMonthlySavings * 12;
+
+  document.getElementById("calc-savings-monthly").innerText = `${totalMonthlySavings.toLocaleString()} ج.م`;
+  document.getElementById("calc-savings-yearly").innerText = `${totalYearlySavings.toLocaleString()} ج.م`;
+}
+
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
   setupCanvas();

@@ -14,8 +14,8 @@ venv/
 *.engine
 
 # Data & Video clips
-data/alerts/*.mp4
-data/alerts/*.jpg
+data/alerts/
+**/data/alerts/
 *.mp4
 *.avi
 *.mov
