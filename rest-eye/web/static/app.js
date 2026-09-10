@@ -578,6 +578,34 @@ async function saveDrawnZone() {
   }
 }
 
+// Connect Modal Controls
+function openConnectModal() {
+  document.getElementById("connect-modal").classList.add("open");
+  document.getElementById("backend-url-input").value = backendUrl || "";
+}
+
+function closeConnectModal() {
+  document.getElementById("connect-modal").classList.remove("open");
+}
+
+function setBackendPreset(val) {
+  document.getElementById("backend-url-input").value = val;
+}
+
+function submitBackendConnect() {
+  const url = document.getElementById("backend-url-input").value.trim().replace(/\/$/, "");
+  backendUrl = url;
+  localStorage.setItem("rest_eye_backend_url", backendUrl);
+  closeConnectModal();
+  isDemoMode = false;
+  
+  const img = document.getElementById("stream-img");
+  img.src = `${backendUrl}/api/stream?t=` + Date.now();
+  
+  fetchStatus();
+  fetchAlerts();
+}
+
 // Source Modal Controls
 function openSourceModal() {
   document.getElementById("source-modal").classList.add("open");
