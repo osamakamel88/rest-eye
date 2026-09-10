@@ -22,6 +22,8 @@ class VideoStream:
 
         self.loop = loop
         self.target_fps = target_fps
+        self.speed_multiplier = 1.0
+        self.is_paused = False
         self.frame_delay = 1.0 / max(1, target_fps)
 
         self.cap: Optional[cv2.VideoCapture] = None
@@ -34,6 +36,7 @@ class VideoStream:
         self.height = 720
         self.actual_fps = 25.0
         self.total_frames = 0
+        self.current_frame_pos = 0
         
         self._init_capture()
 
@@ -64,6 +67,10 @@ class VideoStream:
     def _capture_loop(self):
         while self.is_running:
             start_t = time.time()
+            if self.is_paused:
+                time.sleep(0.1)
+                continue
+
             if self.cap is None or not self.cap.isOpened():
                 time.sleep(0.5)
                 self._init_capture()
@@ -72,7 +79,6 @@ class VideoStream:
             ret, frame = self.cap.read()
             if not ret or frame is None:
                 if self.is_file and self.loop:
-                    # Rewind to beginning
                     self.cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
                     time.sleep(0.05)
                     continue
@@ -80,13 +86,30 @@ class VideoStream:
                     time.sleep(0.1)
                     continue
 
+            self.current_frame_pos = int(self.cap.get(cv2.CAP_PROP_POS_FRAMES))
+
             with self.lock:
                 self.current_frame = frame
 
-            # Throttle to simulate realistic video playback speed
+            # Dynamic speed delay (e.g. 0.5x is slower, 2x is faster, 4x timelapse)
+            effective_delay = (self.frame_delay / max(0.1, self.speed_multiplier))
             elapsed = time.time() - start_t
-            sleep_time = max(0.001, self.frame_delay - elapsed)
+            sleep_time = max(0.001, effective_delay - elapsed)
             time.sleep(sleep_time)
+
+    def set_speed(self, multiplier: float):
+        self.speed_multiplier = max(0.1, min(10.0, float(multiplier)))
+        print(f"[VideoStream] Playback speed set to {self.speed_multiplier}x")
+
+    def toggle_pause(self) -> bool:
+        self.is_paused = not self.is_paused
+        print(f"[VideoStream] Paused: {self.is_paused}")
+        return self.is_paused
+
+    def rewind(self):
+        if self.cap and self.is_file:
+            self.cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+            print("[VideoStream] Rewound to beginning.")
 
     def read(self) -> Tuple[bool, Optional[np.ndarray]]:
         with self.lock:

@@ -27,6 +27,9 @@
           <span>FPS: <strong id="val-fps">25.0</strong></span>
         </div>
         <div class="pill">
+          <span>Speed: <strong id="val-speed" style="color: var(--accent-sky)">1.0x</strong></span>
+        </div>
+        <div class="pill">
           <span>Active Staff: <strong id="val-person-count">0</strong></span>
         </div>
         <div class="pill">
@@ -34,8 +37,12 @@
         </div>
       </div>
 
+      <button class="btn-primary" style="background: #059669;" onclick="openUploadModal()">
+        📤 Upload Video
+      </button>
+
       <button class="btn-primary" onclick="openSourceModal()">
-        📹 Change Source
+        📹 Camera Source
       </button>
     </div>
   </header>
@@ -43,12 +50,29 @@
   <!-- Main Dashboard Grid -->
   <main class="dashboard-container">
     
-    <!-- Left Column: Video & Zone Tools -->
+    <!-- Left Column: Video, Speed Controller & Zone Tools -->
     <section class="video-column">
       <div class="video-card">
         <div class="video-wrapper" id="video-container">
           <img id="stream-img" src="/api/stream" alt="Live Camera Stream" class="video-stream" onerror="handleStreamError()">
           <canvas id="zone-canvas" class="drawing-canvas"></canvas>
+        </div>
+
+        <!-- Video Playback & Speed Timelapse Controller Bar -->
+        <div class="playback-speed-bar">
+          <div class="playback-controls">
+            <button class="btn-control" onclick="rewindVideo()" title="Rewind Video">⏪ Rewind</button>
+            <button class="btn-control" id="btn-pause" onclick="togglePauseVideo()" title="Pause / Play">⏸️ Pause</button>
+          </div>
+
+          <div class="speed-selector">
+            <span style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Speed / Timelapse:</span>
+            <button class="btn-speed" id="spd-025" onclick="setSpeed(0.25)">0.25x</button>
+            <button class="btn-speed" id="spd-05" onclick="setSpeed(0.5)">0.5x</button>
+            <button class="btn-speed active" id="spd-1" onclick="setSpeed(1.0)">1.0x</button>
+            <button class="btn-speed" id="spd-2" onclick="setSpeed(2.0)">2.0x</button>
+            <button class="btn-speed" id="spd-4" onclick="setSpeed(4.0)">4.0x Timelapse</button>
+          </div>
         </div>
 
         <div class="controls-bar">
@@ -74,9 +98,37 @@
       </div>
 
       <!-- Current Source Banner -->
-      <div style="background: #111827; border: 1px solid #374151; padding: 10px 16px; border-radius: 8px; font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between;">
+      <div style="background: #111827; border: 1px solid #374151; padding: 10px 16px; border-radius: 8px; font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
         <span>Active Source: <strong id="val-source" style="color: var(--text-main);">-</strong></span>
-        <span>Detection Model: <strong style="color: var(--accent-emerald);">YOLO-Pose (Hand-to-Mouth + Posture Tracking)</strong></span>
+        <span>AI Engine: <strong style="color: var(--accent-emerald);">YOLO11-Pose (Instant Hand-to-Mouth & Posture Classifier)</strong></span>
+      </div>
+
+      <!-- Panel 3: Video Audit & Notes with Timelapse -->
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span>📝 Audit Notes & Incident Timelapse</span>
+          </div>
+          <button class="btn-toggle" style="font-size: 11px; padding: 2px 8px;" onclick="exportAuditReport()">
+            📥 Export Report
+          </button>
+        </div>
+        <div class="panel-body" style="padding-bottom: 8px;">
+          <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+            <input type="text" id="audit-note-input" placeholder="Add timestamped audit note (e.g. Chef 143 eating unauthorized pastry)..." style="flex: 1; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;">
+            <select id="audit-severity" style="padding: 8px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;">
+              <option value="VIOLATION">🚨 Violation</option>
+              <option value="WARNING">⚠️ Warning</option>
+              <option value="NORMAL">ℹ️ General Note</option>
+            </select>
+            <button class="btn-primary" onclick="submitAuditNote()">Add Note</button>
+          </div>
+          <div id="audit-notes-list" style="max-height: 180px; overflow-y: auto;">
+            <div style="text-align: center; color: var(--text-muted); padding: 10px 0; font-size: 12px;">
+              No audit notes added yet.
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -91,7 +143,7 @@
           </div>
           <span id="active-staff-badge" class="badge-tag">0 Active</span>
         </div>
-        <div class="panel-body" id="personnel-list">
+        <div class="panel-body" id="personnel-list" style="max-height: 240px;">
           <div style="text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 13px;">
             Scanning camera stream for personnel...
           </div>
@@ -108,7 +160,7 @@
             Auto Clip Recording
           </span>
         </div>
-        <div class="panel-body" id="alerts-list">
+        <div class="panel-body" id="alerts-list" style="max-height: 480px;">
           <div style="text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 13px;">
             No violations recorded yet.
           </div>
@@ -128,6 +180,32 @@
       </div>
       <div class="modal-body">
         <video id="incident-player" controls style="width: 100%; border-radius: 6px; background: #000;" src=""></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Upload Video File -->
+  <div class="modal-backdrop" id="upload-modal">
+    <div class="modal-content" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3>Upload Video for AI Audit</h3>
+        <button class="modal-close" onclick="closeUploadModal()">✕</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="border: 2px dashed #374151; border-radius: 8px; padding: 24px; text-align: center; background: #1f2937;">
+          <input type="file" id="video-file-input" accept="video/mp4,video/avi,video/quicktime,video/mkv" style="display: none;" onchange="handleFileSelected(event)">
+          <div style="font-size: 32px; margin-bottom: 8px;">📹</div>
+          <p style="font-size: 13px; font-weight: 600; margin-bottom: 4px;">Click to select any CCTV or Kitchen Video</p>
+          <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Supports MP4, MOV, AVI, MKV</p>
+          <button class="btn-primary" style="margin: 0 auto;" onclick="document.getElementById('video-file-input').click()">
+            Browse File
+          </button>
+          <div id="upload-filename-preview" style="margin-top: 10px; font-size: 12px; color: var(--accent-emerald); font-weight: 600;"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 8px;">
+          <button class="btn-toggle" onclick="closeUploadModal()">Cancel</button>
+          <button class="btn-primary" id="btn-submit-upload" onclick="submitVideoUpload()" disabled>Upload & Analyze</button>
+        </div>
       </div>
     </div>
   </div>

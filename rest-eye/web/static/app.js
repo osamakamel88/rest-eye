@@ -1,17 +1,20 @@
 // State variables
 let currentToggles = { skeleton: true, boxes: true, zones: true, hud: true };
 let isDrawingZone = false;
-let drawnPoints = []; // [{x, y}] normalized 0.0-1.0
+let drawnPoints = [];
 let lastAlertCount = 0;
 let audioContext = null;
 let isDemoMode = false;
 let backendUrl = "";
+let selectedUploadFile = null;
+let isVideoPaused = false;
 
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
   setupCanvas();
   fetchStatus();
   fetchAlerts();
+  fetchAuditNotes();
   setInterval(fetchStatus, 1000);
   setInterval(fetchAlerts, 2000);
 });
@@ -49,14 +52,17 @@ async function fetchStatus() {
     document.getElementById("val-status").innerText = "ONLINE";
     document.getElementById("val-status").style.color = "var(--accent-emerald)";
     document.getElementById("val-fps").innerText = data.fps || "25.0";
+    document.getElementById("val-speed").innerText = `${data.speed || 1.0}x`;
     document.getElementById("val-person-count").innerText = data.active_person_count || "0";
     document.getElementById("val-alert-count").innerText = data.total_alerts || "0";
     document.getElementById("val-source").innerText = data.source || "-";
     document.getElementById("active-staff-badge").innerText = `${data.active_person_count || 0} Active`;
 
+    isVideoPaused = data.is_paused || false;
+    document.getElementById("btn-pause").innerText = isVideoPaused ? "▶️ Resume" : "⏸️ Pause";
+
     renderPersonnel(data.persons || []);
   } catch (e) {
-    // If backend is not reached (e.g. running on Vercel as a standalone client demo), activate interactive demo mode
     if (!isDemoMode) {
       activateClientDemoMode();
     }
@@ -71,57 +77,45 @@ function activateClientDemoMode() {
   document.getElementById("val-fps").innerText = "24.0";
   document.getElementById("val-source").innerText = "Kitchen Camera #01 (Live AI Simulation)";
   
-  // Replace missing MJPEG stream with interactive demo display if image fails
   const img = document.getElementById("stream-img");
   if (!img.complete || img.naturalWidth === 0) {
     img.src = "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1280&q=80";
   }
 
-  // Simulated live personnel
   const mockPersons = [
     {
-      track_id: 209,
+      track_id: 143,
       posture: "STANDING",
-      posture_duration_sec: 14,
-      total_standing_sec: 185,
+      posture_duration_sec: 24,
+      total_standing_sec: 195,
       total_sitting_sec: 0,
-      zones: ["Restricted Inventory"],
+      zones: ["Kitchen Prep Counter"],
       is_eating: true,
       is_hand_near_mouth: true
     },
     {
-      track_id: 231,
+      track_id: 169,
       posture: "STANDING",
-      posture_duration_sec: 240,
-      total_standing_sec: 720,
+      posture_duration_sec: 120,
+      total_standing_sec: 480,
       total_sitting_sec: 0,
-      zones: ["Prep Counter"],
-      is_eating: false,
-      is_hand_near_mouth: false
-    },
-    {
-      track_id: 186,
-      posture: "STANDING",
-      posture_duration_sec: 45,
-      total_standing_sec: 320,
-      total_sitting_sec: 0,
-      zones: ["Main Kitchen"],
+      zones: ["Restricted Inventory"],
       is_eating: false,
       is_hand_near_mouth: false
     }
   ];
 
-  document.getElementById("val-person-count").innerText = "3";
+  document.getElementById("val-person-count").innerText = "2";
   document.getElementById("val-alert-count").innerText = "1";
-  document.getElementById("active-staff-badge").innerText = "3 Active";
+  document.getElementById("active-staff-badge").innerText = "2 Active";
   renderPersonnel(mockPersons);
 
   const mockAlerts = [
     {
       id: "demo-01",
       type: "UNAUTHORIZED_EATING",
-      person_id: 209,
-      zone: "Restricted Inventory / Storage",
+      person_id: 143,
+      zone: "Kitchen / Storage Area",
       timestamp: "Just now",
       snapshot_url: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&q=80",
       video_url: "#"
@@ -151,8 +145,8 @@ function renderPersonnel(persons) {
       tagClass = "tag-eating";
       statusText = "EATING DETECTED!";
     } else if (isHandNear) {
-      tagClass = "tag-loiter";
-      statusText = "Hand Near Mouth";
+      tagClass = "tag-eating";
+      statusText = "EATING / DRINKING";
     }
 
     const standingSec = Math.round(p.total_standing_sec || 0);
@@ -200,7 +194,7 @@ async function fetchAlerts() {
 
     renderAlerts(alerts);
   } catch (e) {
-    // handled by fetchStatus demo mode
+    // handled
   }
 }
 
@@ -208,7 +202,7 @@ function renderAlerts(alerts) {
   const container = document.getElementById("alerts-list");
   if (!alerts || alerts.length === 0) {
     container.innerHTML = `
-      <div style="text-align: center; color: var(--text-muted); padding: 24px 0; font-size: 13px;">
+      <div style="text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 13px;">
         No violations recorded yet.
       </div>
     `;
@@ -229,6 +223,179 @@ function renderAlerts(alerts) {
       </button>
     </div>
   `).join("");
+}
+
+// Speed & Playback Controls
+async function setSpeed(multiplier) {
+  document.querySelectorAll(".btn-speed").forEach(b => b.classList.remove("active"));
+  const spdMap = { 0.25: "spd-025", 0.5: "spd-05", 1.0: "spd-1", 2.0: "spd-2", 4.0: "spd-4" };
+  if (spdMap[multiplier]) {
+    const el = document.getElementById(spdMap[multiplier]);
+    if (el) el.classList.add("active");
+  }
+
+  if (!isDemoMode) {
+    await fetch(`${backendUrl}/api/speed`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ speed: multiplier })
+    });
+  }
+  document.getElementById("val-speed").innerText = `${multiplier}x`;
+}
+
+async function togglePauseVideo() {
+  if (!isDemoMode) {
+    const res = await fetch(`${backendUrl}/api/playback`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "toggle_pause" })
+    });
+    const data = await res.json();
+    isVideoPaused = data.is_paused;
+    document.getElementById("btn-pause").innerText = isVideoPaused ? "▶️ Resume" : "⏸️ Pause";
+  }
+}
+
+async function rewindVideo() {
+  if (!isDemoMode) {
+    await fetch(`${backendUrl}/api/playback`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "rewind" })
+    });
+  }
+}
+
+// Audit Notes Management
+async function fetchAuditNotes() {
+  if (isDemoMode) return;
+  try {
+    const res = await fetch(`${backendUrl}/api/notes`);
+    const data = await res.json();
+    renderAuditNotes(data.notes || []);
+  } catch (e) {}
+}
+
+function renderAuditNotes(notes) {
+  const container = document.getElementById("audit-notes-list");
+  if (!notes || notes.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; color: var(--text-muted); padding: 10px 0; font-size: 12px;">
+        No audit notes recorded yet.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = notes.map(n => `
+    <div class="audit-note-item ${n.severity ? n.severity.toLowerCase() : 'normal'}">
+      <div>
+        <strong style="color: #93c5fd; margin-right: 6px;">[${n.time_offset || n.timestamp}]</strong>
+        <span>${n.note}</span>
+      </div>
+      <button onclick="deleteAuditNote('${n.id}')" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 12px;">✕</button>
+    </div>
+  `).join("");
+}
+
+async function submitAuditNote() {
+  const input = document.getElementById("audit-note-input");
+  const severity = document.getElementById("audit-severity").value;
+  const noteText = input.value.trim();
+  if (!noteText) return;
+
+  if (isDemoMode) {
+    const mockNotes = [
+      { id: "note-1", note: noteText, timestamp: new Date().toLocaleTimeString(), time_offset: "00:01:24", severity: severity }
+    ];
+    renderAuditNotes(mockNotes);
+    input.value = "";
+    return;
+  }
+
+  await fetch(`${backendUrl}/api/notes`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ note: noteText, severity: severity })
+  });
+
+  input.value = "";
+  fetchAuditNotes();
+}
+
+async function deleteAuditNote(noteId) {
+  if (!isDemoMode) {
+    await fetch(`${backendUrl}/api/notes/${noteId}`, { method: "DELETE" });
+    fetchAuditNotes();
+  }
+}
+
+function exportAuditReport() {
+  fetch(`${backendUrl}/api/notes`).then(res => res.json()).then(data => {
+    const notes = data.notes || [];
+    let report = `REST-EYE AUDIT & INCIDENT REPORT\nGenerated: ${new Date().toLocaleString()}\nCamera: Kitchen Cam 01\n\n`;
+    notes.forEach((n, i) => {
+      report += `${i + 1}. [${n.timestamp}] (${n.severity}) : ${n.note}\n`;
+    });
+    
+    const blob = new Blob([report], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `RestEye_Audit_Report_${Date.now()}.txt`;
+    a.click();
+  });
+}
+
+// Upload Modal & Logic
+function openUploadModal() {
+  document.getElementById("upload-modal").classList.add("open");
+}
+
+function closeUploadModal() {
+  document.getElementById("upload-modal").classList.remove("open");
+  selectedUploadFile = null;
+  document.getElementById("upload-filename-preview").innerText = "";
+  document.getElementById("btn-submit-upload").disabled = true;
+}
+
+function handleFileSelected(event) {
+  const file = event.target.files[0];
+  if (file) {
+    selectedUploadFile = file;
+    document.getElementById("upload-filename-preview").innerText = `Selected: ${file.name} (${(file.size / (1024*1024)).toFixed(1)} MB)`;
+    document.getElementById("btn-submit-upload").disabled = false;
+  }
+}
+
+async function submitVideoUpload() {
+  if (!selectedUploadFile) return;
+
+  const btn = document.getElementById("btn-submit-upload");
+  btn.disabled = true;
+  btn.innerText = "Uploading & Initializing AI...";
+
+  const formData = new FormData();
+  formData.append("file", selectedUploadFile);
+
+  try {
+    const res = await fetch(`${backendUrl}/api/upload`, {
+      method: "POST",
+      body: formData
+    });
+    const data = await res.json();
+    alert(`Video "${selectedUploadFile.name}" uploaded successfully! Starting real-time AI audit.`);
+    closeUploadModal();
+    setTimeout(() => {
+      const img = document.getElementById("stream-img");
+      img.src = `${backendUrl}/api/stream?t=` + Date.now();
+    }, 800);
+  } catch (e) {
+    alert("Upload failed. Please check network connection.");
+  } finally {
+    btn.innerText = "Upload & Analyze";
+  }
 }
 
 // Video Modal Controls

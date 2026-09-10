@@ -241,13 +241,13 @@ class BehaviorAnalyzer:
             if ratio < min_dist_ratio:
                 min_dist_ratio = ratio
 
-            # Condition 1: Hand in mouth/face radius
-            is_in_face_zone = d_mouth <= (head_radius * 1.6) or ratio <= 0.58
+            # Condition 1: Hand in mouth/face radius (generous for holding food/cups with fingers)
+            is_in_face_zone = d_mouth <= (head_radius * 1.85) or ratio <= 0.65
 
             # Condition 2: Hand is raised (wrist higher than or level with elbow)
             hand_raised = True
             if elbow:
-                hand_raised = wrist[1] <= (elbow[1] + 25.0)
+                hand_raised = wrist[1] <= (elbow[1] + 40.0)
 
             if is_in_face_zone and hand_raised:
                 hand_near = True
@@ -264,13 +264,13 @@ class BehaviorAnalyzer:
 
             dwell_duration = current_time - (session.hand_near_mouth_start or current_time)
 
-            # Trigger eating if hand stays near mouth for >= 0.4s (instant for drinking/snacking)
-            if dwell_duration >= 0.4 or min_dist_ratio <= 0.40:
-                is_eating = True
-                if (current_time - session.last_eating_alert_time) > config.eating_cooldown_seconds:
-                    session.last_eating_alert_time = current_time
-                    session.eating_cycles_count += 1
-                    trigger_alert = True
+            # In kitchen/inventory monitoring, any hand-to-mouth action is eating/drinking/grazing
+            is_eating = True
+
+            if (current_time - session.last_eating_alert_time) > config.eating_cooldown_seconds:
+                session.last_eating_alert_time = current_time
+                session.eating_cycles_count += 1
+                trigger_alert = True
         else:
             session.is_hand_near_mouth = False
             session.hand_near_mouth_start = None

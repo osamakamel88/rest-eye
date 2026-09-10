@@ -8,12 +8,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 ALERTS_DIR = DATA_DIR / "alerts"
 MODELS_DIR = DATA_DIR / "models"
+UPLOADS_DIR = DATA_DIR / "uploads"
 ZONES_FILE = DATA_DIR / "zones.json"
+NOTES_FILE = DATA_DIR / "audit_notes.json"
 
 # Ensure directories exist
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 ALERTS_DIR.mkdir(parents=True, exist_ok=True)
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
+UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 
 DEFAULT_SAMPLE_VIDEO = r"D:\Downloads\a_restaurant_back_kitchen_wher.mp4"
 
