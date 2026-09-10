@@ -1392,5 +1392,5122 @@
       "cycles": 1
     },
     "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085539_2_481",
+    "timestamp": "2026-09-10 08:55:39",
+    "unix_time": 1789019739.4963284,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 2,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085539_2_481.jpg",
+    "video_url": "/api/alerts/alert_20260910_085539_2_481.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.507,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085539_4_512",
+    "timestamp": "2026-09-10 08:55:39",
+    "unix_time": 1789019739.5238633,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 4,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085539_4_512.jpg",
+    "video_url": "/api/alerts/alert_20260910_085539_4_512.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.431,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085539_5_533",
+    "timestamp": "2026-09-10 08:55:39",
+    "unix_time": 1789019739.544567,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 5,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085539_5_533.jpg",
+    "video_url": "/api/alerts/alert_20260910_085539_5_533.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.311,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085542_11_470",
+    "timestamp": "2026-09-10 08:55:42",
+    "unix_time": 1789019742.480319,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 11,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085542_11_470.jpg",
+    "video_url": "/api/alerts/alert_20260910_085542_11_470.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.622,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085543_12_315",
+    "timestamp": "2026-09-10 08:55:43",
+    "unix_time": 1789019743.3278062,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 12,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085543_12_315.jpg",
+    "video_url": "/api/alerts/alert_20260910_085543_12_315.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.635,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085546_1_297",
+    "timestamp": "2026-09-10 08:55:46",
+    "unix_time": 1789019746.314013,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085546_1_297.jpg",
+    "video_url": "/api/alerts/alert_20260910_085546_1_297.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.875,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085552_34_841",
+    "timestamp": "2026-09-10 08:55:52",
+    "unix_time": 1789019752.8537369,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 34,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085552_34_841.jpg",
+    "video_url": "/api/alerts/alert_20260910_085552_34_841.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.482,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085553_12_201",
+    "timestamp": "2026-09-10 08:55:53",
+    "unix_time": 1789019753.2095733,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 12,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085553_12_201.jpg",
+    "video_url": "/api/alerts/alert_20260910_085553_12_201.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.206,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085553_32_222",
+    "timestamp": "2026-09-10 08:55:53",
+    "unix_time": 1789019753.2325249,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 32,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085553_32_222.jpg",
+    "video_url": "/api/alerts/alert_20260910_085553_32_222.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.635,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085554_39_280",
+    "timestamp": "2026-09-10 08:55:54",
+    "unix_time": 1789019754.2919078,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 39,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085554_39_280.jpg",
+    "video_url": "/api/alerts/alert_20260910_085554_39_280.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.586,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085604_48_259",
+    "timestamp": "2026-09-10 08:56:04",
+    "unix_time": 1789019764.2714052,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 48,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085604_48_259.jpg",
+    "video_url": "/api/alerts/alert_20260910_085604_48_259.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.482,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085604_32_638",
+    "timestamp": "2026-09-10 08:56:04",
+    "unix_time": 1789019764.6557882,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 32,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085604_32_638.jpg",
+    "video_url": "/api/alerts/alert_20260910_085604_32_638.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.206,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085604_53_687",
+    "timestamp": "2026-09-10 08:56:04",
+    "unix_time": 1789019764.6987922,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 53,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085604_53_687.jpg",
+    "video_url": "/api/alerts/alert_20260910_085604_53_687.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.635,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085606_39_870",
+    "timestamp": "2026-09-10 08:56:06",
+    "unix_time": 1789019766.8924723,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 39,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085606_39_870.jpg",
+    "video_url": "/api/alerts/alert_20260910_085606_39_870.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.445,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085608_34_256",
+    "timestamp": "2026-09-10 08:56:08",
+    "unix_time": 1789019768.2804513,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 34,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085608_34_256.jpg",
+    "video_url": "/api/alerts/alert_20260910_085608_34_256.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.873,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085611_38_880",
+    "timestamp": "2026-09-10 08:56:11",
+    "unix_time": 1789019771.889547,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 38,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085611_38_880.jpg",
+    "video_url": "/api/alerts/alert_20260910_085611_38_880.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.15,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085618_12_444",
+    "timestamp": "2026-09-10 08:56:18",
+    "unix_time": 1789019778.4532874,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 12,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085618_12_444.jpg",
+    "video_url": "/api/alerts/alert_20260910_085618_12_444.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.695,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085618_6_471",
+    "timestamp": "2026-09-10 08:56:18",
+    "unix_time": 1789019778.4830112,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 6,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085618_6_471.jpg",
+    "video_url": "/api/alerts/alert_20260910_085618_6_471.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.023,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085618_84_501",
+    "timestamp": "2026-09-10 08:56:18",
+    "unix_time": 1789019778.5120006,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 84,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085618_84_501.jpg",
+    "video_url": "/api/alerts/alert_20260910_085618_84_501.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.614,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085618_53_768",
+    "timestamp": "2026-09-10 08:56:18",
+    "unix_time": 1789019778.779364,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 53,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085618_53_768.jpg",
+    "video_url": "/api/alerts/alert_20260910_085618_53_768.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.502,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085620_32_743",
+    "timestamp": "2026-09-10 08:56:20",
+    "unix_time": 1789019780.752984,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 32,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085620_32_743.jpg",
+    "video_url": "/api/alerts/alert_20260910_085620_32_743.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.15,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085621_90_51",
+    "timestamp": "2026-09-10 08:56:21",
+    "unix_time": 1789019781.073327,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 90,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085621_90_51.jpg",
+    "video_url": "/api/alerts/alert_20260910_085621_90_51.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.638,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085627_96_543",
+    "timestamp": "2026-09-10 08:56:27",
+    "unix_time": 1789019787.5535226,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 96,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085627_96_543.jpg",
+    "video_url": "/api/alerts/alert_20260910_085627_96_543.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.442,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085641_110_295",
+    "timestamp": "2026-09-10 08:56:41",
+    "unix_time": 1789019801.3066583,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 110,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085641_110_295.jpg",
+    "video_url": "/api/alerts/alert_20260910_085641_110_295.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.209,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085641_106_494",
+    "timestamp": "2026-09-10 08:56:41",
+    "unix_time": 1789019801.505337,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 106,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085641_106_494.jpg",
+    "video_url": "/api/alerts/alert_20260910_085641_106_494.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.685,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085641_116_523",
+    "timestamp": "2026-09-10 08:56:41",
+    "unix_time": 1789019801.535247,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 116,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085641_116_523.jpg",
+    "video_url": "/api/alerts/alert_20260910_085641_116_523.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.631,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085642_103_966",
+    "timestamp": "2026-09-10 08:56:42",
+    "unix_time": 1789019802.9789512,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 103,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085642_103_966.jpg",
+    "video_url": "/api/alerts/alert_20260910_085642_103_966.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.536,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085650_116_539",
+    "timestamp": "2026-09-10 08:56:50",
+    "unix_time": 1789019810.5506427,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 116,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085650_116_539.jpg",
+    "video_url": "/api/alerts/alert_20260910_085650_116_539.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.31,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085651_124_175",
+    "timestamp": "2026-09-10 08:56:51",
+    "unix_time": 1789019811.1865644,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 124,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085651_124_175.jpg",
+    "video_url": "/api/alerts/alert_20260910_085651_124_175.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.294,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085651_129_613",
+    "timestamp": "2026-09-10 08:56:51",
+    "unix_time": 1789019811.6233597,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 129,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085651_129_613.jpg",
+    "video_url": "/api/alerts/alert_20260910_085651_129_613.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.3,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085652_126_372",
+    "timestamp": "2026-09-10 08:56:52",
+    "unix_time": 1789019812.3845522,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 126,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085652_126_372.jpg",
+    "video_url": "/api/alerts/alert_20260910_085652_126_372.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.638,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085654_113_651",
+    "timestamp": "2026-09-10 08:56:54",
+    "unix_time": 1789019814.6625,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 113,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085654_113_651.jpg",
+    "video_url": "/api/alerts/alert_20260910_085654_113_651.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.328,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085703_103_789",
+    "timestamp": "2026-09-10 08:57:03",
+    "unix_time": 1789019823.8004904,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 103,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085703_103_789.jpg",
+    "video_url": "/api/alerts/alert_20260910_085703_103_789.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.712,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085706_121_731",
+    "timestamp": "2026-09-10 08:57:06",
+    "unix_time": 1789019826.7426245,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 121,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085706_121_731.jpg",
+    "video_url": "/api/alerts/alert_20260910_085706_121_731.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.442,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085707_106_279",
+    "timestamp": "2026-09-10 08:57:07",
+    "unix_time": 1789019827.2957103,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 106,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085707_106_279.jpg",
+    "video_url": "/api/alerts/alert_20260910_085707_106_279.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.477,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085715_147_514",
+    "timestamp": "2026-09-10 08:57:15",
+    "unix_time": 1789019835.5298378,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 147,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085715_147_514.jpg",
+    "video_url": "/api/alerts/alert_20260910_085715_147_514.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.592,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085715_150_547",
+    "timestamp": "2026-09-10 08:57:15",
+    "unix_time": 1789019835.5575883,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 150,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085715_150_547.jpg",
+    "video_url": "/api/alerts/alert_20260910_085715_150_547.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.211,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085715_154_939",
+    "timestamp": "2026-09-10 08:57:15",
+    "unix_time": 1789019835.949331,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 154,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085715_154_939.jpg",
+    "video_url": "/api/alerts/alert_20260910_085715_154_939.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.55,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085716_156_567",
+    "timestamp": "2026-09-10 08:57:16",
+    "unix_time": 1789019836.5786247,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 156,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085716_156_567.jpg",
+    "video_url": "/api/alerts/alert_20260910_085716_156_567.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.483,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085719_148_326",
+    "timestamp": "2026-09-10 08:57:19",
+    "unix_time": 1789019839.3380241,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 148,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085719_148_326.jpg",
+    "video_url": "/api/alerts/alert_20260910_085719_148_326.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.334,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085719_153_358",
+    "timestamp": "2026-09-10 08:57:19",
+    "unix_time": 1789019839.3669221,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 153,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085719_153_358.jpg",
+    "video_url": "/api/alerts/alert_20260910_085719_153_358.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.211,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085719_158_390",
+    "timestamp": "2026-09-10 08:57:19",
+    "unix_time": 1789019839.4052708,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 158,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085719_158_390.jpg",
+    "video_url": "/api/alerts/alert_20260910_085719_158_390.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.592,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085727_153_570",
+    "timestamp": "2026-09-10 08:57:27",
+    "unix_time": 1789019847.5801654,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 153,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085727_153_570.jpg",
+    "video_url": "/api/alerts/alert_20260910_085727_153_570.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.52,
+      "dist_ratio": 1.364,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085729_165_832",
+    "timestamp": "2026-09-10 08:57:29",
+    "unix_time": 1789019849.8418713,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 165,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085729_165_832.jpg",
+    "video_url": "/api/alerts/alert_20260910_085729_165_832.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.412,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085734_148_990",
+    "timestamp": "2026-09-10 08:57:35",
+    "unix_time": 1789019855.0101829,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 148,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085734_148_990.jpg",
+    "video_url": "/api/alerts/alert_20260910_085734_148_990.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.712,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085737_168_804",
+    "timestamp": "2026-09-10 08:57:37",
+    "unix_time": 1789019857.814772,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 168,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085737_168_804.jpg",
+    "video_url": "/api/alerts/alert_20260910_085737_168_804.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.442,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085738_163_460",
+    "timestamp": "2026-09-10 08:57:38",
+    "unix_time": 1789019858.4711227,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 163,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085738_163_460.jpg",
+    "video_url": "/api/alerts/alert_20260910_085738_163_460.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.477,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085752_177_242",
+    "timestamp": "2026-09-10 08:57:52",
+    "unix_time": 1789019872.2532508,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 177,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085752_177_242.jpg",
+    "video_url": "/api/alerts/alert_20260910_085752_177_242.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.209,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085752_174_539",
+    "timestamp": "2026-09-10 08:57:52",
+    "unix_time": 1789019872.572177,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 174,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085752_174_539.jpg",
+    "video_url": "/api/alerts/alert_20260910_085752_174_539.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.691,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085752_183_601",
+    "timestamp": "2026-09-10 08:57:52",
+    "unix_time": 1789019872.6149561,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 183,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085752_183_601.jpg",
+    "video_url": "/api/alerts/alert_20260910_085752_183_601.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.536,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085753_173_880",
+    "timestamp": "2026-09-10 08:57:53",
+    "unix_time": 1789019873.8942363,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 173,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085753_173_880.jpg",
+    "video_url": "/api/alerts/alert_20260910_085753_173_880.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.581,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085803_173_298",
+    "timestamp": "2026-09-10 08:58:03",
+    "unix_time": 1789019883.3084571,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 173,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085803_173_298.jpg",
+    "video_url": "/api/alerts/alert_20260910_085803_173_298.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.58,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085808_180_10",
+    "timestamp": "2026-09-10 08:58:08",
+    "unix_time": 1789019888.0212011,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 180,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085808_180_10.jpg",
+    "video_url": "/api/alerts/alert_20260910_085808_180_10.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.691,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085808_192_40",
+    "timestamp": "2026-09-10 08:58:08",
+    "unix_time": 1789019888.0500567,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 192,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085808_192_40.jpg",
+    "video_url": "/api/alerts/alert_20260910_085808_192_40.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.819,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085808_188_73",
+    "timestamp": "2026-09-10 08:58:08",
+    "unix_time": 1789019888.0819213,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 188,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085808_188_73.jpg",
+    "video_url": "/api/alerts/alert_20260910_085808_188_73.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.536,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085808_203_384",
+    "timestamp": "2026-09-10 08:58:08",
+    "unix_time": 1789019888.4009376,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 203,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085808_203_384.jpg",
+    "video_url": "/api/alerts/alert_20260910_085808_203_384.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.517,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085819_225_782",
+    "timestamp": "2026-09-10 08:58:19",
+    "unix_time": 1789019899.795578,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 225,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085819_225_782.jpg",
+    "video_url": "/api/alerts/alert_20260910_085819_225_782.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.855,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085819_211_821",
+    "timestamp": "2026-09-10 08:58:19",
+    "unix_time": 1789019899.836728,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 211,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085819_211_821.jpg",
+    "video_url": "/api/alerts/alert_20260910_085819_211_821.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.698,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085819_229_861",
+    "timestamp": "2026-09-10 08:58:19",
+    "unix_time": 1789019899.8755484,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 229,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085819_229_861.jpg",
+    "video_url": "/api/alerts/alert_20260910_085819_229_861.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.62,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085820_224_129",
+    "timestamp": "2026-09-10 08:58:20",
+    "unix_time": 1789019900.140138,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 224,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085820_224_129.jpg",
+    "video_url": "/api/alerts/alert_20260910_085820_224_129.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.483,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085822_232_442",
+    "timestamp": "2026-09-10 08:58:22",
+    "unix_time": 1789019902.4532108,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 232,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085822_232_442.jpg",
+    "video_url": "/api/alerts/alert_20260910_085822_232_442.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.239,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085833_230_370",
+    "timestamp": "2026-09-10 08:58:33",
+    "unix_time": 1789019913.3888214,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 230,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085833_230_370.jpg",
+    "video_url": "/api/alerts/alert_20260910_085833_230_370.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.695,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085833_209_416",
+    "timestamp": "2026-09-10 08:58:33",
+    "unix_time": 1789019913.4349291,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 209,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085833_209_416.jpg",
+    "video_url": "/api/alerts/alert_20260910_085833_209_416.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.614,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085833_231_463",
+    "timestamp": "2026-09-10 08:58:33",
+    "unix_time": 1789019913.482217,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 231,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085833_231_463.jpg",
+    "video_url": "/api/alerts/alert_20260910_085833_231_463.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.023,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085836_210_636",
+    "timestamp": "2026-09-10 08:58:36",
+    "unix_time": 1789019916.6700482,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 210,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085836_210_636.jpg",
+    "video_url": "/api/alerts/alert_20260910_085836_210_636.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.638,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085837_244_110",
+    "timestamp": "2026-09-10 08:58:37",
+    "unix_time": 1789019917.1220264,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 244,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085837_244_110.jpg",
+    "video_url": "/api/alerts/alert_20260910_085837_244_110.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.364,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085845_245_566",
+    "timestamp": "2026-09-10 08:58:45",
+    "unix_time": 1789019925.6330762,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 245,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085845_245_566.jpg",
+    "video_url": "/api/alerts/alert_20260910_085845_245_566.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.571,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085849_251_151",
+    "timestamp": "2026-09-10 08:58:49",
+    "unix_time": 1789019929.1676981,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 251,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085849_251_151.jpg",
+    "video_url": "/api/alerts/alert_20260910_085849_251_151.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.592,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085849_243_233",
+    "timestamp": "2026-09-10 08:58:49",
+    "unix_time": 1789019929.379485,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 243,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085849_243_233.jpg",
+    "video_url": "/api/alerts/alert_20260910_085849_243_233.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.211,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085906_243_13",
+    "timestamp": "2026-09-10 08:59:06",
+    "unix_time": 1789019946.0289311,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 243,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085906_243_13.jpg",
+    "video_url": "/api/alerts/alert_20260910_085906_243_13.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.712,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085910_239_794",
+    "timestamp": "2026-09-10 08:59:10",
+    "unix_time": 1789019950.808419,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 239,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085910_239_794.jpg",
+    "video_url": "/api/alerts/alert_20260910_085910_239_794.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.698,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085910_282_844",
+    "timestamp": "2026-09-10 08:59:10",
+    "unix_time": 1789019950.8579285,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 282,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085910_282_844.jpg",
+    "video_url": "/api/alerts/alert_20260910_085910_282_844.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.855,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085913_288_301",
+    "timestamp": "2026-09-10 08:59:13",
+    "unix_time": 1789019953.3122847,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 288,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085913_288_301.jpg",
+    "video_url": "/api/alerts/alert_20260910_085913_288_301.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.239,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085917_287_120",
+    "timestamp": "2026-09-10 08:59:17",
+    "unix_time": 1789019957.1406627,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 287,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085917_287_120.jpg",
+    "video_url": "/api/alerts/alert_20260910_085917_287_120.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.547,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085922_303_124",
+    "timestamp": "2026-09-10 08:59:22",
+    "unix_time": 1789019962.1546383,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 303,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085922_303_124.jpg",
+    "video_url": "/api/alerts/alert_20260910_085922_303_124.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.426,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085922_281_188",
+    "timestamp": "2026-09-10 08:59:22",
+    "unix_time": 1789019962.2022183,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 281,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085922_281_188.jpg",
+    "video_url": "/api/alerts/alert_20260910_085922_281_188.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.536,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085922_285_241",
+    "timestamp": "2026-09-10 08:59:22",
+    "unix_time": 1789019962.2547846,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 285,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085922_285_241.jpg",
+    "video_url": "/api/alerts/alert_20260910_085922_285_241.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.441,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085924_310_466",
+    "timestamp": "2026-09-10 08:59:24",
+    "unix_time": 1789019964.4825857,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 310,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085924_310_466.jpg",
+    "video_url": "/api/alerts/alert_20260910_085924_310_466.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.211,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085928_313_0",
+    "timestamp": "2026-09-10 08:59:28",
+    "unix_time": 1789019968.0382683,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 313,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085928_313_0.jpg",
+    "video_url": "/api/alerts/alert_20260910_085928_313_0.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.412,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085934_281_718",
+    "timestamp": "2026-09-10 08:59:34",
+    "unix_time": 1789019974.7455926,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 281,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085934_281_718.jpg",
+    "video_url": "/api/alerts/alert_20260910_085934_281_718.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.551,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085936_300_291",
+    "timestamp": "2026-09-10 08:59:36",
+    "unix_time": 1789019976.3012452,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 300,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085936_300_291.jpg",
+    "video_url": "/api/alerts/alert_20260910_085936_300_291.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.53,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085936_285_337",
+    "timestamp": "2026-09-10 08:59:36",
+    "unix_time": 1789019976.35488,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 285,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085936_285_337.jpg",
+    "video_url": "/api/alerts/alert_20260910_085936_285_337.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.395,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085946_319_933",
+    "timestamp": "2026-09-10 08:59:46",
+    "unix_time": 1789019986.9463515,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 319,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085946_319_933.jpg",
+    "video_url": "/api/alerts/alert_20260910_085946_319_933.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.536,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085946_303_981",
+    "timestamp": "2026-09-10 08:59:46",
+    "unix_time": 1789019986.993855,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 303,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085946_303_981.jpg",
+    "video_url": "/api/alerts/alert_20260910_085946_303_981.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.426,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085947_300_25",
+    "timestamp": "2026-09-10 08:59:47",
+    "unix_time": 1789019987.0381298,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 300,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085947_300_25.jpg",
+    "video_url": "/api/alerts/alert_20260910_085947_300_25.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.566,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085958_352_203",
+    "timestamp": "2026-09-10 08:59:58",
+    "unix_time": 1789019998.2131097,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 352,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085958_352_203.jpg",
+    "video_url": "/api/alerts/alert_20260910_085958_352_203.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.525,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085958_341_251",
+    "timestamp": "2026-09-10 08:59:58",
+    "unix_time": 1789019998.2616587,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 341,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085958_341_251.jpg",
+    "video_url": "/api/alerts/alert_20260910_085958_341_251.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.409,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085958_335_304",
+    "timestamp": "2026-09-10 08:59:58",
+    "unix_time": 1789019998.3178198,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 335,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085958_335_304.jpg",
+    "video_url": "/api/alerts/alert_20260910_085958_335_304.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.581,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_085958_338_346",
+    "timestamp": "2026-09-10 08:59:58",
+    "unix_time": 1789019998.3580475,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 338,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_085958_338_346.jpg",
+    "video_url": "/api/alerts/alert_20260910_085958_338_346.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.41,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090000_310_410",
+    "timestamp": "2026-09-10 09:00:00",
+    "unix_time": 1789020000.4270954,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 310,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090000_310_410.jpg",
+    "video_url": "/api/alerts/alert_20260910_090000_310_410.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.294,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090012_310_14",
+    "timestamp": "2026-09-10 09:00:12",
+    "unix_time": 1789020012.0349088,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 310,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090012_310_14.jpg",
+    "video_url": "/api/alerts/alert_20260910_090012_310_14.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.209,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090012_363_425",
+    "timestamp": "2026-09-10 09:00:12",
+    "unix_time": 1789020012.4381793,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 363,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090012_363_425.jpg",
+    "video_url": "/api/alerts/alert_20260910_090012_363_425.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.517,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090012_371_472",
+    "timestamp": "2026-09-10 09:00:12",
+    "unix_time": 1789020012.4901645,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 371,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090012_371_472.jpg",
+    "video_url": "/api/alerts/alert_20260910_090012_371_472.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.388,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090012_369_522",
+    "timestamp": "2026-09-10 09:00:12",
+    "unix_time": 1789020012.5360937,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 369,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090012_369_522.jpg",
+    "video_url": "/api/alerts/alert_20260910_090012_369_522.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.693,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090014_377_891",
+    "timestamp": "2026-09-10 09:00:14",
+    "unix_time": 1789020014.9045966,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 377,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090014_377_891.jpg",
+    "video_url": "/api/alerts/alert_20260910_090014_377_891.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.22,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090026_283_41",
+    "timestamp": "2026-09-10 09:00:26",
+    "unix_time": 1789020026.0574713,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 283,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090026_283_41.jpg",
+    "video_url": "/api/alerts/alert_20260910_090026_283_41.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.687,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090026_371_85",
+    "timestamp": "2026-09-10 09:00:26",
+    "unix_time": 1789020026.1004877,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 371,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090026_371_85.jpg",
+    "video_url": "/api/alerts/alert_20260910_090026_371_85.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 11.58,
+      "dist_ratio": 1.643,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090026_377_134",
+    "timestamp": "2026-09-10 09:00:26",
+    "unix_time": 1789020026.1457288,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 377,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090026_377_134.jpg",
+    "video_url": "/api/alerts/alert_20260910_090026_377_134.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 11.15,
+      "dist_ratio": 0.947,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090029_387_450",
+    "timestamp": "2026-09-10 09:00:29",
+    "unix_time": 1789020029.4659622,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 387,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090029_387_450.jpg",
+    "video_url": "/api/alerts/alert_20260910_090029_387_450.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.228,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090038_363_532",
+    "timestamp": "2026-09-10 09:00:38",
+    "unix_time": 1789020038.5455008,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 363,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090038_363_532.jpg",
+    "video_url": "/api/alerts/alert_20260910_090038_363_532.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.569,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090038_377_573",
+    "timestamp": "2026-09-10 09:00:38",
+    "unix_time": 1789020038.5862162,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 377,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090038_377_573.jpg",
+    "video_url": "/api/alerts/alert_20260910_090038_377_573.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.487,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090038_378_613",
+    "timestamp": "2026-09-10 09:00:38",
+    "unix_time": 1789020038.631981,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 378,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090038_378_613.jpg",
+    "video_url": "/api/alerts/alert_20260910_090038_378_613.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.591,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090046_363_617",
+    "timestamp": "2026-09-10 09:00:46",
+    "unix_time": 1789020046.6601553,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 363,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090046_363_617.jpg",
+    "video_url": "/api/alerts/alert_20260910_090046_363_617.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.571,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090051_404_50",
+    "timestamp": "2026-09-10 09:00:51",
+    "unix_time": 1789020051.0619056,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 404,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090051_404_50.jpg",
+    "video_url": "/api/alerts/alert_20260910_090051_404_50.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.386,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090051_402_100",
+    "timestamp": "2026-09-10 09:00:51",
+    "unix_time": 1789020051.1113782,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 402,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090051_402_100.jpg",
+    "video_url": "/api/alerts/alert_20260910_090051_402_100.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.679,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090052_415_806",
+    "timestamp": "2026-09-10 09:00:52",
+    "unix_time": 1789020052.818665,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 415,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090052_415_806.jpg",
+    "video_url": "/api/alerts/alert_20260910_090052_415_806.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.294,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090102_415_856",
+    "timestamp": "2026-09-10 09:01:02",
+    "unix_time": 1789020062.8695877,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 415,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090102_415_856.jpg",
+    "video_url": "/api/alerts/alert_20260910_090102_415_856.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.687,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090102_403_902",
+    "timestamp": "2026-09-10 09:01:02",
+    "unix_time": 1789020062.9163847,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 403,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090102_403_902.jpg",
+    "video_url": "/api/alerts/alert_20260910_090102_403_902.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.643,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090105_432_177",
+    "timestamp": "2026-09-10 09:01:05",
+    "unix_time": 1789020065.1872177,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 432,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090105_432_177.jpg",
+    "video_url": "/api/alerts/alert_20260910_090105_432_177.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.131,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090114_414_578",
+    "timestamp": "2026-09-10 09:01:14",
+    "unix_time": 1789020074.5877376,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 414,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090114_414_578.jpg",
+    "video_url": "/api/alerts/alert_20260910_090114_414_578.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.525,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090114_448_629",
+    "timestamp": "2026-09-10 09:01:14",
+    "unix_time": 1789020074.6507428,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 448,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090114_448_629.jpg",
+    "video_url": "/api/alerts/alert_20260910_090114_448_629.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.409,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090114_431_695",
+    "timestamp": "2026-09-10 09:01:14",
+    "unix_time": 1789020074.853102,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 431,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090114_431_695.jpg",
+    "video_url": "/api/alerts/alert_20260910_090114_431_695.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.581,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090126_363_122",
+    "timestamp": "2026-09-10 09:01:26",
+    "unix_time": 1789020086.1327415,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 363,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090126_363_122.jpg",
+    "video_url": "/api/alerts/alert_20260910_090126_363_122.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.53,
+      "cycles": 4
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090126_414_166",
+    "timestamp": "2026-09-10 09:01:26",
+    "unix_time": 1789020086.1779122,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 414,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090126_414_166.jpg",
+    "video_url": "/api/alerts/alert_20260910_090126_414_166.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.571,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090136_363_477",
+    "timestamp": "2026-09-10 09:01:36",
+    "unix_time": 1789020096.4898548,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 363,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090136_363_477.jpg",
+    "video_url": "/api/alerts/alert_20260910_090136_363_477.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.502,
+      "cycles": 5
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090136_493_520",
+    "timestamp": "2026-09-10 09:01:36",
+    "unix_time": 1789020096.5297616,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 493,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090136_493_520.jpg",
+    "video_url": "/api/alerts/alert_20260910_090136_493_520.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.41,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090136_463_566",
+    "timestamp": "2026-09-10 09:01:36",
+    "unix_time": 1789020096.5760508,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 463,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090136_463_566.jpg",
+    "video_url": "/api/alerts/alert_20260910_090136_463_566.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.656,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090138_497_227",
+    "timestamp": "2026-09-10 09:01:38",
+    "unix_time": 1789020098.2404418,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 497,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090138_497_227.jpg",
+    "video_url": "/api/alerts/alert_20260910_090138_497_227.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.31,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090138_495_278",
+    "timestamp": "2026-09-10 09:01:38",
+    "unix_time": 1789020098.2908537,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 495,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090138_495_278.jpg",
+    "video_url": "/api/alerts/alert_20260910_090138_495_278.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.443,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090138_501_717",
+    "timestamp": "2026-09-10 09:01:38",
+    "unix_time": 1789020098.7272694,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 501,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090138_501_717.jpg",
+    "video_url": "/api/alerts/alert_20260910_090138_501_717.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.22,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090154_515_32",
+    "timestamp": "2026-09-10 09:01:54",
+    "unix_time": 1789020114.0433173,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 515,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090154_515_32.jpg",
+    "video_url": "/api/alerts/alert_20260910_090154_515_32.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.31,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090157_363_255",
+    "timestamp": "2026-09-10 09:01:57",
+    "unix_time": 1789020117.2673347,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 363,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090157_363_255.jpg",
+    "video_url": "/api/alerts/alert_20260910_090157_363_255.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.712,
+      "cycles": 6
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090203_531_53",
+    "timestamp": "2026-09-10 09:02:03",
+    "unix_time": 1789020123.0696888,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 531,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090203_531_53.jpg",
+    "video_url": "/api/alerts/alert_20260910_090203_531_53.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.695,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090203_500_116",
+    "timestamp": "2026-09-10 09:02:03",
+    "unix_time": 1789020123.129693,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 500,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090203_500_116.jpg",
+    "video_url": "/api/alerts/alert_20260910_090203_500_116.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.023,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090207_540_364",
+    "timestamp": "2026-09-10 09:02:07",
+    "unix_time": 1789020127.384674,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 540,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090207_540_364.jpg",
+    "video_url": "/api/alerts/alert_20260910_090207_540_364.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.269,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090209_510_839",
+    "timestamp": "2026-09-10 09:02:09",
+    "unix_time": 1789020129.8495548,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 510,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090209_510_839.jpg",
+    "video_url": "/api/alerts/alert_20260910_090209_510_839.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.616,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090216_535_215",
+    "timestamp": "2026-09-10 09:02:16",
+    "unix_time": 1789020136.2453868,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 535,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090216_535_215.jpg",
+    "video_url": "/api/alerts/alert_20260910_090216_535_215.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.545,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090221_539_354",
+    "timestamp": "2026-09-10 09:02:21",
+    "unix_time": 1789020141.3648064,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 539,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090221_539_354.jpg",
+    "video_url": "/api/alerts/alert_20260910_090221_539_354.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.547,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090226_566_477",
+    "timestamp": "2026-09-10 09:02:26",
+    "unix_time": 1789020146.4905784,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 566,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090226_566_477.jpg",
+    "video_url": "/api/alerts/alert_20260910_090226_566_477.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.819,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090226_534_529",
+    "timestamp": "2026-09-10 09:02:26",
+    "unix_time": 1789020146.5568645,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 534,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090226_534_529.jpg",
+    "video_url": "/api/alerts/alert_20260910_090226_534_529.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.691,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090228_577_440",
+    "timestamp": "2026-09-10 09:02:28",
+    "unix_time": 1789020148.4596753,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 577,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090228_577_440.jpg",
+    "video_url": "/api/alerts/alert_20260910_090228_577_440.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.557,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090233_575_605",
+    "timestamp": "2026-09-10 09:02:33",
+    "unix_time": 1789020153.6899912,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 575,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090233_575_605.jpg",
+    "video_url": "/api/alerts/alert_20260910_090233_575_605.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.58,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090240_562_603",
+    "timestamp": "2026-09-10 09:02:40",
+    "unix_time": 1789020160.62237,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 562,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090240_562_603.jpg",
+    "video_url": "/api/alerts/alert_20260910_090240_562_603.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.523,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090245_575_290",
+    "timestamp": "2026-09-10 09:02:45",
+    "unix_time": 1789020165.3155859,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 575,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090245_575_290.jpg",
+    "video_url": "/api/alerts/alert_20260910_090245_575_290.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.749,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090250_604_305",
+    "timestamp": "2026-09-10 09:02:50",
+    "unix_time": 1789020170.3203974,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 604,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090250_604_305.jpg",
+    "video_url": "/api/alerts/alert_20260910_090250_604_305.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.687,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090251_608_30",
+    "timestamp": "2026-09-10 09:02:51",
+    "unix_time": 1789020171.0479772,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 608,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090251_608_30.jpg",
+    "video_url": "/api/alerts/alert_20260910_090251_608_30.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.523,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090301_534_356",
+    "timestamp": "2026-09-10 09:03:01",
+    "unix_time": 1789020181.3667479,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 534,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090301_534_356.jpg",
+    "video_url": "/api/alerts/alert_20260910_090301_534_356.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.525,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090301_619_408",
+    "timestamp": "2026-09-10 09:03:01",
+    "unix_time": 1789020181.417894,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 619,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090301_619_408.jpg",
+    "video_url": "/api/alerts/alert_20260910_090301_619_408.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.409,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090301_608_451",
+    "timestamp": "2026-09-10 09:03:01",
+    "unix_time": 1789020181.463996,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 608,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090301_608_451.jpg",
+    "video_url": "/api/alerts/alert_20260910_090301_608_451.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.41,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090301_613_499",
+    "timestamp": "2026-09-10 09:03:01",
+    "unix_time": 1789020181.512428,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 613,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090301_613_499.jpg",
+    "video_url": "/api/alerts/alert_20260910_090301_613_499.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.581,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090314_534_805",
+    "timestamp": "2026-09-10 09:03:14",
+    "unix_time": 1789020194.818113,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 534,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090314_534_805.jpg",
+    "video_url": "/api/alerts/alert_20260910_090314_534_805.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.525,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090314_608_854",
+    "timestamp": "2026-09-10 09:03:14",
+    "unix_time": 1789020194.8637686,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 608,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090314_608_854.jpg",
+    "video_url": "/api/alerts/alert_20260910_090314_608_854.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.41,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090314_613_907",
+    "timestamp": "2026-09-10 09:03:14",
+    "unix_time": 1789020194.9201396,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 613,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090314_613_907.jpg",
+    "video_url": "/api/alerts/alert_20260910_090314_613_907.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.581,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090317_632_72",
+    "timestamp": "2026-09-10 09:03:17",
+    "unix_time": 1789020197.0862684,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 632,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090317_632_72.jpg",
+    "video_url": "/api/alerts/alert_20260910_090317_632_72.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.15,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090330_608_518",
+    "timestamp": "2026-09-10 09:03:30",
+    "unix_time": 1789020210.5320659,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 608,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090330_608_518.jpg",
+    "video_url": "/api/alerts/alert_20260910_090330_608_518.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.585,
+      "cycles": 4
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090330_613_571",
+    "timestamp": "2026-09-10 09:03:30",
+    "unix_time": 1789020210.58456,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 613,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090330_613_571.jpg",
+    "video_url": "/api/alerts/alert_20260910_090330_613_571.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.552,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090330_602_624",
+    "timestamp": "2026-09-10 09:03:30",
+    "unix_time": 1789020210.655424,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 602,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090330_602_624.jpg",
+    "video_url": "/api/alerts/alert_20260910_090330_602_624.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.687,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090342_602_945",
+    "timestamp": "2026-09-10 09:03:42",
+    "unix_time": 1789020222.9567723,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 602,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090342_602_945.jpg",
+    "video_url": "/api/alerts/alert_20260910_090342_602_945.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.536,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090342_640_992",
+    "timestamp": "2026-09-10 09:03:43",
+    "unix_time": 1789020223.0009265,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 640,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090342_640_992.jpg",
+    "video_url": "/api/alerts/alert_20260910_090342_640_992.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.691,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090343_616_34",
+    "timestamp": "2026-09-10 09:03:43",
+    "unix_time": 1789020223.0465848,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 616,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090343_616_34.jpg",
+    "video_url": "/api/alerts/alert_20260910_090343_616_34.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.819,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090343_534_420",
+    "timestamp": "2026-09-10 09:03:43",
+    "unix_time": 1789020223.4344494,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 534,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090343_534_420.jpg",
+    "video_url": "/api/alerts/alert_20260910_090343_534_420.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.631,
+      "cycles": 4
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090343_613_477",
+    "timestamp": "2026-09-10 09:03:43",
+    "unix_time": 1789020223.48653,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 613,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090343_613_477.jpg",
+    "video_url": "/api/alerts/alert_20260910_090343_613_477.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.496,
+      "cycles": 4
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090345_632_161",
+    "timestamp": "2026-09-10 09:03:45",
+    "unix_time": 1789020225.1703503,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 632,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090345_632_161.jpg",
+    "video_url": "/api/alerts/alert_20260910_090345_632_161.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.211,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090358_668_58",
+    "timestamp": "2026-09-10 09:03:58",
+    "unix_time": 1789020238.0703273,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 668,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090358_668_58.jpg",
+    "video_url": "/api/alerts/alert_20260910_090358_668_58.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.536,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090358_616_107",
+    "timestamp": "2026-09-10 09:03:58",
+    "unix_time": 1789020238.1195803,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 616,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090358_616_107.jpg",
+    "video_url": "/api/alerts/alert_20260910_090358_616_107.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.426,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090358_613_163",
+    "timestamp": "2026-09-10 09:03:58",
+    "unix_time": 1789020238.1790035,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 613,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090358_613_163.jpg",
+    "video_url": "/api/alerts/alert_20260910_090358_613_163.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 14.64,
+      "dist_ratio": 0.566,
+      "cycles": 5
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090358_602_219",
+    "timestamp": "2026-09-10 09:03:58",
+    "unix_time": 1789020238.227909,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 602,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090358_602_219.jpg",
+    "video_url": "/api/alerts/alert_20260910_090358_602_219.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.441,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090400_632_303",
+    "timestamp": "2026-09-10 09:04:00",
+    "unix_time": 1789020240.313014,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 632,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090400_632_303.jpg",
+    "video_url": "/api/alerts/alert_20260910_090400_632_303.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.131,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090409_681_700",
+    "timestamp": "2026-09-10 09:04:09",
+    "unix_time": 1789020249.7099016,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 681,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090409_681_700.jpg",
+    "video_url": "/api/alerts/alert_20260910_090409_681_700.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.685,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090409_616_742",
+    "timestamp": "2026-09-10 09:04:09",
+    "unix_time": 1789020249.75189,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 616,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090409_616_742.jpg",
+    "video_url": "/api/alerts/alert_20260910_090409_616_742.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.017,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090409_620_784",
+    "timestamp": "2026-09-10 09:04:09",
+    "unix_time": 1789020249.7931085,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 620,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090409_620_784.jpg",
+    "video_url": "/api/alerts/alert_20260910_090409_620_784.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.631,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090410_668_116",
+    "timestamp": "2026-09-10 09:04:10",
+    "unix_time": 1789020250.1260781,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 668,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090410_668_116.jpg",
+    "video_url": "/api/alerts/alert_20260910_090410_668_116.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.483,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090410_602_172",
+    "timestamp": "2026-09-10 09:04:10",
+    "unix_time": 1789020250.1907027,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 602,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090410_602_172.jpg",
+    "video_url": "/api/alerts/alert_20260910_090410_602_172.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 10.21,
+      "dist_ratio": 1.415,
+      "cycles": 4
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090411_632_841",
+    "timestamp": "2026-09-10 09:04:11",
+    "unix_time": 1789020251.8511226,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 632,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090411_632_841.jpg",
+    "video_url": "/api/alerts/alert_20260910_090411_632_841.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.15,
+      "cycles": 4
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090422_602_761",
+    "timestamp": "2026-09-10 09:04:22",
+    "unix_time": 1789020262.770375,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 602,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090422_602_761.jpg",
+    "video_url": "/api/alerts/alert_20260910_090422_602_761.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.643,
+      "cycles": 5
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090422_632_836",
+    "timestamp": "2026-09-10 09:04:22",
+    "unix_time": 1789020262.9079077,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 632,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090422_632_836.jpg",
+    "video_url": "/api/alerts/alert_20260910_090422_632_836.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.947,
+      "cycles": 5
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090422_668_940",
+    "timestamp": "2026-09-10 09:04:22",
+    "unix_time": 1789020262.953701,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 668,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090422_668_940.jpg",
+    "video_url": "/api/alerts/alert_20260910_090422_668_940.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.687,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090423_534_329",
+    "timestamp": "2026-09-10 09:04:23",
+    "unix_time": 1789020263.3378317,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 534,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090423_534_329.jpg",
+    "video_url": "/api/alerts/alert_20260910_090423_534_329.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.53,
+      "cycles": 5
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090424_683_763",
+    "timestamp": "2026-09-10 09:04:24",
+    "unix_time": 1789020264.7720602,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 683,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090424_683_763.jpg",
+    "video_url": "/api/alerts/alert_20260910_090424_683_763.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.211,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090425_706_237",
+    "timestamp": "2026-09-10 09:04:25",
+    "unix_time": 1789020265.249679,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 706,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090425_706_237.jpg",
+    "video_url": "/api/alerts/alert_20260910_090425_706_237.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.258,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090438_704_197",
+    "timestamp": "2026-09-10 09:04:38",
+    "unix_time": 1789020278.224744,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 704,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090438_704_197.jpg",
+    "video_url": "/api/alerts/alert_20260910_090438_704_197.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.581,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090438_683_263",
+    "timestamp": "2026-09-10 09:04:38",
+    "unix_time": 1789020278.2769377,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 683,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090438_683_263.jpg",
+    "video_url": "/api/alerts/alert_20260910_090438_683_263.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.409,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090438_534_323",
+    "timestamp": "2026-09-10 09:04:38",
+    "unix_time": 1789020278.3334134,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 534,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090438_534_323.jpg",
+    "video_url": "/api/alerts/alert_20260910_090438_534_323.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.525,
+      "cycles": 6
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090438_632_382",
+    "timestamp": "2026-09-10 09:04:38",
+    "unix_time": 1789020278.3957453,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 632,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090438_632_382.jpg",
+    "video_url": "/api/alerts/alert_20260910_090438_632_382.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.41,
+      "cycles": 6
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090448_534_960",
+    "timestamp": "2026-09-10 09:04:49",
+    "unix_time": 1789020289.0070562,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 534,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090448_534_960.jpg",
+    "video_url": "/api/alerts/alert_20260910_090448_534_960.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.749,
+      "cycles": 7
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090449_730_701",
+    "timestamp": "2026-09-10 09:04:49",
+    "unix_time": 1789020289.7123668,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 730,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090449_730_701.jpg",
+    "video_url": "/api/alerts/alert_20260910_090449_730_701.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.023,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090449_729_746",
+    "timestamp": "2026-09-10 09:04:49",
+    "unix_time": 1789020289.7595894,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 729,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090449_729_746.jpg",
+    "video_url": "/api/alerts/alert_20260910_090449_729_746.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.614,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090450_716_61",
+    "timestamp": "2026-09-10 09:04:50",
+    "unix_time": 1789020290.0736423,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 716,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090450_716_61.jpg",
+    "video_url": "/api/alerts/alert_20260910_090450_716_61.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.631,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090451_736_720",
+    "timestamp": "2026-09-10 09:04:51",
+    "unix_time": 1789020291.7345884,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 736,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090451_736_720.jpg",
+    "video_url": "/api/alerts/alert_20260910_090451_736_720.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.211,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090502_733_662",
+    "timestamp": "2026-09-10 09:05:02",
+    "unix_time": 1789020302.670968,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 733,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090502_733_662.jpg",
+    "video_url": "/api/alerts/alert_20260910_090502_733_662.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.698,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090502_736_706",
+    "timestamp": "2026-09-10 09:05:02",
+    "unix_time": 1789020302.7153327,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 736,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090502_736_706.jpg",
+    "video_url": "/api/alerts/alert_20260910_090502_736_706.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.62,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090502_751_923",
+    "timestamp": "2026-09-10 09:05:02",
+    "unix_time": 1789020302.932619,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 751,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090502_751_923.jpg",
+    "video_url": "/api/alerts/alert_20260910_090502_751_923.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.397,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090502_716_961",
+    "timestamp": "2026-09-10 09:05:02",
+    "unix_time": 1789020302.971779,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 716,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090502_716_961.jpg",
+    "video_url": "/api/alerts/alert_20260910_090502_716_961.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.517,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090504_755_880",
+    "timestamp": "2026-09-10 09:05:04",
+    "unix_time": 1789020304.8894188,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 755,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090504_755_880.jpg",
+    "video_url": "/api/alerts/alert_20260910_090504_755_880.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.15,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090505_757_183",
+    "timestamp": "2026-09-10 09:05:05",
+    "unix_time": 1789020305.1919668,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 757,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090505_757_183.jpg",
+    "video_url": "/api/alerts/alert_20260910_090505_757_183.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.258,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090514_754_779",
+    "timestamp": "2026-09-10 09:05:14",
+    "unix_time": 1789020314.789918,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 754,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090514_754_779.jpg",
+    "video_url": "/api/alerts/alert_20260910_090514_754_779.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.698,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090514_774_818",
+    "timestamp": "2026-09-10 09:05:14",
+    "unix_time": 1789020314.8318796,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 774,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090514_774_818.jpg",
+    "video_url": "/api/alerts/alert_20260910_090514_774_818.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.855,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090514_756_858",
+    "timestamp": "2026-09-10 09:05:14",
+    "unix_time": 1789020314.8688028,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 756,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090514_756_858.jpg",
+    "video_url": "/api/alerts/alert_20260910_090514_756_858.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.62,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090515_772_197",
+    "timestamp": "2026-09-10 09:05:15",
+    "unix_time": 1789020315.206557,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 772,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090515_772_197.jpg",
+    "video_url": "/api/alerts/alert_20260910_090515_772_197.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.517,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090517_755_265",
+    "timestamp": "2026-09-10 09:05:17",
+    "unix_time": 1789020317.2753036,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 755,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090517_755_265.jpg",
+    "video_url": "/api/alerts/alert_20260910_090517_755_265.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.22,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090526_776_105",
+    "timestamp": "2026-09-10 09:05:26",
+    "unix_time": 1789020326.1146545,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 776,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090526_776_105.jpg",
+    "video_url": "/api/alerts/alert_20260910_090526_776_105.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.685,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090526_720_143",
+    "timestamp": "2026-09-10 09:05:26",
+    "unix_time": 1789020326.1535618,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 720,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090526_720_143.jpg",
+    "video_url": "/api/alerts/alert_20260910_090526_720_143.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.017,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090526_772_184",
+    "timestamp": "2026-09-10 09:05:26",
+    "unix_time": 1789020326.1936386,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 772,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090526_772_184.jpg",
+    "video_url": "/api/alerts/alert_20260910_090526_772_184.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.631,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090526_793_781",
+    "timestamp": "2026-09-10 09:05:26",
+    "unix_time": 1789020326.7915483,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 793,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090526_793_781.jpg",
+    "video_url": "/api/alerts/alert_20260910_090526_793_781.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.581,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090528_779_547",
+    "timestamp": "2026-09-10 09:05:28",
+    "unix_time": 1789020328.558491,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 779,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090528_779_547.jpg",
+    "video_url": "/api/alerts/alert_20260910_090528_779_547.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.294,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090536_797_272",
+    "timestamp": "2026-09-10 09:05:36",
+    "unix_time": 1789020336.281998,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 797,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090536_797_272.jpg",
+    "video_url": "/api/alerts/alert_20260910_090536_797_272.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.616,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090537_801_795",
+    "timestamp": "2026-09-10 09:05:37",
+    "unix_time": 1789020337.8043816,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 801,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090537_801_795.jpg",
+    "video_url": "/api/alerts/alert_20260910_090537_801_795.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.62,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090537_802_831",
+    "timestamp": "2026-09-10 09:05:37",
+    "unix_time": 1789020337.8417134,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 802,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090537_802_831.jpg",
+    "video_url": "/api/alerts/alert_20260910_090537_802_831.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.855,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090538_812_121",
+    "timestamp": "2026-09-10 09:05:38",
+    "unix_time": 1789020338.1307166,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 812,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090538_812_121.jpg",
+    "video_url": "/api/alerts/alert_20260910_090538_812_121.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.502,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090548_828_956",
+    "timestamp": "2026-09-10 09:05:48",
+    "unix_time": 1789020348.9663503,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 828,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090548_828_956.jpg",
+    "video_url": "/api/alerts/alert_20260910_090548_828_956.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.685,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090549_817_1",
+    "timestamp": "2026-09-10 09:05:49",
+    "unix_time": 1789020349.0102813,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 817,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090549_817_1.jpg",
+    "video_url": "/api/alerts/alert_20260910_090549_817_1.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.017,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090549_818_45",
+    "timestamp": "2026-09-10 09:05:49",
+    "unix_time": 1789020349.0546715,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 818,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090549_818_45.jpg",
+    "video_url": "/api/alerts/alert_20260910_090549_818_45.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.631,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090549_834_280",
+    "timestamp": "2026-09-10 09:05:49",
+    "unix_time": 1789020349.2897763,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 834,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090549_834_280.jpg",
+    "video_url": "/api/alerts/alert_20260910_090549_834_280.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.581,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090551_841_263",
+    "timestamp": "2026-09-10 09:05:51",
+    "unix_time": 1789020351.271543,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 841,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090551_841_263.jpg",
+    "video_url": "/api/alerts/alert_20260910_090551_841_263.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.557,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090551_840_504",
+    "timestamp": "2026-09-10 09:05:51",
+    "unix_time": 1789020351.514678,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 840,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090551_840_504.jpg",
+    "video_url": "/api/alerts/alert_20260910_090551_840_504.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.131,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090601_839_379",
+    "timestamp": "2026-09-10 09:06:01",
+    "unix_time": 1789020361.393747,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 839,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090601_839_379.jpg",
+    "video_url": "/api/alerts/alert_20260910_090601_839_379.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.209,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090601_830_780",
+    "timestamp": "2026-09-10 09:06:01",
+    "unix_time": 1789020361.790003,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 830,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090601_830_780.jpg",
+    "video_url": "/api/alerts/alert_20260910_090601_830_780.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.581,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090601_850_828",
+    "timestamp": "2026-09-10 09:06:01",
+    "unix_time": 1789020361.8368995,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 850,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090601_850_828.jpg",
+    "video_url": "/api/alerts/alert_20260910_090601_850_828.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.525,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090601_841_872",
+    "timestamp": "2026-09-10 09:06:01",
+    "unix_time": 1789020361.8819818,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 841,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090601_841_872.jpg",
+    "video_url": "/api/alerts/alert_20260910_090601_841_872.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 10.52,
+      "dist_ratio": 1.41,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090604_842_13",
+    "timestamp": "2026-09-10 09:06:04",
+    "unix_time": 1789020364.0227442,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 842,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090604_842_13.jpg",
+    "video_url": "/api/alerts/alert_20260910_090604_842_13.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.258,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090613_858_608",
+    "timestamp": "2026-09-10 09:06:13",
+    "unix_time": 1789020373.6166606,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 858,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090613_858_608.jpg",
+    "video_url": "/api/alerts/alert_20260910_090613_858_608.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.209,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090614_857_128",
+    "timestamp": "2026-09-10 09:06:14",
+    "unix_time": 1789020374.1393535,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 857,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090614_857_128.jpg",
+    "video_url": "/api/alerts/alert_20260910_090614_857_128.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.691,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090614_841_174",
+    "timestamp": "2026-09-10 09:06:14",
+    "unix_time": 1789020374.1833148,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 841,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090614_841_174.jpg",
+    "video_url": "/api/alerts/alert_20260910_090614_841_174.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.61,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090616_877_194",
+    "timestamp": "2026-09-10 09:06:16",
+    "unix_time": 1789020376.2166545,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 877,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090616_877_194.jpg",
+    "video_url": "/api/alerts/alert_20260910_090616_877_194.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.15,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090625_897_252",
+    "timestamp": "2026-09-10 09:06:25",
+    "unix_time": 1789020385.2616942,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 897,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090625_897_252.jpg",
+    "video_url": "/api/alerts/alert_20260910_090625_897_252.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.947,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090625_874_294",
+    "timestamp": "2026-09-10 09:06:25",
+    "unix_time": 1789020385.3050485,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 874,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090625_874_294.jpg",
+    "video_url": "/api/alerts/alert_20260910_090625_874_294.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.687,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090625_871_353",
+    "timestamp": "2026-09-10 09:06:25",
+    "unix_time": 1789020385.3657122,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 871,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090625_871_353.jpg",
+    "video_url": "/api/alerts/alert_20260910_090625_871_353.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.643,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090625_895_748",
+    "timestamp": "2026-09-10 09:06:25",
+    "unix_time": 1789020385.7592902,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 895,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090625_895_748.jpg",
+    "video_url": "/api/alerts/alert_20260910_090625_895_748.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.62,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090625_841_805",
+    "timestamp": "2026-09-10 09:06:25",
+    "unix_time": 1789020385.8146307,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 841,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090625_841_805.jpg",
+    "video_url": "/api/alerts/alert_20260910_090625_841_805.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.386,
+      "cycles": 4
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090627_906_636",
+    "timestamp": "2026-09-10 09:06:27",
+    "unix_time": 1789020387.6451187,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 906,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090627_906_636.jpg",
+    "video_url": "/api/alerts/alert_20260910_090627_906_636.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.638,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090629_903_58",
+    "timestamp": "2026-09-10 09:06:29",
+    "unix_time": 1789020389.0677333,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 903,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090629_903_58.jpg",
+    "video_url": "/api/alerts/alert_20260910_090629_903_58.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.527,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090638_900_182",
+    "timestamp": "2026-09-10 09:06:38",
+    "unix_time": 1789020398.1919832,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 900,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090638_900_182.jpg",
+    "video_url": "/api/alerts/alert_20260910_090638_900_182.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.691,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090638_906_226",
+    "timestamp": "2026-09-10 09:06:38",
+    "unix_time": 1789020398.2358782,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 906,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090638_906_226.jpg",
+    "video_url": "/api/alerts/alert_20260910_090638_906_226.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.819,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090638_892_270",
+    "timestamp": "2026-09-10 09:06:38",
+    "unix_time": 1789020398.2830734,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 892,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090638_892_270.jpg",
+    "video_url": "/api/alerts/alert_20260910_090638_892_270.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.536,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090638_917_885",
+    "timestamp": "2026-09-10 09:06:38",
+    "unix_time": 1789020398.894277,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 917,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090638_917_885.jpg",
+    "video_url": "/api/alerts/alert_20260910_090638_917_885.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.53,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090640_902_93",
+    "timestamp": "2026-09-10 09:06:40",
+    "unix_time": 1789020400.1044326,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 902,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090640_902_93.jpg",
+    "video_url": "/api/alerts/alert_20260910_090640_902_93.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.082,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090649_922_443",
+    "timestamp": "2026-09-10 09:06:49",
+    "unix_time": 1789020409.4528742,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 922,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090649_922_443.jpg",
+    "video_url": "/api/alerts/alert_20260910_090649_922_443.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.209,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090649_921_776",
+    "timestamp": "2026-09-10 09:06:49",
+    "unix_time": 1789020409.7862508,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 921,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090649_921_776.jpg",
+    "video_url": "/api/alerts/alert_20260910_090649_921_776.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.552,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090649_934_862",
+    "timestamp": "2026-09-10 09:06:49",
+    "unix_time": 1789020409.8723052,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 934,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090649_934_862.jpg",
+    "video_url": "/api/alerts/alert_20260910_090649_934_862.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.585,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090650_940_167",
+    "timestamp": "2026-09-10 09:06:50",
+    "unix_time": 1789020410.1774154,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 940,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090650_940_167.jpg",
+    "video_url": "/api/alerts/alert_20260910_090650_940_167.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.62,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090651_950_737",
+    "timestamp": "2026-09-10 09:06:51",
+    "unix_time": 1789020411.7538235,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 950,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090651_950_737.jpg",
+    "video_url": "/api/alerts/alert_20260910_090651_950_737.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.488,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090651_951_977",
+    "timestamp": "2026-09-10 09:06:51",
+    "unix_time": 1789020411.9861498,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 951,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090651_951_977.jpg",
+    "video_url": "/api/alerts/alert_20260910_090651_951_977.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.239,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090701_944_906",
+    "timestamp": "2026-09-10 09:07:01",
+    "unix_time": 1789020421.9161558,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 944,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090701_944_906.jpg",
+    "video_url": "/api/alerts/alert_20260910_090701_944_906.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.687,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090701_952_949",
+    "timestamp": "2026-09-10 09:07:01",
+    "unix_time": 1789020421.9630797,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 952,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090701_952_949.jpg",
+    "video_url": "/api/alerts/alert_20260910_090701_952_949.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.947,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090702_950_39",
+    "timestamp": "2026-09-10 09:07:02",
+    "unix_time": 1789020422.0491138,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 950,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090702_950_39.jpg",
+    "video_url": "/api/alerts/alert_20260910_090702_950_39.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 10.17,
+      "dist_ratio": 1.643,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090702_962_561",
+    "timestamp": "2026-09-10 09:07:02",
+    "unix_time": 1789020422.5701127,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 962,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090702_962_561.jpg",
+    "video_url": "/api/alerts/alert_20260910_090702_962_561.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.62,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090704_949_312",
+    "timestamp": "2026-09-10 09:07:04",
+    "unix_time": 1789020424.3224666,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 949,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090704_949_312.jpg",
+    "video_url": "/api/alerts/alert_20260910_090704_949_312.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.22,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090713_981_111",
+    "timestamp": "2026-09-10 09:07:13",
+    "unix_time": 1789020433.120634,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 981,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090713_981_111.jpg",
+    "video_url": "/api/alerts/alert_20260910_090713_981_111.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.698,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090713_969_151",
+    "timestamp": "2026-09-10 09:07:13",
+    "unix_time": 1789020433.160074,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 969,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090713_969_151.jpg",
+    "video_url": "/api/alerts/alert_20260910_090713_969_151.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.855,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090713_984_192",
+    "timestamp": "2026-09-10 09:07:13",
+    "unix_time": 1789020433.2022061,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 984,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090713_984_192.jpg",
+    "video_url": "/api/alerts/alert_20260910_090713_984_192.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.62,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090713_980_472",
+    "timestamp": "2026-09-10 09:07:13",
+    "unix_time": 1789020433.4817426,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 980,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090713_980_472.jpg",
+    "video_url": "/api/alerts/alert_20260910_090713_980_472.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.525,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090715_991_151",
+    "timestamp": "2026-09-10 09:07:15",
+    "unix_time": 1789020435.160113,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 991,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090715_991_151.jpg",
+    "video_url": "/api/alerts/alert_20260910_090715_991_151.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.082,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090715_970_192",
+    "timestamp": "2026-09-10 09:07:15",
+    "unix_time": 1789020435.2015736,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 970,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090715_970_192.jpg",
+    "video_url": "/api/alerts/alert_20260910_090715_970_192.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.498,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090715_992_579",
+    "timestamp": "2026-09-10 09:07:15",
+    "unix_time": 1789020435.5920596,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 992,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090715_992_579.jpg",
+    "video_url": "/api/alerts/alert_20260910_090715_992_579.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.239,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090726_985_101",
+    "timestamp": "2026-09-10 09:07:26",
+    "unix_time": 1789020446.110296,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 985,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090726_985_101.jpg",
+    "video_url": "/api/alerts/alert_20260910_090726_985_101.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.517,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090726_990_174",
+    "timestamp": "2026-09-10 09:07:26",
+    "unix_time": 1789020446.1993768,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 990,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090726_990_174.jpg",
+    "video_url": "/api/alerts/alert_20260910_090726_990_174.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.397,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090726_993_259",
+    "timestamp": "2026-09-10 09:07:26",
+    "unix_time": 1789020446.272462,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 993,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090726_993_259.jpg",
+    "video_url": "/api/alerts/alert_20260910_090726_993_259.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.693,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090726_992_315",
+    "timestamp": "2026-09-10 09:07:26",
+    "unix_time": 1789020446.3298697,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 992,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090726_992_315.jpg",
+    "video_url": "/api/alerts/alert_20260910_090726_992_315.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.388,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090728_1009_133",
+    "timestamp": "2026-09-10 09:07:28",
+    "unix_time": 1789020448.1431062,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1009,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090728_1009_133.jpg",
+    "video_url": "/api/alerts/alert_20260910_090728_1009_133.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.22,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090737_1008_276",
+    "timestamp": "2026-09-10 09:07:37",
+    "unix_time": 1789020457.285534,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1008,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090737_1008_276.jpg",
+    "video_url": "/api/alerts/alert_20260910_090737_1008_276.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.684,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090737_1010_326",
+    "timestamp": "2026-09-10 09:07:37",
+    "unix_time": 1789020457.3351295,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1010,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090737_1010_326.jpg",
+    "video_url": "/api/alerts/alert_20260910_090737_1010_326.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.06,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090737_1024_368",
+    "timestamp": "2026-09-10 09:07:37",
+    "unix_time": 1789020457.3778646,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1024,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090737_1024_368.jpg",
+    "video_url": "/api/alerts/alert_20260910_090737_1024_368.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.661,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090737_1021_640",
+    "timestamp": "2026-09-10 09:07:37",
+    "unix_time": 1789020457.6794896,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1021,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090737_1021_640.jpg",
+    "video_url": "/api/alerts/alert_20260910_090737_1021_640.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.517,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090739_991_188",
+    "timestamp": "2026-09-10 09:07:39",
+    "unix_time": 1789020459.1989539,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 991,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090739_991_188.jpg",
+    "video_url": "/api/alerts/alert_20260910_090739_991_188.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.082,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090739_983_791",
+    "timestamp": "2026-09-10 09:07:39",
+    "unix_time": 1789020459.8004916,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 983,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090739_983_791.jpg",
+    "video_url": "/api/alerts/alert_20260910_090739_983_791.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.22,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090748_1026_469",
+    "timestamp": "2026-09-10 09:07:48",
+    "unix_time": 1789020468.4844754,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1026,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090748_1026_469.jpg",
+    "video_url": "/api/alerts/alert_20260910_090748_1026_469.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.564,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090749_1029_838",
+    "timestamp": "2026-09-10 09:07:49",
+    "unix_time": 1789020469.8483,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1029,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090749_1029_838.jpg",
+    "video_url": "/api/alerts/alert_20260910_090749_1029_838.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.06,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090750_1046_178",
+    "timestamp": "2026-09-10 09:07:50",
+    "unix_time": 1789020470.1890821,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1046,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090750_1046_178.jpg",
+    "video_url": "/api/alerts/alert_20260910_090750_1046_178.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.517,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090750_1047_229",
+    "timestamp": "2026-09-10 09:07:50",
+    "unix_time": 1789020470.2398372,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1047,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090750_1047_229.jpg",
+    "video_url": "/api/alerts/alert_20260910_090750_1047_229.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.388,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090751_991_932",
+    "timestamp": "2026-09-10 09:07:51",
+    "unix_time": 1789020471.9437864,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 991,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090751_991_932.jpg",
+    "video_url": "/api/alerts/alert_20260910_090751_991_932.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.15,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090752_1028_148",
+    "timestamp": "2026-09-10 09:07:52",
+    "unix_time": 1789020472.1590502,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1028,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090752_1028_148.jpg",
+    "video_url": "/api/alerts/alert_20260910_090752_1028_148.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.239,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090801_1053_358",
+    "timestamp": "2026-09-10 09:08:01",
+    "unix_time": 1789020481.3710554,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1053,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090801_1053_358.jpg",
+    "video_url": "/api/alerts/alert_20260910_090801_1053_358.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.209,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090801_1052_717",
+    "timestamp": "2026-09-10 09:08:01",
+    "unix_time": 1789020481.72821,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1052,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090801_1052_717.jpg",
+    "video_url": "/api/alerts/alert_20260910_090801_1052_717.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.552,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090801_1047_778",
+    "timestamp": "2026-09-10 09:08:01",
+    "unix_time": 1789020481.7917395,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1047,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090801_1047_778.jpg",
+    "video_url": "/api/alerts/alert_20260910_090801_1047_778.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.585,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090802_1070_135",
+    "timestamp": "2026-09-10 09:08:02",
+    "unix_time": 1789020482.145663,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1070,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090802_1070_135.jpg",
+    "video_url": "/api/alerts/alert_20260910_090802_1070_135.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.62,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090803_1081_788",
+    "timestamp": "2026-09-10 09:08:03",
+    "unix_time": 1789020483.7995803,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1081,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090803_1081_788.jpg",
+    "video_url": "/api/alerts/alert_20260910_090803_1081_788.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.294,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090812_1075_828",
+    "timestamp": "2026-09-10 09:08:12",
+    "unix_time": 1789020492.8381166,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1075,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090812_1075_828.jpg",
+    "video_url": "/api/alerts/alert_20260910_090812_1075_828.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.684,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090812_1080_872",
+    "timestamp": "2026-09-10 09:08:12",
+    "unix_time": 1789020492.8809974,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1080,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090812_1080_872.jpg",
+    "video_url": "/api/alerts/alert_20260910_090812_1080_872.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.06,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090812_1090_915",
+    "timestamp": "2026-09-10 09:08:12",
+    "unix_time": 1789020492.9242747,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1090,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090812_1090_915.jpg",
+    "video_url": "/api/alerts/alert_20260910_090812_1090_915.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.661,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090813_1094_134",
+    "timestamp": "2026-09-10 09:08:13",
+    "unix_time": 1789020493.1435182,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1094,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090813_1094_134.jpg",
+    "video_url": "/api/alerts/alert_20260910_090813_1094_134.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.517,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090813_1047_172",
+    "timestamp": "2026-09-10 09:08:13",
+    "unix_time": 1789020493.1819346,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1047,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090813_1047_172.jpg",
+    "video_url": "/api/alerts/alert_20260910_090813_1047_172.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.388,
+      "cycles": 3
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090815_991_74",
+    "timestamp": "2026-09-10 09:08:15",
+    "unix_time": 1789020495.08356,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 991,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090815_991_74.jpg",
+    "video_url": "/api/alerts/alert_20260910_090815_991_74.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.15,
+      "cycles": 4
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090815_1103_272",
+    "timestamp": "2026-09-10 09:08:15",
+    "unix_time": 1789020495.2842405,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1103,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090815_1103_272.jpg",
+    "video_url": "/api/alerts/alert_20260910_090815_1103_272.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.22,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090826_1098_881",
+    "timestamp": "2026-09-10 09:08:26",
+    "unix_time": 1789020506.890145,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1098,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090826_1098_881.jpg",
+    "video_url": "/api/alerts/alert_20260910_090826_1098_881.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.62,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090826_1114_928",
+    "timestamp": "2026-09-10 09:08:26",
+    "unix_time": 1789020506.9373066,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1114,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090826_1114_928.jpg",
+    "video_url": "/api/alerts/alert_20260910_090826_1114_928.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.386,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090826_1102_978",
+    "timestamp": "2026-09-10 09:08:26",
+    "unix_time": 1789020506.987205,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1102,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090826_1102_978.jpg",
+    "video_url": "/api/alerts/alert_20260910_090826_1102_978.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.679,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090828_991_463",
+    "timestamp": "2026-09-10 09:08:28",
+    "unix_time": 1789020508.4722955,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 991,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090828_991_463.jpg",
+    "video_url": "/api/alerts/alert_20260910_090828_991_463.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.294,
+      "cycles": 5
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090828_1125_693",
+    "timestamp": "2026-09-10 09:08:28",
+    "unix_time": 1789020508.7018054,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1125,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090828_1125_693.jpg",
+    "video_url": "/api/alerts/alert_20260910_090828_1125_693.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.638,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090831_1117_928",
+    "timestamp": "2026-09-10 09:08:31",
+    "unix_time": 1789020511.9479892,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1117,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090831_1117_928.jpg",
+    "video_url": "/api/alerts/alert_20260910_090831_1117_928.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.58,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090837_1140_812",
+    "timestamp": "2026-09-10 09:08:37",
+    "unix_time": 1789020517.8346624,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1140,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090837_1140_812.jpg",
+    "video_url": "/api/alerts/alert_20260910_090837_1140_812.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.536,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090837_1122_869",
+    "timestamp": "2026-09-10 09:08:37",
+    "unix_time": 1789020517.8925118,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1122,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090837_1122_869.jpg",
+    "video_url": "/api/alerts/alert_20260910_090837_1122_869.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.819,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090837_1098_942",
+    "timestamp": "2026-09-10 09:08:37",
+    "unix_time": 1789020517.952039,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1098,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090837_1098_942.jpg",
+    "video_url": "/api/alerts/alert_20260910_090837_1098_942.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.691,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090839_1125_616",
+    "timestamp": "2026-09-10 09:08:39",
+    "unix_time": 1789020519.6291907,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1125,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090839_1125_616.jpg",
+    "video_url": "/api/alerts/alert_20260910_090839_1125_616.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.31,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090844_1145_57",
+    "timestamp": "2026-09-10 09:08:44",
+    "unix_time": 1789020524.1002197,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1145,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090844_1145_57.jpg",
+    "video_url": "/api/alerts/alert_20260910_090844_1145_57.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.616,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090847_1163_995",
+    "timestamp": "2026-09-10 09:08:48",
+    "unix_time": 1789020528.0065098,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1163,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090847_1163_995.jpg",
+    "video_url": "/api/alerts/alert_20260910_090847_1163_995.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.685,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090848_1147_40",
+    "timestamp": "2026-09-10 09:08:48",
+    "unix_time": 1789020528.0493708,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1147,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090848_1147_40.jpg",
+    "video_url": "/api/alerts/alert_20260910_090848_1147_40.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.017,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090848_1164_353",
+    "timestamp": "2026-09-10 09:08:48",
+    "unix_time": 1789020528.3624642,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1164,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090848_1164_353.jpg",
+    "video_url": "/api/alerts/alert_20260910_090848_1164_353.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.581,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090848_1168_398",
+    "timestamp": "2026-09-10 09:08:48",
+    "unix_time": 1789020528.406689,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1168,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090848_1168_398.jpg",
+    "video_url": "/api/alerts/alert_20260910_090848_1168_398.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.554,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090850_1175_805",
+    "timestamp": "2026-09-10 09:08:50",
+    "unix_time": 1789020530.813923,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1175,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090850_1175_805.jpg",
+    "video_url": "/api/alerts/alert_20260910_090850_1175_805.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.239,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090859_1171_420",
+    "timestamp": "2026-09-10 09:08:59",
+    "unix_time": 1789020539.4289815,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1171,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090859_1171_420.jpg",
+    "video_url": "/api/alerts/alert_20260910_090859_1171_420.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.698,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090859_1173_465",
+    "timestamp": "2026-09-10 09:08:59",
+    "unix_time": 1789020539.4741752,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1173,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090859_1173_465.jpg",
+    "video_url": "/api/alerts/alert_20260910_090859_1173_465.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.855,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090859_1186_506",
+    "timestamp": "2026-09-10 09:08:59",
+    "unix_time": 1789020539.5156243,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1186,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090859_1186_506.jpg",
+    "video_url": "/api/alerts/alert_20260910_090859_1186_506.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.62,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090900_1184_54",
+    "timestamp": "2026-09-10 09:09:00",
+    "unix_time": 1789020540.0624897,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1184,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090900_1184_54.jpg",
+    "video_url": "/api/alerts/alert_20260910_090900_1184_54.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.525,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090902_1190_16",
+    "timestamp": "2026-09-10 09:09:02",
+    "unix_time": 1789020542.0248356,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1190,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090902_1190_16.jpg",
+    "video_url": "/api/alerts/alert_20260910_090902_1190_16.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.258,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090902_1192_942",
+    "timestamp": "2026-09-10 09:09:02",
+    "unix_time": 1789020542.9530816,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1192,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090902_1192_942.jpg",
+    "video_url": "/api/alerts/alert_20260910_090902_1192_942.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.228,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090911_1187_483",
+    "timestamp": "2026-09-10 09:09:11",
+    "unix_time": 1789020551.496445,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1187,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090911_1187_483.jpg",
+    "video_url": "/api/alerts/alert_20260910_090911_1187_483.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.691,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090911_1191_550",
+    "timestamp": "2026-09-10 09:09:11",
+    "unix_time": 1789020551.5679355,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1191,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090911_1191_550.jpg",
+    "video_url": "/api/alerts/alert_20260910_090911_1191_550.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 0.819,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090912_1186_20",
+    "timestamp": "2026-09-10 09:09:12",
+    "unix_time": 1789020552.0292003,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1186,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090912_1186_20.jpg",
+    "video_url": "/api/alerts/alert_20260910_090912_1186_20.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.452,
+      "cycles": 2
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090913_1194_516",
+    "timestamp": "2026-09-10 09:09:13",
+    "unix_time": 1789020553.524706,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1194,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090913_1194_516.jpg",
+    "video_url": "/api/alerts/alert_20260910_090913_1194_516.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.3,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090913_1212_825",
+    "timestamp": "2026-09-10 09:09:13",
+    "unix_time": 1789020553.834716,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1212,
+    "zone": "kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090913_1212_825.jpg",
+    "video_url": "/api/alerts/alert_20260910_090913_1212_825.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.638,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
+  },
+  {
+    "id": "alert_20260910_090924_1211_596",
+    "timestamp": "2026-09-10 09:09:24",
+    "unix_time": 1789020564.6111958,
+    "type": "UNAUTHORIZED_EATING",
+    "person_id": 1211,
+    "zone": "Restricted Inventory / Storage, kitchen",
+    "snapshot_url": "/api/alerts/alert_20260910_090924_1211_596.jpg",
+    "video_url": "/api/alerts/alert_20260910_090924_1211_596.mp4",
+    "details": {
+      "posture": "STANDING",
+      "dwell_sec": 0.0,
+      "dist_ratio": 1.209,
+      "cycles": 1
+    },
+    "status": "UNREVIEWED"
   }
 ]

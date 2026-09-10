@@ -521,3 +521,42 @@ body {
   font-size: 20px;
   cursor: pointer;
 }
+
+/* App Footer */
+.app-footer {
+  background: rgba(11, 15, 25, 0.95);
+  border-top: 1px solid var(--border-color);
+  padding: 14px 24px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: auto;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: var(--accent-emerald);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer-link:hover {
+  color: #34d399;
+  text-decoration: underline;
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
+.footer-divider {
+  color: #4b5563;
+}
