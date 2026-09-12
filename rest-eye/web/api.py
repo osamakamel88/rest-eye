@@ -1,23 +1,37 @@
 import os
 import time
+import json
+import shutil
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 import cv2
-from fastapi import FastAPI, HTTPException, Request, Response, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Request, Response, Depends, UploadFile, File, BackgroundTasks
 from fastapi.responses import StreamingResponse, FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
+from sqlalchemy.orm import Session
 
 from core.config import config, ALERTS_DIR, UPLOADS_DIR, NOTES_FILE, BASE_DIR, DEFAULT_SAMPLE_VIDEO
 from core.engine import RestEyeEngine
-import json
-import shutil
-from fastapi import UploadFile, File
+from core.db.session import get_db, init_db
+from core.db.models import Organization, User, Branch, Camera, Zone, Incident, TenantSettings
+from core.db import crud
+from core.auth.security import create_access_token, verify_password, get_password_hash
+from core.auth.dependencies import get_current_user, get_current_tenant, get_optional_user
+from core.storage.storage_manager import storage_manager, StorageManager
+from core.notifications.notifier import alert_notifier, AlertNotifier
 
-app = FastAPI(title="Rest-Eye CCTV AI Sentry", version="1.0.0")
+# Initialize DB tables on startup
+init_db()
 
-# Enable CORS for local dashboards
+app = FastAPI(
+    title="REST-EYE Enterprise AI Sentry SaaS",
+    description="Multi-Tenant CCTV AI Video Analytics Platform for Restaurants",
+    version="2.0.0"
+)
+
+# Enable CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -35,7 +49,50 @@ def get_engine() -> RestEyeEngine:
         engine = RestEyeEngine().start()
     return engine
 
-# Data models
+# ==========================================
+# PYDANTIC SCHEMAS
+# ==========================================
+class UserRegisterSchema(BaseModel):
+    restaurant_name: str
+    email: str
+    password: str
+    full_name: Optional[str] = "مدير التشغيل"
+
+class UserLoginSchema(BaseModel):
+    email: str
+    password: str
+
+class BranchCreateSchema(BaseModel):
+    name: str
+    city: Optional[str] = "القاهرة"
+    address: Optional[str] = ""
+
+class CameraCreateSchema(BaseModel):
+    branch_id: str
+    name: str
+    stream_source: str
+    camera_type: Optional[str] = "KITCHEN"
+
+class ZoneCreateSchema(BaseModel):
+    camera_id: str
+    name: str
+    polygon_points: List[List[float]]
+    zone_type: Optional[str] = "restricted_eating"
+
+class CloudSettingsSchema(BaseModel):
+    r2_account_id: Optional[str] = None
+    r2_access_key_id: Optional[str] = None
+    r2_secret_access_key: Optional[str] = None
+    r2_bucket_name: Optional[str] = None
+    r2_public_url: Optional[str] = None
+    telegram_bot_token: Optional[str] = None
+    telegram_chat_id: Optional[str] = None
+    telegram_enabled: Optional[bool] = None
+    whatsapp_api_url: Optional[str] = None
+    whatsapp_token: Optional[str] = None
+    whatsapp_phone_number: Optional[str] = None
+    whatsapp_enabled: Optional[bool] = None
+
 class SourceRequest(BaseModel):
     source: str
     camera_name: Optional[str] = "Kitchen Cam"
@@ -53,7 +110,7 @@ class AuditNoteModel(BaseModel):
     time_offset: Optional[str] = None
     person_id: Optional[int] = None
     zone: Optional[str] = "Kitchen"
-    severity: Optional[str] = "NORMAL"  # "NORMAL", "WARNING", "VIOLATION"
+    severity: Optional[str] = "NORMAL"
 
 class ZoneModel(BaseModel):
     id: Optional[str] = None
@@ -61,9 +118,6 @@ class ZoneModel(BaseModel):
     type: str = "restricted_eating"
     color: str = "#ef4444"
     polygon: List[List[float]]
-    alert_on_eating: bool = True
-    alert_on_loiter: bool = True
-    loiter_threshold_sec: float = 90.0
 
 class ToggleRequest(BaseModel):
     skeleton: Optional[bool] = None
@@ -71,23 +125,168 @@ class ToggleRequest(BaseModel):
     zones: Optional[bool] = None
     hud: Optional[bool] = None
 
-def load_audit_notes() -> List[Dict[str, Any]]:
-    if NOTES_FILE.exists():
-        try:
-            with open(NOTES_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return []
-    return []
+# ==========================================
+# AUTH & MULTI-TENANT REST API (v2)
+# ==========================================
+@app.post("/api/v2/auth/register")
+def register_tenant(data: UserRegisterSchema, db: Session = Depends(get_db)):
+    """Registers a new restaurant organization and admin user account"""
+    existing_user = crud.get_user_by_email(db, data.email)
+    if existing_user:
+        raise HTTPException(status_code=400, detail="البريد الإلكتروني مسجل بالفعل")
 
-def save_audit_notes(notes: List[Dict[str, Any]]):
-    try:
-        with open(NOTES_FILE, "w", encoding="utf-8") as f:
-            json.dump(notes, f, indent=2)
-    except Exception as e:
-        print(f"Error saving notes: {e}")
+    slug = data.restaurant_name.lower().replace(" ", "-")[:50]
+    org = crud.create_organization(db=db, name=data.restaurant_name, slug=f"{slug}-{int(time.time()) % 1000}")
+    user = crud.create_user(
+        db=db,
+        org_id=org.id,
+        email=data.email,
+        hashed_pw=get_password_hash(data.password),
+        full_name=data.full_name or "المدير العام",
+        role="owner"
+    )
+    # Create a default branch
+    crud.create_branch(db=db, org_id=org.id, name="الفرع الرئيسي (Main Branch)")
 
-# Streaming generator for live annotated MJPEG video feed
+    token = create_access_token({"sub": user.email, "org_id": org.id, "role": user.role})
+    return {
+        "status": "success",
+        "access_token": token,
+        "token_type": "bearer",
+        "user": {"id": user.id, "email": user.email, "name": user.full_name, "role": user.role},
+        "organization": {"id": org.id, "name": org.name, "plan": org.plan_tier}
+    }
+
+@app.post("/api/v2/auth/login")
+def login_user(data: UserLoginSchema, db: Session = Depends(get_db)):
+    """Authenticates user and returns scoped JWT Token"""
+    user = crud.get_user_by_email(db, data.email)
+    if not user or not verify_password(data.password, user.hashed_password):
+        raise HTTPException(status_code=401, detail="بيانات الدخول غير صحيحة (Invalid email or password)")
+
+    token = create_access_token({"sub": user.email, "org_id": user.organization_id, "role": user.role})
+    org = crud.get_organization(db, user.organization_id)
+    return {
+        "status": "success",
+        "access_token": token,
+        "token_type": "bearer",
+        "user": {"id": user.id, "email": user.email, "name": user.full_name, "role": user.role},
+        "organization": {"id": org.id, "name": org.name, "plan": org.plan_tier} if org else None
+    }
+
+@app.get("/api/v2/auth/me")
+def get_current_profile(user: User = Depends(get_current_user), tenant: Organization = Depends(get_current_tenant)):
+    return {
+        "user": {"id": user.id, "email": user.email, "name": user.full_name, "role": user.role},
+        "organization": {"id": tenant.id, "name": tenant.name, "plan": tenant.plan_tier, "slug": tenant.slug}
+    }
+
+# --- Branches & Cameras ---
+@app.get("/api/v2/branches")
+def list_tenant_branches(tenant: Organization = Depends(get_current_tenant), db: Session = Depends(get_db)):
+    branches = crud.list_branches(db, tenant.id)
+    result = []
+    for b in branches:
+        cams = crud.list_cameras_by_branch(db, b.id)
+        result.append({
+            "id": b.id,
+            "name": b.name,
+            "city": b.city,
+            "address": b.address,
+            "cameras_count": len(cams),
+            "cameras": [{"id": c.id, "name": c.name, "type": c.camera_type, "source": c.stream_source} for c in cams]
+        })
+    return {"status": "success", "branches": result}
+
+@app.post("/api/v2/branches")
+def add_tenant_branch(data: BranchCreateSchema, tenant: Organization = Depends(get_current_tenant), db: Session = Depends(get_db)):
+    branch = crud.create_branch(db, tenant.id, data.name, data.city or "القاهرة", data.address or "")
+    return {"status": "success", "branch": {"id": branch.id, "name": branch.name}}
+
+@app.post("/api/v2/cameras")
+def add_branch_camera(data: CameraCreateSchema, tenant: Organization = Depends(get_current_tenant), db: Session = Depends(get_db)):
+    branch = crud.get_branch(db, data.branch_id, tenant.id)
+    if not branch:
+        raise HTTPException(status_code=404, detail="Branch not found")
+    cam = crud.create_camera(db, branch.id, data.name, data.stream_source, data.camera_type or "KITCHEN")
+    return {"status": "success", "camera": {"id": cam.id, "name": cam.name}}
+
+@app.get("/api/v2/incidents")
+def get_tenant_incidents(
+    camera_id: Optional[str] = None,
+    limit: int = 50,
+    tenant: Organization = Depends(get_current_tenant),
+    db: Session = Depends(get_db)
+):
+    incidents = crud.list_incidents(db, tenant.id, camera_id=camera_id, limit=limit)
+    return {
+        "status": "success",
+        "total": len(incidents),
+        "incidents": [
+            {
+                "id": inc.id,
+                "type": inc.incident_type,
+                "camera_id": inc.camera_id,
+                "person_id": inc.person_track_id,
+                "zone_name": inc.zone_name,
+                "posture": inc.posture,
+                "dwell_sec": inc.dwell_sec,
+                "video_url": inc.video_clip_url,
+                "snapshot_url": inc.snapshot_url,
+                "created_at": inc.created_at.strftime("%Y-%m-%d %H:%M:%S") if inc.created_at else None
+            }
+            for inc in incidents
+        ]
+    }
+
+# --- Cloud Integrations (R2, Telegram, WhatsApp) ---
+@app.get("/api/v2/settings")
+def get_settings(tenant: Organization = Depends(get_current_tenant), db: Session = Depends(get_db)):
+    s = crud.get_tenant_settings(db, tenant.id)
+    return {
+        "status": "success",
+        "settings": {
+            "r2_configured": bool(s.r2_account_id and s.r2_access_key_id),
+            "r2_bucket_name": s.r2_bucket_name or config.r2_bucket_name,
+            "r2_public_url": s.r2_public_url or config.r2_public_url,
+            "telegram_configured": bool(s.telegram_bot_token and s.telegram_chat_id),
+            "telegram_chat_id": s.telegram_chat_id or config.telegram_chat_id,
+            "whatsapp_configured": bool(s.whatsapp_api_url and s.whatsapp_phone_number),
+            "whatsapp_phone": s.whatsapp_phone_number or config.whatsapp_phone_number
+        }
+    }
+
+@app.post("/api/v2/settings")
+def save_settings(data: CloudSettingsSchema, tenant: Organization = Depends(get_current_tenant), db: Session = Depends(get_db)):
+    updated = crud.update_tenant_settings(db, tenant.id, data.model_dump(exclude_unset=True))
+    return {"status": "success", "message": "تم حفظ الإعدادات بنجاح"}
+
+@app.post("/api/v2/test-telegram")
+async def test_telegram_alert(token: Optional[str] = None, chat_id: Optional[str] = None):
+    t = token or config.telegram_bot_token
+    c = chat_id or config.telegram_chat_id
+    success, msg = await alert_notifier.send_telegram_alert(
+        title="تجربة الربط السحابي (Test Alert)",
+        message="✅ تم بنجاح ربط نظام REST-EYE مع بوت التليجرام الخاص بك. ستصلك هنا مقاطع وتنبيهات التجاوزات فوراً.",
+        token=t,
+        chat_id=c
+    )
+    return {"success": success, "message": msg}
+
+@app.post("/api/v2/test-r2")
+def test_r2_storage(account_id: Optional[str] = None, access_key: Optional[str] = None, secret_key: Optional[str] = None, bucket: Optional[str] = None):
+    mgr = StorageManager(
+        account_id=account_id or config.r2_account_id,
+        access_key=access_key or config.r2_access_key_id,
+        secret_key=secret_key or config.r2_secret_access_key,
+        bucket_name=bucket or config.r2_bucket_name
+    )
+    success, msg = mgr.test_connection()
+    return {"success": success, "message": msg}
+
+# ==========================================
+# STREAMING & CONTROL CENTER ENDPOINTS
+# ==========================================
 def generate_frames():
     eng = get_engine()
     while True:
@@ -100,10 +299,8 @@ def generate_frames():
         if not ret:
             continue
 
-        frame_bytes = buffer.tobytes()
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-        
+               b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
         time.sleep(0.012)
 
 @app.get("/api/stream")
@@ -136,7 +333,7 @@ def get_status():
 
 @app.post("/api/upload")
 async def upload_video(file: UploadFile = File(...)):
-    """Uploads any MP4/AVI/MOV video file for analysis and audits."""
+    """Uploads any video for fast-forward AI audit"""
     eng = get_engine()
     safe_filename = f"upload_{int(time.time())}_{file.filename.replace(' ', '_')}"
     dest_path = UPLOADS_DIR / safe_filename
@@ -156,14 +353,12 @@ async def upload_video(file: UploadFile = File(...)):
 
 @app.post("/api/speed")
 def set_playback_speed(req: SpeedRequest):
-    """Controls video playback speed (0.25x to 4.0x timelapse)."""
     eng = get_engine()
     eng.stream.set_speed(req.speed)
     return {"status": "success", "speed": eng.stream.speed_multiplier}
 
 @app.post("/api/playback")
 def control_playback(req: PlaybackRequest):
-    """Controls playback pause/play and rewind."""
     eng = get_engine()
     if req.action == "toggle_pause":
         paused = eng.stream.toggle_pause()
@@ -172,34 +367,6 @@ def control_playback(req: PlaybackRequest):
         eng.stream.rewind()
         return {"status": "success", "rewound": True}
     return {"status": "error", "message": "Unknown action"}
-
-# Audit Notes Endpoints
-@app.get("/api/notes")
-def get_notes():
-    return {"notes": load_audit_notes()}
-
-@app.post("/api/notes")
-def add_note(note_data: AuditNoteModel):
-    notes = load_audit_notes()
-    new_entry = {
-        "id": f"note-{int(time.time()*1000)}",
-        "note": note_data.note,
-        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-        "time_offset": note_data.time_offset or time.strftime("%H:%M:%S"),
-        "person_id": note_data.person_id,
-        "zone": note_data.zone or "Kitchen",
-        "severity": note_data.severity or "NORMAL"
-    }
-    notes.insert(0, new_entry)
-    save_audit_notes(notes)
-    return {"status": "success", "note": new_entry}
-
-@app.delete("/api/notes/{note_id}")
-def delete_note(note_id: str):
-    notes = load_audit_notes()
-    notes = [n for n in notes if n.get("id") != note_id]
-    save_audit_notes(notes)
-    return {"status": "success"}
 
 @app.get("/api/alerts")
 def get_alerts():
@@ -276,4 +443,4 @@ def index_page():
     if index_file.exists():
         with open(index_file, "r", encoding="utf-8") as f:
             return f.read()
-    return "<h1>Rest-Eye CCTV Sentry backend is running.</h1>"
+    return "<h1>REST-EYE Enterprise AI Sentry is running.</h1>"

@@ -309,6 +309,33 @@
   <!-- ========================================== -->
   <div id="demo-tab-content" class="tab-content">
     
+    <!-- Multi-Tenant Organization & Branch Selector Bar -->
+    <div class="tenant-bar" style="background: #0f172a; border-bottom: 1px solid #334155; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span style="font-size: 16px;">🏢</span>
+          <strong id="tenant-name-badge" style="color: var(--accent-emerald); font-size: 13.5px;">سلسلة مطاعم الذواقة (Gourmet Burgers)</strong>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span style="font-size: 12px; color: var(--text-muted);">الفرع النشط:</span>
+          <select id="branch-select" onchange="handleBranchChange()" style="background: #1e293b; color: #fff; border: 1px solid #475569; padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 700;">
+            <option value="b-1">📍 فرع التجمع الخامس (Fifth Settlement)</option>
+            <option value="b-2">📍 فرع المعادي (Maadi Hub)</option>
+            <option value="b-3">📍 فرع الشيخ زايد (Zayed Center)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="btn-toggle" style="font-size: 12px;" onclick="openCloudSettingsModal()">
+          ☁️ إعدادات السحابة والتنبيهات (R2 & Telegram)
+        </button>
+        <button class="btn-toggle" style="font-size: 12px;" onclick="openRegisterModal()">
+          🏢 تسجيل مطعم جديد
+        </button>
+      </div>
+    </div>
+
     <!-- Top Demo Control Bar -->
     <div class="demo-top-bar">
       <div class="telemetry-pills">
@@ -544,25 +571,74 @@
     </div>
   </div>
 
-  <!-- Modal: Change Camera Source -->
-  <div class="modal-backdrop" id="source-modal">
-    <div class="modal-content" style="max-width: 480px;">
+  <!-- Modal: Cloud Integrations & Storage Settings -->
+  <div class="modal-backdrop" id="cloud-settings-modal">
+    <div class="modal-content" style="max-width: 560px;">
       <div class="modal-header">
-        <h3>اختيار مصدر الكاميرا أو رابط الـ RTSP</h3>
-        <button class="modal-close" onclick="closeSourceModal()">✕</button>
+        <h3>☁️ إعدادات السحابة والتنبيهات (Cloud Integrations)</h3>
+        <button class="modal-close" onclick="closeCloudSettingsModal()">✕</button>
       </div>
-      <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
-        <div>
-          <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px;">رابط RTSP أو مسار الفيديو</label>
-          <input type="text" id="source-input" style="width: 100%; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; text-align: left;" placeholder="rtsp://admin:pass@192.168.1.100:554/Streaming/Channels/102">
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 16px;">
+        
+        <!-- Cloudflare R2 Section -->
+        <div style="background: #1f2937; padding: 14px; border-radius: 8px; border: 1px solid #374151;">
+          <h4 style="color: var(--accent-emerald); font-size: 13.5px; margin-bottom: 8px;">📦 تخزين الفيديوهات سحابياً (Cloudflare R2 / S3)</h4>
+          <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px;">لتخزين مقاطع الـ 8 ثواني بدون استهلاك مساحة السيرفر وبدون مصاريف نقل بيانات (Egress: $0).</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+            <input type="text" id="r2-account-id" placeholder="Account ID" style="padding: 6px 10px; background: #111827; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 11.5px;">
+            <input type="text" id="r2-bucket-name" placeholder="Bucket Name" value="rest-eye-incidents" style="padding: 6px 10px; background: #111827; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 11.5px;">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+            <input type="password" id="r2-access-key" placeholder="Access Key ID" style="padding: 6px 10px; background: #111827; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 11.5px;">
+            <input type="password" id="r2-secret-key" placeholder="Secret Access Key" style="padding: 6px 10px; background: #111827; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 11.5px;">
+          </div>
+          <button class="btn-toggle" style="font-size: 11.5px; padding: 4px 10px;" onclick="testR2Connection()">⚡ فحص اتصال R2</button>
+          <span id="r2-test-status" style="font-size: 11px; margin-right: 8px; color: var(--text-muted);"></span>
         </div>
-        <div style="display: flex; gap: 8px;">
-          <button class="btn-toggle" style="flex: 1;" onclick="setSourcePreset('sample')">🎬 فيديو تجريبي من المطبخ</button>
-          <button class="btn-toggle" style="flex: 1;" onclick="setSourcePreset('0')">📷 كاميرا اللابتوب / الويبكام</button>
+
+        <!-- Telegram Alert Bot Section -->
+        <div style="background: #1f2937; padding: 14px; border-radius: 8px; border: 1px solid #374151;">
+          <h4 style="color: var(--accent-sky); font-size: 13.5px; margin-bottom: 8px;">📱 بوت التنبيهات الفورية (Telegram Incident Bot)</h4>
+          <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px;">إرسال فيديو الواقعة ولحظة الأكل فوراً على جروب إدارة المطعم في التليجرام.</p>
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px; margin-bottom: 8px;">
+            <input type="text" id="tg-bot-token" placeholder="Bot Token (من BotFather)" style="padding: 6px 10px; background: #111827; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 11.5px;">
+            <input type="text" id="tg-chat-id" placeholder="Chat ID / Group ID" style="padding: 6px 10px; background: #111827; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 11.5px;">
+          </div>
+          <button class="btn-toggle" style="font-size: 11.5px; padding: 4px 10px;" onclick="testTelegramAlert()">🔔 إرسال تنبيه تجريبي على تليجرام</button>
+          <span id="tg-test-status" style="font-size: 11px; margin-right: 8px; color: var(--text-muted);"></span>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px;">
+          <button class="btn-toggle" onclick="closeCloudSettingsModal()">إلغاء</button>
+          <button class="btn-primary" onclick="saveCloudSettings()">✓ حفظ جميع الإعدادات</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Register New Tenant Organization -->
+  <div class="modal-backdrop" id="register-modal">
+    <div class="modal-content" style="max-width: 460px;">
+      <div class="modal-header">
+        <h3>🏢 تسجيل مطعم أو فرانشايز جديد (New Tenant)</h3>
+        <button class="modal-close" onclick="closeRegisterModal()">✕</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 12px;">
+        <div>
+          <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">اسم المطعم / السلسلة:</label>
+          <input type="text" id="reg-org-name" placeholder="مثال: مطاعم البرنس، كافيه أروما" style="width: 100%; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;">
+        </div>
+        <div>
+          <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">البريد الإلكتروني للإدارة:</label>
+          <input type="email" id="reg-email" placeholder="owner@restaurant.com" style="width: 100%; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;">
+        </div>
+        <div>
+          <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 4px;">كلمة المرور:</label>
+          <input type="password" id="reg-password" placeholder="••••••••" style="width: 100%; padding: 8px 12px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;">
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">
-          <button class="btn-toggle" onclick="closeSourceModal()">إلغاء</button>
-          <button class="btn-primary" onclick="submitSourceChange()">تطبيق المصدر</button>
+          <button class="btn-toggle" onclick="closeRegisterModal()">إلغاء</button>
+          <button class="btn-primary" onclick="submitTenantRegistration()">🚀 إنشاء الحساب والبدء</button>
         </div>
       </div>
     </div>

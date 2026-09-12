@@ -685,3 +685,146 @@ function handleStreamError() {
     }, 2000);
   }
 }
+
+// ==========================================
+// MULTI-TENANT & CLOUD INTEGRATION HANDLERS
+// ==========================================
+function openCloudSettingsModal() {
+  document.getElementById("cloud-settings-modal").classList.add("open");
+  loadCloudSettings();
+}
+
+function closeCloudSettingsModal() {
+  document.getElementById("cloud-settings-modal").classList.remove("open");
+  document.getElementById("r2-test-status").innerText = "";
+  document.getElementById("tg-test-status").innerText = "";
+}
+
+async function loadCloudSettings() {
+  try {
+    const res = await fetch(`${backendUrl}/api/v2/settings`);
+    if (!res.ok) return;
+    const data = await res.json();
+    const s = data.settings || {};
+    if (s.r2_bucket_name) document.getElementById("r2-bucket-name").value = s.r2_bucket_name;
+    if (s.telegram_chat_id) document.getElementById("tg-chat-id").value = s.telegram_chat_id;
+  } catch (e) {}
+}
+
+async function testR2Connection() {
+  const accountId = document.getElementById("r2-account-id").value.trim();
+  const accessKey = document.getElementById("r2-access-key").value.trim();
+  const secretKey = document.getElementById("r2-secret-key").value.trim();
+  const bucket = document.getElementById("r2-bucket-name").value.trim();
+  const statusEl = document.getElementById("r2-test-status");
+
+  statusEl.innerText = "جاري الفحص...";
+  statusEl.style.color = "var(--accent-sky)";
+
+  try {
+    const res = await fetch(`${backendUrl}/api/v2/test-r2?account_id=${encodeURIComponent(accountId)}&access_key=${encodeURIComponent(accessKey)}&secret_key=${encodeURIComponent(secretKey)}&bucket=${encodeURIComponent(bucket)}`, {
+      method: "POST"
+    });
+    const data = await res.json();
+    statusEl.innerText = data.message;
+    statusEl.style.color = data.success ? "var(--accent-emerald)" : "var(--accent-rose)";
+  } catch (e) {
+    statusEl.innerText = "فشل الاتصال بالسيرفر";
+    statusEl.style.color = "var(--accent-rose)";
+  }
+}
+
+async function testTelegramAlert() {
+  const token = document.getElementById("tg-bot-token").value.trim();
+  const chatId = document.getElementById("tg-chat-id").value.trim();
+  const statusEl = document.getElementById("tg-test-status");
+
+  statusEl.innerText = "جاري الإرسال...";
+  statusEl.style.color = "var(--accent-sky)";
+
+  try {
+    const res = await fetch(`${backendUrl}/api/v2/test-telegram?token=${encodeURIComponent(token)}&chat_id=${encodeURIComponent(chatId)}`, {
+      method: "POST"
+    });
+    const data = await res.json();
+    statusEl.innerText = data.message;
+    statusEl.style.color = data.success ? "var(--accent-emerald)" : "var(--accent-rose)";
+  } catch (e) {
+    statusEl.innerText = "فشل الإرسال";
+    statusEl.style.color = "var(--accent-rose)";
+  }
+}
+
+async function saveCloudSettings() {
+  const payload = {
+    r2_account_id: document.getElementById("r2-account-id").value.trim(),
+    r2_bucket_name: document.getElementById("r2-bucket-name").value.trim(),
+    r2_access_key_id: document.getElementById("r2-access-key").value.trim(),
+    r2_secret_access_key: document.getElementById("r2-secret-key").value.trim(),
+    telegram_bot_token: document.getElementById("tg-bot-token").value.trim(),
+    telegram_chat_id: document.getElementById("tg-chat-id").value.trim(),
+    telegram_enabled: true
+  };
+
+  try {
+    const res = await fetch(`${backendUrl}/api/v2/settings`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    alert(data.message || "تم حفظ الإعدادات بنجاح!");
+    closeCloudSettingsModal();
+  } catch (e) {
+    alert("حدث خطأ أثناء حفظ الإعدادات");
+  }
+}
+
+function openRegisterModal() {
+  document.getElementById("register-modal").classList.add("open");
+}
+
+function closeRegisterModal() {
+  document.getElementById("register-modal").classList.remove("open");
+}
+
+async function submitTenantRegistration() {
+  const orgName = document.getElementById("reg-org-name").value.trim();
+  const email = document.getElementById("reg-email").value.trim();
+  const password = document.getElementById("reg-password").value.trim();
+
+  if (!orgName || !email || !password) {
+    alert("يرجى ملء جميع الحقول");
+    return;
+  }
+
+  try {
+    const res = await fetch(`${backendUrl}/api/v2/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        restaurant_name: orgName,
+        email: email,
+        password: password
+      })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      alert(`مبروك! تم تسجيل حساب (${orgName}) بنجاح.`);
+      document.getElementById("tenant-name-badge").innerText = orgName;
+      closeRegisterModal();
+    } else {
+      alert(data.detail || "حدث خطأ أثناء التسجيل");
+    }
+  } catch (e) {
+    alert("فشل الاتصال بالسيرفر");
+  }
+}
+
+function handleBranchChange() {
+  const select = document.getElementById("branch-select");
+  const branchName = select.options[select.selectedIndex].text;
+  document.getElementById("val-source").innerText = `${branchName} - كاميرا المطبخ الرئيسية`;
+  alert(`تم تحويل عرض المراقبة إلى: ${branchName}`);
+}
+
