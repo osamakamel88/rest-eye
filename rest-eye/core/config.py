@@ -41,9 +41,9 @@ class RestEyeConfig:
     device: str = os.getenv("AI_DEVICE", "auto")
     
     # Eating Behavior Detection Parameters
-    wrist_mouth_dist_ratio: float = 0.38
-    eating_dwell_seconds: float = 1.0
-    eating_cooldown_seconds: float = 8.0
+    wrist_mouth_dist_ratio: float = 0.58
+    eating_dwell_seconds: float = 0.25
+    eating_cooldown_seconds: float = 6.0
     
     # Posture Tracking (Sitting vs Standing)
     sitting_knee_angle_max: float = 125.0

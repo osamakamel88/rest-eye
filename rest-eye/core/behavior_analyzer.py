@@ -126,7 +126,7 @@ class BehaviorAnalyzer:
                 session.is_loitering = False
 
             # 3. Analyze Eating / Grazing Action
-            eating_info = self._analyze_eating_action(kpts, session, current_time)
+            eating_info = self._analyze_eating_action(kpts, bbox, session, current_time)
 
             # Package analysis output for this person
             result = {
@@ -176,12 +176,12 @@ class BehaviorAnalyzer:
         # In a restaurant kitchen, prep counters hide legs. People standing at counters are STANDING.
         return {"posture": "STANDING", "knee_angle": None}
 
-    def _analyze_eating_action(self, kpts: List[Any], session: PersonSession, current_time: float) -> Dict[str, Any]:
+    def _analyze_eating_action(self, kpts: List[Any], bbox: List[float], session: PersonSession, current_time: float) -> Dict[str, Any]:
         """
-        Robustly detects Eating and Drinking gestures:
-        - Hand raised above elbow (wrist_y < elbow_y)
-        - Hand within mouth / lower-face radius
-        - Scale-normalized by shoulder width or head size
+        Robustly detects Eating and Drinking gestures across all angles:
+        - Hand raised above elbow or within upper chest/face zone
+        - Hand within mouth, nose, eyes, or profile face perimeter
+        - Scale-normalized by head size and upper body proportions
         """
         nose = self._get_kpt(kpts, NOSE)
         l_eye = self._get_kpt(kpts, LEFT_EYE)
@@ -195,38 +195,31 @@ class BehaviorAnalyzer:
         l_wrist = self._get_kpt(kpts, LEFT_WRIST)
         r_wrist = self._get_kpt(kpts, RIGHT_WRIST)
 
-        # 1. Determine Head & Mouth Anchor
-        mouth_x, mouth_y = 0.0, 0.0
-        head_radius = 45.0  # default fallback
+        box_w = max(10.0, bbox[2] - bbox[0])
+        box_h = max(10.0, bbox[3] - bbox[1])
+        center_x = (bbox[0] + bbox[2]) / 2.0
 
-        if nose:
-            mouth_x, mouth_y = nose[0], nose[1] + 15.0
-            if l_eye and r_eye:
-                eye_dist = euclidean_dist((l_eye[0], l_eye[1]), (r_eye[0], r_eye[1]))
-                head_radius = max(35.0, eye_dist * 2.2)
-        elif l_eye and r_eye:
-            mouth_x = (l_eye[0] + r_eye[0]) / 2.0
-            mouth_y = (l_eye[1] + r_eye[1]) / 2.0 + 25.0
-            head_radius = max(35.0, euclidean_dist((l_eye[0], l_eye[1]), (r_eye[0], r_eye[1])) * 2.2)
-        elif l_shoulder and r_shoulder:
-            mouth_x = (l_shoulder[0] + r_shoulder[0]) / 2.0
-            mouth_y = (l_shoulder[1] + r_shoulder[1]) / 2.0 - 45.0
-            head_radius = max(40.0, euclidean_dist((l_shoulder[0], l_shoulder[1]), (r_shoulder[0], r_shoulder[1])) * 0.45)
+        # 1. Determine Head Size & Face Center
+        head_radius = max(35.0, box_h * 0.22)
+
+        face_points = [p for p in [nose, l_eye, r_eye, l_ear, r_ear] if p is not None]
+        if face_points:
+            face_x = sum(p[0] for p in face_points) / len(face_points)
+            face_y = sum(p[1] for p in face_points) / len(face_points)
         else:
-            return {
-                "is_hand_near_mouth": False,
-                "dwell_duration": 0.0,
-                "is_eating": False,
-                "trigger_alert": False,
-                "min_dist_ratio": 1.0
-            }
+            face_x = center_x
+            face_y = bbox[1] + head_radius * 0.65
 
-        # Reference scale: shoulder width
-        ref_scale = 100.0
+        # Mouth estimate: slightly below nose or lower part of face cluster
+        if nose:
+            mouth_x, mouth_y = nose[0], nose[1] + head_radius * 0.28
+        else:
+            mouth_x, mouth_y = face_x, face_y + head_radius * 0.25
+
         if l_shoulder and r_shoulder:
             ref_scale = max(50.0, euclidean_dist((l_shoulder[0], l_shoulder[1]), (r_shoulder[0], r_shoulder[1])))
         else:
-            ref_scale = head_radius * 2.0
+            ref_scale = head_radius * 2.2
 
         # Check left and right hands
         hand_near = False
@@ -237,17 +230,29 @@ class BehaviorAnalyzer:
                 continue
             
             d_mouth = euclidean_dist((wrist[0], wrist[1]), (mouth_x, mouth_y))
-            ratio = d_mouth / ref_scale
+            d_face = euclidean_dist((wrist[0], wrist[1]), (face_x, face_y))
+            min_face_dist = min(d_mouth, d_face)
+
+            for fp in face_points:
+                d_fp = euclidean_dist((wrist[0], wrist[1]), (fp[0], fp[1]))
+                if d_fp < min_face_dist:
+                    min_face_dist = d_fp
+
+            ratio = min_face_dist / ref_scale
             if ratio < min_dist_ratio:
                 min_dist_ratio = ratio
 
-            # Condition 1: Hand in mouth/face radius (generous for holding food/cups with fingers)
-            is_in_face_zone = d_mouth <= (head_radius * 1.85) or ratio <= 0.65
+            # Condition 1: Hand in mouth/face radius or in top 38% of body bounding box
+            is_in_face_zone = (min_face_dist <= head_radius * 2.2) or (
+                bbox[0] <= wrist[0] <= bbox[2] and bbox[1] <= wrist[1] <= (bbox[1] + box_h * 0.38)
+            ) or (ratio <= config.wrist_mouth_dist_ratio)
 
-            # Condition 2: Hand is raised (wrist higher than or level with elbow)
+            # Condition 2: Hand is raised towards mouth/face
             hand_raised = True
             if elbow:
-                hand_raised = wrist[1] <= (elbow[1] + 40.0)
+                hand_raised = wrist[1] <= (elbow[1] + 45.0)
+            else:
+                hand_raised = wrist[1] <= (bbox[1] + box_h * 0.45)
 
             if is_in_face_zone and hand_raised:
                 hand_near = True
@@ -264,13 +269,13 @@ class BehaviorAnalyzer:
 
             dwell_duration = current_time - (session.hand_near_mouth_start or current_time)
 
-            # In kitchen/inventory monitoring, any hand-to-mouth action is eating/drinking/grazing
-            is_eating = True
+            if dwell_duration >= config.eating_dwell_seconds:
+                is_eating = True
 
-            if (current_time - session.last_eating_alert_time) > config.eating_cooldown_seconds:
-                session.last_eating_alert_time = current_time
-                session.eating_cycles_count += 1
-                trigger_alert = True
+                if (current_time - session.last_eating_alert_time) > config.eating_cooldown_seconds:
+                    session.last_eating_alert_time = current_time
+                    session.eating_cycles_count += 1
+                    trigger_alert = True
         else:
             session.is_hand_near_mouth = False
             session.hand_near_mouth_start = None

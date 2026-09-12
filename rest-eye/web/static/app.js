@@ -847,43 +847,84 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     const centerX = boxX + boxW / 2;
     const centerY = boxY + boxH / 2;
 
-    // Calculate Eating / Hand-to-Mouth Detection
+    // Calculate Multi-Angle Eating & Hand-to-Mouth Detection
     const nose = kps['nose'] || { x: centerX, y: minY, score: 0 };
     const leftWrist = kps['left_wrist'] || { x: 0, y: 0, score: 0 };
     const rightWrist = kps['right_wrist'] || { x: 0, y: 0, score: 0 };
+    const leftElbow = kps['left_elbow'] || { x: 0, y: 0, score: 0 };
+    const rightElbow = kps['right_elbow'] || { x: 0, y: 0, score: 0 };
     const leftEye = kps['left_eye'] || { x: 0, y: 0, score: 0 };
     const rightEye = kps['right_eye'] || { x: 0, y: 0, score: 0 };
+    const leftEar = kps['left_ear'] || { x: 0, y: 0, score: 0 };
+    const rightEar = kps['right_ear'] || { x: 0, y: 0, score: 0 };
     const leftShoulder = kps['left_shoulder'] || { x: 0, y: 0, score: 0 };
     const rightShoulder = kps['right_shoulder'] || { x: 0, y: 0, score: 0 };
 
-    let headSize = 55;
-    if (leftShoulder.score > 0.25 && rightShoulder.score > 0.25) {
-      headSize = Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.60;
-    } else if (leftEye.score > 0.25 && rightEye.score > 0.25) {
-      headSize = Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.3;
+    // Robust Head Size across full frontal, 3/4, and side profile views
+    let headSize = Math.max(38, boxH * 0.22);
+    if (leftShoulder.score > 0.2 && rightShoulder.score > 0.2) {
+      headSize = Math.max(headSize, Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.65);
+    } else if (leftEye.score > 0.2 && rightEye.score > 0.2) {
+      headSize = Math.max(headSize, Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.4);
+    } else if (leftEar.score > 0.2 && rightEar.score > 0.2) {
+      headSize = Math.max(headSize, Math.hypot(leftEar.x - rightEar.x, leftEar.y - rightEar.y) * 1.6);
     }
 
-    const mouthX = nose.x;
-    const mouthY = nose.y + headSize * 0.32;
+    // Face / Mouth centroid & cluster
+    const facePts = [nose, leftEye, rightEye, leftEar, rightEar].filter(p => p.score > 0.15);
+    let faceX = centerX;
+    let faceY = boxY + headSize * 0.65;
+    if (facePts.length > 0) {
+      faceX = facePts.reduce((acc, p) => acc + p.x, 0) / facePts.length;
+      faceY = facePts.reduce((acc, p) => acc + p.y, 0) / facePts.length;
+    }
+
+    const mouthX = nose.score > 0.15 ? nose.x : faceX;
+    const mouthY = (nose.score > 0.15 ? nose.y : faceY) + headSize * 0.28;
 
     let isHandNearMouth = false;
     let activeWrist = null;
+    let minHandDist = Infinity;
 
-    if (leftWrist.score > 0.2 && nose.score > 0.2) {
-      const distL = Math.hypot(leftWrist.x - mouthX, leftWrist.y - mouthY);
-      if (distL < headSize * 1.45) {
-        isHandNearMouth = true;
-        activeWrist = leftWrist;
-      }
-    }
+    // Check left & right wrists
+    const wristsToCheck = [
+      { wrist: leftWrist, elbow: leftElbow },
+      { wrist: rightWrist, elbow: rightElbow }
+    ];
 
-    if (rightWrist.score > 0.2 && nose.score > 0.2) {
-      const distR = Math.hypot(rightWrist.x - mouthX, rightWrist.y - mouthY);
-      if (distR < headSize * 1.45) {
-        isHandNearMouth = true;
-        activeWrist = rightWrist;
+    wristsToCheck.forEach(({ wrist, elbow }) => {
+      if (wrist.score > 0.12) {
+        const dMouth = Math.hypot(wrist.x - mouthX, wrist.y - mouthY);
+        const dFace = Math.hypot(wrist.x - faceX, wrist.y - faceY);
+        let minD = Math.min(dMouth, dFace);
+
+        facePts.forEach(fp => {
+          const d = Math.hypot(wrist.x - fp.x, wrist.y - fp.y);
+          if (d < minD) minD = d;
+        });
+
+        // Hand is raised towards chest/face level
+        const isHandRaised = (elbow.score > 0.15 ? (wrist.y <= elbow.y + 45) : (wrist.y <= boxY + boxH * 0.42));
+        
+        // Eating / Tasting Zone check: within 2.2x headSize of face OR inside upper 38% bounding box
+        const isInEatingZone = (minD <= headSize * 2.2) || 
+          (wrist.x >= boxX && wrist.x <= boxX + boxW && wrist.y >= boxY && wrist.y <= boxY + boxH * 0.38);
+
+        if (isInEatingZone && isHandRaised) {
+          isHandNearMouth = true;
+          if (minD < minHandDist) {
+            minHandDist = minD;
+            activeWrist = wrist;
+          }
+        }
+      } else if (elbow.score > 0.25) {
+        // Fallback for occluded hands/utensils right in front of face
+        const isForearmRaisedToFace = (elbow.y > faceY) && (elbow.y <= faceY + headSize * 2.2) && (Math.abs(elbow.x - faceX) < headSize * 2.0);
+        if (isForearmRaisedToFace && (boxY + boxH * 0.38 >= faceY)) {
+          isHandNearMouth = true;
+        }
       }
-    }
+    });
 
     // Robust multi-person tracking with minimum distance matching
     let bestTrack = null;
@@ -908,16 +949,16 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
 
     if (isHandNearMouth) {
       handDwellSec += 0.08;
-      // If hand near mouth for >= 0.35s (approx 7-9 frames), lock in a 6-second sticky violation hold
-      if (handDwellSec >= 0.35) {
-        stickyUntil = currentTime + 6000;
+      // Fast trigger threshold: 0.20s (approx 4-5 frames) triggers immediate 7s sticky violation lock
+      if (handDwellSec >= 0.20) {
+        stickyUntil = currentTime + 7000;
       }
     } else {
       handDwellSec = Math.max(0, handDwellSec - 0.03);
     }
 
     // Person remains marked RED as long as hand dwell threshold is met OR sticky cooldown is active
-    const isEating = (handDwellSec >= 0.35) || (currentTime < stickyUntil);
+    const isEating = (handDwellSec >= 0.20) || (currentTime < stickyUntil);
 
     // Check Restricted Zones
     const personFeetNorm = [centerX / canvasW, (boxY + boxH) / canvasH];
