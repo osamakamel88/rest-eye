@@ -178,10 +178,10 @@ class BehaviorAnalyzer:
 
     def _analyze_eating_action(self, kpts: List[Any], bbox: List[float], session: PersonSession, current_time: float) -> Dict[str, Any]:
         """
-        Robustly detects Eating and Drinking gestures across all angles:
-        - Hand raised above elbow or within upper chest/face zone
-        - Hand within mouth, nose, eyes, or profile face perimeter
-        - Scale-normalized by head size and upper body proportions
+        Biomechanically calibrated Eating and Drinking gesture detector:
+        - Hand must be elevated to mouth/chin height (at or above shoulder level, NOT down on cutting board/stove)
+        - Forearm must be angled upwards (wrist higher than elbow)
+        - Hand must be within tight proximity of the mouth/lips
         """
         nose = self._get_kpt(kpts, NOSE)
         l_eye = self._get_kpt(kpts, LEFT_EYE)
@@ -199,27 +199,29 @@ class BehaviorAnalyzer:
         box_h = max(10.0, bbox[3] - bbox[1])
         center_x = (bbox[0] + bbox[2]) / 2.0
 
-        # 1. Determine Head Size & Face Center
-        head_radius = max(35.0, box_h * 0.22)
-
-        face_points = [p for p in [nose, l_eye, r_eye, l_ear, r_ear] if p is not None]
-        if face_points:
-            face_x = sum(p[0] for p in face_points) / len(face_points)
-            face_y = sum(p[1] for p in face_points) / len(face_points)
-        else:
-            face_x = center_x
-            face_y = bbox[1] + head_radius * 0.65
-
-        # Mouth estimate: slightly below nose or lower part of face cluster
-        if nose:
-            mouth_x, mouth_y = nose[0], nose[1] + head_radius * 0.28
-        else:
-            mouth_x, mouth_y = face_x, face_y + head_radius * 0.25
-
+        # 1. Determine Head Size & Mouth Location
+        head_radius = max(35.0, min(70.0, box_h * 0.20))
         if l_shoulder and r_shoulder:
-            ref_scale = max(50.0, euclidean_dist((l_shoulder[0], l_shoulder[1]), (r_shoulder[0], r_shoulder[1])))
+            head_radius = max(35.0, euclidean_dist((l_shoulder[0], l_shoulder[1]), (r_shoulder[0], r_shoulder[1])) * 0.55)
+
+        visible_face = [p for p in [nose, l_eye, r_eye, l_ear, r_ear] if p is not None]
+        if nose:
+            mouth_x, mouth_y = nose[0], nose[1] + head_radius * 0.25
+        elif visible_face:
+            mouth_x = sum(p[0] for p in visible_face) / len(visible_face)
+            mouth_y = sum(p[1] for p in visible_face) / len(visible_face) + head_radius * 0.30
         else:
-            ref_scale = head_radius * 2.2
+            mouth_x = center_x
+            mouth_y = bbox[1] + head_radius * 0.70
+
+        # Shoulder line baseline (hands down on table/pan are below this)
+        shoulders = [s for s in [l_shoulder, r_shoulder] if s is not None]
+        if shoulders:
+            shoulder_y = sum(s[1] for s in shoulders) / len(shoulders)
+        else:
+            shoulder_y = bbox[1] + head_radius * 1.15
+
+        ref_scale = head_radius * 2.0
 
         # Check left and right hands
         hand_near = False
@@ -230,31 +232,23 @@ class BehaviorAnalyzer:
                 continue
             
             d_mouth = euclidean_dist((wrist[0], wrist[1]), (mouth_x, mouth_y))
-            d_face = euclidean_dist((wrist[0], wrist[1]), (face_x, face_y))
-            min_face_dist = min(d_mouth, d_face)
+            dx = abs(wrist[0] - mouth_x)
+            dy = abs(wrist[1] - mouth_y)
 
-            for fp in face_points:
-                d_fp = euclidean_dist((wrist[0], wrist[1]), (fp[0], fp[1]))
-                if d_fp < min_face_dist:
-                    min_face_dist = d_fp
-
-            ratio = min_face_dist / ref_scale
+            ratio = d_mouth / ref_scale
             if ratio < min_dist_ratio:
                 min_dist_ratio = ratio
 
-            # Condition 1: Hand in mouth/face radius or in top 38% of body bounding box
-            is_in_face_zone = (min_face_dist <= head_radius * 2.2) or (
-                bbox[0] <= wrist[0] <= bbox[2] and bbox[1] <= wrist[1] <= (bbox[1] + box_h * 0.38)
-            ) or (ratio <= config.wrist_mouth_dist_ratio)
+            # Kinematic Rule 1: Hand is elevated at or above shoulder level
+            is_hand_at_face_height = wrist[1] <= (shoulder_y + head_radius * 0.25)
 
-            # Condition 2: Hand is raised towards mouth/face
-            hand_raised = True
-            if elbow:
-                hand_raised = wrist[1] <= (elbow[1] + 45.0)
-            else:
-                hand_raised = wrist[1] <= (bbox[1] + box_h * 0.45)
+            # Kinematic Rule 2: Forearm points upwards (wrist higher than elbow)
+            is_forearm_raised = (wrist[1] < elbow[1] - 10.0) if elbow else is_hand_at_face_height
 
-            if is_in_face_zone and hand_raised:
+            # Kinematic Rule 3: Strict proximity to mouth/lips
+            is_at_mouth_proximity = (d_mouth <= head_radius * 1.15) and (dx <= head_radius * 0.95) and (dy <= head_radius * 0.85)
+
+            if is_hand_at_face_height and is_forearm_raised and is_at_mouth_proximity:
                 hand_near = True
 
         session.hand_mouth_min_dist_ratio = min_dist_ratio
