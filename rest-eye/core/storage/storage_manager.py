@@ -36,13 +36,16 @@ class StorageManager:
 
     def _init_s3(self):
         try:
+            import urllib3
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             endpoint = f"https://{self.account_id}.r2.cloudflarestorage.com"
             self._s3_client = boto3.client(
                 "s3",
                 endpoint_url=endpoint,
                 aws_access_key_id=self.access_key,
                 aws_secret_access_key=self.secret_key,
-                config=Config(signature_version="s3v4")
+                config=Config(signature_version="s3v4"),
+                verify=False
             )
             print(f"[StorageManager] Connected to Cloudflare R2: bucket={self.bucket_name}")
         except Exception as e:
