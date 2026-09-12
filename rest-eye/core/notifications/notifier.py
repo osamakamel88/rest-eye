@@ -129,15 +129,15 @@ class AlertNotifier:
             f"👤 *رقم الموظف:* #{person_id}\n"
             f"⏱️ *مدة الحركة:* {dwell_sec:.1f} ثانية"
         )
-        # Run in background event loop without blocking video processing
+        # Run in background without blocking video processing
         try:
-            loop = asyncio.get_event_loop()
-            if loop.is_running():
-                asyncio.create_task(self.send_telegram_alert(title, msg, photo_path, video_path))
+            async def _do_dispatch():
+                tasks = [self.send_telegram_alert(title, msg, photo_path, video_path)]
                 if video_url:
-                    asyncio.create_task(self.send_whatsapp_alert(title, msg, video_url))
-            else:
-                asyncio.run(self.send_telegram_alert(title, msg, photo_path, video_path))
+                    tasks.append(self.send_whatsapp_alert(title, msg, video_url))
+                await asyncio.gather(*tasks, return_exceptions=True)
+
+            asyncio.run(_do_dispatch())
         except Exception as e:
             print(f"[Notifier] Background alert dispatch error: {e}")
 

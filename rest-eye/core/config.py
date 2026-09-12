@@ -2,9 +2,14 @@ import os
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
+from dotenv import load_dotenv
 
 # Project base paths
 BASE_DIR = Path(__file__).resolve().parent.parent
+# Load .env from rest-eye directory or workspace root
+load_dotenv(BASE_DIR / ".env")
+load_dotenv(BASE_DIR.parent / ".env")
+
 DATA_DIR = BASE_DIR / "data"
 ALERTS_DIR = DATA_DIR / "alerts"
 MODELS_DIR = DATA_DIR / "models"
