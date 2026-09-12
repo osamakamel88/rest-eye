@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
@@ -378,6 +379,8 @@
         <div class="video-card">
           <div class="video-wrapper" id="video-container">
             <img id="stream-img" src="/api/stream" alt="Live Camera Stream" class="video-stream" onerror="handleStreamError()">
+            <video id="client-video" class="video-stream" playsinline loop muted crossorigin="anonymous" style="display: none;"></video>
+            <canvas id="ai-overlay-canvas" class="drawing-canvas"></canvas>
             <canvas id="zone-canvas" class="drawing-canvas"></canvas>
           </div>
 
@@ -644,6 +647,68 @@
     </div>
   </div>
 
+  <!-- Modal: Camera Source Selection -->
+  <div class="modal-backdrop" id="source-modal">
+    <div class="modal-content" style="max-width: 520px;">
+      <div class="modal-header">
+        <h3>📹 اختيار مصدر الكاميرا والبث الحي</h3>
+        <button class="modal-close" onclick="closeSourceModal()">✕</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 12px;">
+        
+        <!-- Option 1: Live Webcam -->
+        <div class="source-card" onclick="startWebcamSource()">
+          <div class="source-icon">📸</div>
+          <div class="source-info">
+            <h4>كاميرا الجهاز المباشرة (Live Webcam)</h4>
+            <p>تشغيل كاميرا اللابتوب أو الموبايل لفحص تتبع الهيكل العظمي وحركات الأكل في غرفتك/مكتبك فوراً</p>
+          </div>
+          <span class="source-badge live">بث مباشر</span>
+        </div>
+
+        <!-- Option 2: Sample Kitchen Prep Line -->
+        <div class="source-card" onclick="selectSampleVideo('prep')">
+          <div class="source-icon">👨‍🍳</div>
+          <div class="source-info">
+            <h4>عينة مطبخ 1: خط تحضير الوجبات (Prep Station)</h4>
+            <p>رصد شيف يقوم بتذوق وأكل أطعمة على خط التحضير والساندوتشات</p>
+          </div>
+          <span class="source-badge">عينة واقعية</span>
+        </div>
+
+        <!-- Option 3: Sample Kitchen Cold Storage -->
+        <div class="source-card" onclick="selectSampleVideo('storage')">
+          <div class="source-icon">🥩</div>
+          <div class="source-info">
+            <h4>عينة مطبخ 2: ثلاجة ومخزن الخامات (Cold Storage)</h4>
+            <p>رصد حركة الشيفات في المنطقة المحظورة مع عداد التسكع والجلوس</p>
+          </div>
+          <span class="source-badge">عينة واقعية</span>
+        </div>
+
+        <!-- Option 4: Custom RTSP / Network Stream URL -->
+        <div style="background: #1f2937; padding: 12px; border-radius: 8px; border: 1px solid #374151;">
+          <label style="font-size: 12px; font-weight: 700; color: #93c5fd; display: block; margin-bottom: 6px;">
+            🌐 إدخال رابط كاميرا IP أو ملف محلي (RTSP / Video URL):
+          </label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="source-input" style="flex: 1; padding: 8px 10px; background: #111827; border: 1px solid #374151; border-radius: 6px; color: #fff; font-size: 12px;" placeholder="rtsp://admin:pass@192.168.1.50:554/stream1">
+            <button class="btn-primary" onclick="submitSourceChange()">تطبيق</button>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px;">
+          <button class="btn-toggle" onclick="closeSourceModal()">إلغاء</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="app.js"></script>
   <script src="/static/app.js"></script>
 </body>
 </html>
+
