@@ -808,17 +808,29 @@ function showLiveIncidentBanner(title, detail) {
   }, 4500);
 }
 
+function computeIoU(b1, b2) {
+  const x1 = Math.max(b1.x, b2.x);
+  const y1 = Math.max(b1.y, b2.y);
+  const x2 = Math.min(b1.x + b1.w, b2.x + b2.w);
+  const y2 = Math.min(b1.y + b1.h, b2.y + b2.h);
+  const interW = Math.max(0, x2 - x1);
+  const interH = Math.max(0, y2 - y1);
+  const interArea = interW * interH;
+  const unionArea = (b1.w * b1.h) + (b2.w * b2.h) - interArea;
+  return unionArea > 0 ? interArea / unionArea : 0;
+}
+
 function processRealPoses(poses, canvasW, canvasH, videoEl) {
   const currentTime = Date.now();
   const scaleX = canvasW / (videoEl.videoWidth || canvasW);
   const scaleY = canvasH / (videoEl.videoHeight || canvasH);
 
-  const matchedTrackIds = new Set();
-  const currentFramePersons = [];
+  // 1. Filter and compute candidate bounding boxes with IoU deduplication
+  const candidatePoses = [];
 
   poses.forEach((pose) => {
     const score = pose.score !== undefined ? pose.score : (pose.keypoints.reduce((acc, kp) => acc + (kp.score || 0), 0) / pose.keypoints.length);
-    if (score < 0.2) return;
+    if (score < 0.18) return;
 
     const kps = {};
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
@@ -828,7 +840,7 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
       const y = kp.y * scaleY;
       kps[kp.name] = { x, y, score: kp.score || 0 };
 
-      if (kp.score > 0.25) {
+      if (kp.score > 0.20) {
         if (x < minX) minX = x;
         if (y < minY) minY = y;
         if (x > maxX) maxX = x;
@@ -839,13 +851,26 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     if (minX === Infinity) return;
 
     const paddingX = (maxX - minX) * 0.15;
-    const paddingY = (maxY - minY) * 0.1;
+    const paddingY = (maxY - minY) * 0.10;
     const boxX = Math.max(0, minX - paddingX);
     const boxY = Math.max(0, minY - paddingY);
     const boxW = Math.min(canvasW - boxX, (maxX - minX) + paddingX * 2);
     const boxH = Math.min(canvasH - boxY, (maxY - minY) + paddingY * 2);
-    const centerX = boxX + boxW / 2;
-    const centerY = boxY + boxH / 2;
+
+    const box = { x: boxX, y: boxY, w: boxW, h: boxH };
+
+    // Prevent duplicate overlapping boxes on the same person (IoU > 0.45)
+    const isDup = candidatePoses.some(cp => computeIoU(cp.box, box) > 0.45);
+    if (!isDup) {
+      candidatePoses.push({ pose, kps, box, centerX: boxX + boxW / 2, centerY: boxY + boxH / 2 });
+    }
+  });
+
+  const matchedTrackIds = new Set();
+  const currentFramePersons = [];
+
+  candidatePoses.forEach(({ kps, box, centerX, centerY }) => {
+    const { x: boxX, y: boxY, w: boxW, h: boxH } = box;
 
     // Biomechanically Calibrated Hand-to-Mouth & Eating Gesture Analyzer
     const nose = kps['nose'] || { x: centerX, y: minY, score: 0 };
@@ -861,23 +886,23 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     const rightShoulder = kps['right_shoulder'] || { x: 0, y: 0, score: 0 };
 
     // 1. Accurate Anatomical Head Size Calculation
-    let headSize = 50;
-    if (leftShoulder.score > 0.25 && rightShoulder.score > 0.25) {
-      headSize = Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.55;
-    } else if (leftEye.score > 0.25 && rightEye.score > 0.25) {
-      headSize = Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.1;
+    let headSize = 52;
+    if (leftShoulder.score > 0.20 && rightShoulder.score > 0.20) {
+      headSize = Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.60;
+    } else if (leftEye.score > 0.20 && rightEye.score > 0.20) {
+      headSize = Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.2;
     } else {
-      headSize = Math.max(35, Math.min(75, boxH * 0.20));
+      headSize = Math.max(38, Math.min(80, boxH * 0.22));
     }
 
     // 2. Locate Mouth and Shoulder Baseline
-    const visibleFace = [nose, leftEye, rightEye, leftEar, rightEar].filter(p => p.score > 0.2);
-    let mouthX = nose.score > 0.2 ? nose.x : (visibleFace.length > 0 ? visibleFace[0].x : centerX);
-    let mouthY = nose.score > 0.2 ? (nose.y + headSize * 0.25) : (visibleFace.length > 0 ? visibleFace[0].y + headSize * 0.35 : boxY + headSize * 0.7);
+    const visibleFace = [nose, leftEye, rightEye, leftEar, rightEar].filter(p => p.score > 0.15);
+    let mouthX = nose.score > 0.15 ? nose.x : (visibleFace.length > 0 ? visibleFace[0].x : centerX);
+    let mouthY = nose.score > 0.15 ? (nose.y + headSize * 0.26) : (visibleFace.length > 0 ? visibleFace[0].y + headSize * 0.35 : boxY + headSize * 0.7);
 
-    // Shoulder line: any hand performing cutting, cooking, plating is BELOW the shoulder line
-    let shoulderY = boxY + headSize * 1.1;
-    const visibleShoulders = [leftShoulder, rightShoulder].filter(s => s.score > 0.25);
+    // Shoulder line baseline
+    let shoulderY = boxY + headSize * 1.15;
+    const visibleShoulders = [leftShoulder, rightShoulder].filter(s => s.score > 0.20);
     if (visibleShoulders.length > 0) {
       shoulderY = visibleShoulders.reduce((acc, s) => acc + s.y, 0) / visibleShoulders.length;
     }
@@ -892,20 +917,20 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
       { wrist: rightWrist, elbow: rightElbow, shoulder: rightShoulder }
     ];
 
-    arms.forEach(({ wrist, elbow, shoulder }) => {
-      if (wrist.score > 0.2) {
+    arms.forEach(({ wrist, elbow }) => {
+      if (wrist.score > 0.12) {
         const dMouth = Math.hypot(wrist.x - mouthX, wrist.y - mouthY);
         const dx = Math.abs(wrist.x - mouthX);
         const dy = Math.abs(wrist.y - mouthY);
 
-        // Kinematic Rule A: Hand must be elevated near mouth level (above or at shoulder level, NOT down on table/stove)
-        const isHandAtFaceHeight = wrist.y <= (shoulderY + headSize * 0.25);
+        // Kinematic Rule A: Hand must be elevated near mouth/chin level (NOT down on table/counter/stove)
+        const isHandAtFaceHeight = wrist.y <= (shoulderY + headSize * 0.35);
 
-        // Kinematic Rule B: Forearm must be angled upwards (wrist is higher than elbow)
-        const isForearmRaised = elbow.score > 0.2 ? (wrist.y < elbow.y - 10) : isHandAtFaceHeight;
+        // Kinematic Rule B: Forearm must be angled upwards (wrist higher than or level with elbow)
+        const isForearmRaised = elbow.score > 0.15 ? (wrist.y < elbow.y + 15) : isHandAtFaceHeight;
 
-        // Kinematic Rule C: Hand must be within tight mouth/lips proximity radius
-        const isAtMouthProximity = (dMouth <= headSize * 1.15) && (dx <= headSize * 0.95) && (dy <= headSize * 0.85);
+        // Kinematic Rule C: Hand within mouth/lips proximity radius
+        const isAtMouthProximity = (dMouth <= headSize * 1.35) && (dx <= headSize * 1.15) && (dy <= headSize * 1.05);
 
         if (isHandAtFaceHeight && isForearmRaised && isAtMouthProximity) {
           isHandNearMouth = true;
@@ -919,7 +944,7 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
 
     // Robust multi-person tracking with minimum distance matching
     let bestTrack = null;
-    let bestDist = 260; // Expanded threshold so person ID sticks across movements
+    let bestDist = 260;
 
     trackedPersons.forEach(t => {
       if (matchedTrackIds.has(t.track_id)) return;
@@ -938,20 +963,17 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     let stickyUntil = bestTrack ? (bestTrack.sticky_violation_until || 0) : 0;
     let lastAlert = bestTrack ? (bestTrack.last_alert_time || 0) : 0;
 
-    // 4. Time Dwell & Sticky Memory Calibration
+    // 4. Instant Triggering upon Hand-to-Mouth Contact (0.20s) with 6-Second Hold
     if (isHandNearMouth) {
       handDwellSec += 0.08;
-      // Require 0.70s of sustained hand-at-mouth to confirm an eating/tasting violation
-      if (handDwellSec >= 0.70) {
-        stickyUntil = currentTime + 5000;
+      if (handDwellSec >= 0.20) {
+        stickyUntil = currentTime + 6000;
       }
     } else {
-      // Rapid decay when hands move away (cutting / cooking / down)
-      handDwellSec = Math.max(0, handDwellSec - 0.12);
+      handDwellSec = Math.max(0, handDwellSec - 0.08);
     }
 
-    // Person is only marked RED when true eating violation confirmed by dwell OR active sticky cooldown
-    const isEating = (handDwellSec >= 0.70) || (currentTime < stickyUntil);
+    const isEating = (handDwellSec >= 0.20) || (currentTime < stickyUntil);
 
     // Check Restricted Zones
     const personFeetNorm = [centerX / canvasW, (boxY + boxH) / canvasH];
