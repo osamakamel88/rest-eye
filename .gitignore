@@ -16,6 +16,10 @@ venv/
 # Data & Video clips
 data/alerts/
 **/data/alerts/
+data/db/
+**/data/db/
+*.db
+*.sqlite3
 *.mp4
 *.avi
 *.mov
