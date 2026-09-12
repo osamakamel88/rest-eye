@@ -1,4 +1,4 @@
-// Global State
+// Global State & Model Handles
 let currentToggles = { skeleton: true, boxes: true, zones: true, hud: true };
 let isDrawingZone = false;
 let drawnPoints = [];
@@ -13,6 +13,18 @@ let isWebcamActive = false;
 let webcamStream = null;
 let animationFrameId = null;
 
+// Real-Time In-Browser Pose Detection Model
+let poseDetector = null;
+let isDetectorReady = false;
+let isInferring = false;
+let frameCount = 0;
+let fpsTimer = performance.now();
+let measuredFps = 25.0;
+
+// Tracked Persons with Real Keypoints
+let trackedPersons = [];
+let nextTrackId = 101;
+
 // Local Interactive Zones
 let restrictedZones = [
   {
@@ -25,121 +37,61 @@ let restrictedZones = [
   }
 ];
 
-// Interactive Client-side Persons State for Real-Time Simulation
-let clientPersons = [
-  {
-    track_id: 143,
-    x: 0.58, y: 0.28, w: 0.26, h: 0.65,
-    posture: "STANDING",
-    total_standing_sec: 195,
-    total_sitting_sec: 0,
-    posture_duration_sec: 24,
-    zones: ["خط التجهيز والساندوتشات"],
-    is_eating: true,
-    is_hand_near_mouth: true,
-    hand_dwell_sec: 2.4,
-    phase: 0.0
-  },
-  {
-    track_id: 169,
-    x: 0.18, y: 0.25, w: 0.24, h: 0.68,
-    posture: "STANDING",
-    total_standing_sec: 480,
-    total_sitting_sec: 0,
-    posture_duration_sec: 120,
-    zones: ["منطقة الثلاجة والمخزن الحساس (Cold Storage)"],
-    is_eating: false,
-    is_hand_near_mouth: false,
-    hand_dwell_sec: 0.0,
-    phase: 2.0
-  }
-];
-
-let clientAlerts = [
-  {
-    id: "alert-01",
-    type: "UNAUTHORIZED_EATING",
-    person_id: 143,
-    zone: "خط التجهيز والساندوتشات",
-    timestamp: "منذ لحظات",
-    snapshot_url: "assets/eating_detection_real.png",
-    video_url: ""
-  }
-];
-
+let clientAlerts = [];
 let clientAuditNotes = [
   {
-    id: "note-1",
-    note: "رصد حركة أكل متكررة من الشيف #143 على خط التجهيز",
-    severity: "VIOLATION",
-    timestamp: "12:45:10",
-    time_offset: "00:03:15"
+    id: "note-init",
+    note: "تم تفعيل محرك الذكاء الاصطناعي وبدء رصد حركة الشيفات ومعدلات الأكل",
+    severity: "NORMAL",
+    timestamp: new Date().toLocaleTimeString("ar-EG"),
+    time_offset: "00:00:00"
   }
 ];
 
-// Toast Notification Helper
-function showToast(message, type = "success") {
-  const container = document.getElementById("toast-container");
-  if (!container) return;
-  const toast = document.createElement("div");
-  toast.className = `toast-msg ${type}`;
-  toast.innerHTML = `<span>${type === 'success' ? '✅' : '⚠️'}</span> <span>${message}</span>`;
-  container.appendChild(toast);
-  setTimeout(() => {
-    toast.style.opacity = "0";
-    toast.style.transition = "opacity 0.4s";
-    setTimeout(() => toast.remove(), 400);
-  }, 4000);
-}
-
-// Tab Switcher
-function switchMainTab(tab) {
-  const landingTab = document.getElementById("landing-tab-content");
-  const demoTab = document.getElementById("demo-tab-content");
-  const landingBtn = document.getElementById("tab-landing-btn");
-  const demoBtn = document.getElementById("tab-demo-btn");
-
-  if (tab === "demo") {
-    landingTab.classList.remove("active");
-    demoTab.classList.add("active");
-    landingBtn.classList.remove("active");
-    demoBtn.classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    initVideoAndCanvas();
-  } else {
-    demoTab.classList.remove("active");
-    landingTab.classList.add("active");
-    demoBtn.classList.remove("active");
-    landingBtn.classList.add("active");
+// Initialize TensorFlow.js MoveNet Model
+async function initPoseDetector() {
+  try {
+    if (typeof poseDetection !== "undefined") {
+      console.log("Loading MoveNet Pose AI model...");
+      const detectorConfig = {
+        modelType: poseDetection.movenet.modelType.MULTIPOSE_LIGHTNING,
+        enableTracking: true,
+        trackerType: poseDetection.TrackerType.BoundingBox
+      };
+      poseDetector = await poseDetection.createDetector(
+        poseDetection.SupportedModels.MoveNet,
+        detectorConfig
+      );
+      isDetectorReady = true;
+      console.log("MoveNet AI model loaded successfully!");
+      showToast("⚡ تم تشغيل محرك الذكاء الاصطناعي MoveNet في المتصفح بنجاح!", "success");
+    } else {
+      setTimeout(initPoseDetector, 1000);
+    }
+  } catch (err) {
+    console.warn("Could not load MoveNet MultiPose, trying SinglePose:", err);
+    try {
+      poseDetector = await poseDetection.createDetector(
+        poseDetection.SupportedModels.MoveNet,
+        { modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING }
+      );
+      isDetectorReady = true;
+      showToast("⚡ تم تشغيل محرك الذكاء الاصطناعي MoveNet بنجاح!", "success");
+    } catch (e) {
+      console.error("TFJS Load Error:", e);
+    }
   }
-}
-
-// Interactive ROI Calculator
-function updateRoiCalc() {
-  const foodCost = parseFloat(document.getElementById("calc-food-cost").value) || 150000;
-  const staffCount = parseInt(document.getElementById("calc-staff-count").value) || 6;
-
-  document.getElementById("calc-food-val").innerText = `${foodCost.toLocaleString()} ج.م`;
-  document.getElementById("calc-staff-val").innerText = `${staffCount} موظفين`;
-
-  const foodSavings = foodCost * 0.15;
-  const productivitySavings = staffCount * 750;
-  const totalMonthlySavings = Math.round(foodSavings + productivitySavings);
-  const totalYearlySavings = totalMonthlySavings * 12;
-
-  document.getElementById("calc-savings-monthly").innerText = `${totalMonthlySavings.toLocaleString()} ج.م`;
-  document.getElementById("calc-savings-yearly").innerText = `${totalYearlySavings.toLocaleString()} ج.م`;
 }
 
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
   setupCanvas();
-  fetchStatus();
-  fetchAlerts();
+  initPoseDetector();
+  if (backendUrl) {
+    fetchStatus();
+    fetchAlerts();
+  }
   fetchAuditNotes();
-  setInterval(fetchStatus, 1000);
-  setInterval(fetchAlerts, 2000);
-  setInterval(clientSimulationTick, 1000);
   startAiOverlayLoop();
 });
 
@@ -569,7 +521,8 @@ async function submitVideoUpload() {
   clientVideo.play().catch(e => console.log("Auto play prevented:", e));
 
   document.getElementById("val-source").innerText = `فيديو مرفوع: ${file.name}`;
-  isDemoMode = true;
+  isDemoMode = false;
+  trackedPersons = [];
 
   if (backendUrl) {
     try {
@@ -604,18 +557,21 @@ async function startWebcamSource() {
     });
     webcamStream = stream;
     isWebcamActive = true;
-    isDemoMode = true;
+    isDemoMode = false;
+    trackedPersons = [];
 
     const clientVideo = document.getElementById("client-video");
     const streamImg = document.getElementById("stream-img");
 
-    streamImg.style.display = "none";
-    clientVideo.style.display = "block";
-    clientVideo.srcObject = stream;
-    clientVideo.play();
+    if (streamImg) streamImg.style.display = "none";
+    if (clientVideo) {
+      clientVideo.style.display = "block";
+      clientVideo.srcObject = stream;
+      clientVideo.play();
+    }
 
     document.getElementById("val-source").innerText = "كاميرا الجهاز المباشرة (Live Device Webcam)";
-    showToast("📸 تم تشغيل كاميرا جهازك المباشرة وتفعيل رصد الهيكل العظمي والأكل!", "success");
+    showToast("📸 تم تشغيل كاميرا جهازك المباشرة وتفعيل رصد الهيكل العظمي والأكل اللحظي!", "success");
     initVideoAndCanvas();
   } catch (err) {
     alert("تعذر الوصول لكاميرا الجهاز. يرجى التأكد من إعطاء إذن الكاميرا للمتصفح.");
@@ -633,21 +589,23 @@ function selectSampleVideo(type) {
   const clientVideo = document.getElementById("client-video");
   const streamImg = document.getElementById("stream-img");
 
-  clientVideo.style.display = "none";
-  streamImg.style.display = "block";
+  if (streamImg) streamImg.style.display = "none";
+  if (clientVideo) {
+    clientVideo.style.display = "block";
+    clientVideo.src = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+    clientVideo.play().catch(e => {});
+  }
 
   if (type === "prep") {
-    streamImg.src = "assets/eating_detection_real.png";
     document.getElementById("val-source").innerText = "عينة مطبخ 1: خط تحضير الساندوتشات والحلويات";
-    showToast("👨‍🍳 تم تحميل عينة خط التحضير ورصد حركات الأكل", "success");
+    showToast("👨‍🍳 تم تحميل عينة خط التحضير ورصد حركات الأكل اللحظية", "success");
   } else {
-    streamImg.src = "assets/kitchen_overview_real.png";
     document.getElementById("val-source").innerText = "عينة مطبخ 2: ثلاجة ومخزن الخامات الحساسة";
     showToast("🥩 تم تحميل عينة مخزن الخامات والمناطق المحظورة", "success");
   }
 
-  isDemoMode = true;
-  updateClientTelemetry();
+  isDemoMode = false;
+  trackedPersons = [];
 }
 
 async function submitSourceChange() {
@@ -728,10 +686,11 @@ async function toggleOverlay(type) {
 // ==========================================
 function startAiOverlayLoop() {
   const canvas = document.getElementById("ai-overlay-canvas");
+  const video = document.getElementById("client-video");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
 
-  function renderLoop() {
+  async function renderLoop() {
     const container = document.getElementById("video-container");
     if (container) {
       if (canvas.width !== container.clientWidth || canvas.height !== container.clientHeight) {
@@ -740,10 +699,30 @@ function startAiOverlayLoop() {
       }
     }
 
+    // FPS calculation
+    frameCount++;
+    const now = performance.now();
+    if (now - fpsTimer >= 1000) {
+      measuredFps = frameCount;
+      frameCount = 0;
+      fpsTimer = now;
+      const fpsEl = document.getElementById("val-fps");
+      if (fpsEl) fpsEl.innerText = measuredFps.toFixed(1);
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (isDemoMode || isWebcamActive) {
-      renderSimulatedDetections(ctx, canvas.width, canvas.height);
+    // If Video is playing or Webcam active: run real AI pose estimation
+    if (video && !video.paused && !video.ended && video.readyState >= 2 && video.style.display !== "none") {
+      if (isDetectorReady && poseDetector && !isInferring) {
+        isInferring = true;
+        try {
+          const poses = await poseDetector.estimatePoses(video, { maxPoses: 6, flipHorizontal: false });
+          processRealPoses(poses, canvas.width, canvas.height, video);
+        } catch (e) {}
+        isInferring = false;
+      }
+      renderRealDetections(ctx, canvas.width, canvas.height);
     }
 
     animationFrameId = requestAnimationFrame(renderLoop);
@@ -752,14 +731,181 @@ function startAiOverlayLoop() {
   renderLoop();
 }
 
-function renderSimulatedDetections(ctx, w, h) {
+// Process real pose landmarks from neural network
+function processRealPoses(poses, canvasW, canvasH, videoEl) {
+  const currentTime = Date.now();
+  const scaleX = canvasW / (videoEl.videoWidth || canvasW);
+  const scaleY = canvasH / (videoEl.videoHeight || canvasH);
+
+  const updatedPersons = [];
+
+  poses.forEach((pose, idx) => {
+    const score = pose.score !== undefined ? pose.score : (pose.keypoints.reduce((acc, kp) => acc + (kp.score || 0), 0) / pose.keypoints.length);
+    if (score < 0.2) return;
+
+    const kps = {};
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+
+    pose.keypoints.forEach(kp => {
+      const x = kp.x * scaleX;
+      const y = kp.y * scaleY;
+      kps[kp.name] = { x, y, score: kp.score || 0 };
+
+      if (kp.score > 0.25) {
+        if (x < minX) minX = x;
+        if (y < minY) minY = y;
+        if (x > maxX) maxX = x;
+        if (y > maxY) maxY = y;
+      }
+    });
+
+    if (minX === Infinity) return;
+
+    const paddingX = (maxX - minX) * 0.15;
+    const paddingY = (maxY - minY) * 0.1;
+    const boxX = Math.max(0, minX - paddingX);
+    const boxY = Math.max(0, minY - paddingY);
+    const boxW = Math.min(canvasW - boxX, (maxX - minX) + paddingX * 2);
+    const boxH = Math.min(canvasH - boxY, (maxY - minY) + paddingY * 2);
+
+    // Calculate Eating / Hand-to-Mouth Detection
+    const nose = kps['nose'] || { x: (minX + maxX) / 2, y: minY, score: 0 };
+    const leftWrist = kps['left_wrist'] || { x: 0, y: 0, score: 0 };
+    const rightWrist = kps['right_wrist'] || { x: 0, y: 0, score: 0 };
+    const leftEye = kps['left_eye'] || { x: 0, y: 0, score: 0 };
+    const rightEye = kps['right_eye'] || { x: 0, y: 0, score: 0 };
+    const leftShoulder = kps['left_shoulder'] || { x: 0, y: 0, score: 0 };
+    const rightShoulder = kps['right_shoulder'] || { x: 0, y: 0, score: 0 };
+
+    let headSize = 50;
+    if (leftShoulder.score > 0.3 && rightShoulder.score > 0.3) {
+      headSize = Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.55;
+    } else if (leftEye.score > 0.3 && rightEye.score > 0.3) {
+      headSize = Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.2;
+    }
+
+    const mouthX = nose.x;
+    const mouthY = nose.y + headSize * 0.25;
+
+    let isHandNearMouth = false;
+    let activeWrist = null;
+
+    if (leftWrist.score > 0.25 && nose.score > 0.2) {
+      const distL = Math.hypot(leftWrist.x - mouthX, leftWrist.y - mouthY);
+      if (distL < headSize * 1.35) {
+        isHandNearMouth = true;
+        activeWrist = leftWrist;
+      }
+    }
+
+    if (rightWrist.score > 0.25 && nose.score > 0.2) {
+      const distR = Math.hypot(rightWrist.x - mouthX, rightWrist.y - mouthY);
+      if (distR < headSize * 1.35) {
+        isHandNearMouth = true;
+        activeWrist = rightWrist;
+      }
+    }
+
+    const centerX = boxX + boxW / 2;
+    const centerY = boxY + boxH / 2;
+    let matchedTrack = trackedPersons.find(t => Math.hypot(t.centerX - centerX, t.centerY - centerY) < 120);
+
+    let trackId = matchedTrack ? matchedTrack.track_id : (nextTrackId++);
+    let handDwellSec = matchedTrack ? (matchedTrack.hand_dwell_sec || 0) : 0;
+    let standingSec = matchedTrack ? (matchedTrack.total_standing_sec || 0) : 0;
+    let isEating = false;
+
+    if (isHandNearMouth) {
+      handDwellSec += 0.08;
+      if (handDwellSec >= 1.2) {
+        isEating = true;
+      }
+    } else {
+      handDwellSec = Math.max(0, handDwellSec - 0.15);
+    }
+
+    // Check Restricted Zones
+    const personFeetNorm = [centerX / canvasW, (boxY + boxH) / canvasH];
+    const inZones = [];
+    restrictedZones.forEach(z => {
+      if (pointInPolygon(personFeetNorm, z.polygon)) {
+        inZones.push(z.name);
+      }
+    });
+
+    const personObj = {
+      track_id: trackId,
+      box: { x: boxX, y: boxY, w: boxW, h: boxH },
+      centerX, centerY,
+      kps,
+      is_hand_near_mouth: isHandNearMouth,
+      is_eating: isEating,
+      hand_dwell_sec: handDwellSec,
+      active_wrist: activeWrist,
+      mouth: { x: mouthX, y: mouthY },
+      posture: "STANDING",
+      total_standing_sec: standingSec + 0.05,
+      zones: inZones.length > 0 ? inZones : ["المطبخ الرئيسي"],
+      lastSeen: currentTime
+    };
+
+    if (isEating && (!matchedTrack || !matchedTrack.is_eating)) {
+      triggerRealIncidentAlert(personObj, videoEl);
+    }
+
+    updatedPersons.push(personObj);
+  });
+
+  trackedPersons = updatedPersons;
+  updatePersonnelUi(trackedPersons);
+}
+
+function triggerRealIncidentAlert(person, videoEl) {
+  playAlertBeep();
+  showToast(`🚨 تم رصد مخالفة أكل/تذوق حقيقية من الشيف #${person.track_id}!`, "warning");
+
+  let snapshotUrl = "assets/eating_detection_real.png";
+  try {
+    const snapCanvas = document.createElement("canvas");
+    snapCanvas.width = videoEl.videoWidth || 640;
+    snapCanvas.height = videoEl.videoHeight || 360;
+    const snapCtx = snapCanvas.getContext("2d");
+    snapCtx.drawImage(videoEl, 0, 0, snapCanvas.width, snapCanvas.height);
+    snapshotUrl = snapCanvas.toDataURL("image/jpeg", 0.85);
+  } catch (e) {}
+
+  const newAlert = {
+    id: `alert-${Date.now()}`,
+    type: "UNAUTHORIZED_EATING",
+    person_id: person.track_id,
+    zone: person.zones[0] || "خط التجهيز والساندوتشات",
+    timestamp: new Date().toLocaleTimeString("ar-EG"),
+    snapshot_url: snapshotUrl,
+    video_url: ""
+  };
+
+  clientAlerts.unshift(newAlert);
+  renderAlerts(clientAlerts);
+
+  const newNote = {
+    id: `note-${Date.now()}`,
+    note: `رصد واقعة تناول طعام حية من الشيف #${person.track_id} في (${person.zones[0]})`,
+    severity: "VIOLATION",
+    timestamp: new Date().toLocaleTimeString("ar-EG"),
+    time_offset: formatSeconds(videoEl.currentTime || 0)
+  };
+  clientAuditNotes.unshift(newNote);
+  renderAuditNotes(clientAuditNotes);
+}
+
+function renderRealDetections(ctx, w, h) {
   const time = Date.now() / 1000;
 
   // 1. Draw Restricted Zones
   if (currentToggles.zones) {
     restrictedZones.forEach(z => {
       ctx.strokeStyle = z.color || "#ef4444";
-      ctx.fillStyle = "rgba(239, 68, 68, 0.15)";
+      ctx.fillStyle = "rgba(239, 68, 68, 0.14)";
       ctx.lineWidth = 2;
       ctx.setLineDash([6, 6]);
 
@@ -777,117 +923,190 @@ function renderSimulatedDetections(ctx, w, h) {
 
       const firstPt = z.polygon[0];
       ctx.fillStyle = "#ef4444";
-      ctx.font = "bold 11px Cairo, sans-serif";
+      ctx.font = "bold 11.5px Cairo, sans-serif";
       ctx.fillText(`🛑 ${z.name}`, firstPt[0] * w + 8, firstPt[1] * h + 18);
     });
   }
 
-  // 2. Draw Persons Keypoints, Skeletons and Bounding Boxes
-  clientPersons.forEach(p => {
-    const px = p.x * w;
-    const py = p.y * h;
-    const pw = p.w * w;
-    const ph = p.h * h;
+  // 2. Draw Real Tracked Persons
+  trackedPersons.forEach(p => {
+    const { x, y, w: bw, h: bh } = p.box;
 
     if (currentToggles.boxes) {
-      ctx.strokeStyle = p.is_eating ? "#ef4444" : (p.is_hand_near_mouth ? "#f59e0b" : "#10b981");
-      ctx.lineWidth = p.is_eating ? 3 : 2;
-      ctx.strokeRect(px, py, pw, ph);
+      let boxColor = "#10b981";
+      let tagText = `👤 موظف #${p.track_id}`;
+      let tagBg = "rgba(16, 185, 129, 0.9)";
 
-      const tagText = p.is_eating ? `🚨 موظف #${p.track_id} [أكل مرصود]` : (p.is_hand_near_mouth ? `⚠️ موظف #${p.track_id} [حركة يد]` : `👤 موظف #${p.track_id}`);
-      ctx.fillStyle = p.is_eating ? "rgba(220, 38, 38, 0.95)" : (p.is_hand_near_mouth ? "rgba(217, 119, 6, 0.95)" : "rgba(16, 185, 129, 0.9)");
-      ctx.fillRect(px, py - 24, Math.min(pw, 190), 24);
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "bold 11px Cairo, sans-serif";
-      ctx.fillText(tagText, px + 6, py - 7);
-    }
-
-    if (currentToggles.skeleton) {
-      const headX = px + pw * 0.5;
-      const headY = py + ph * 0.15;
-      const shoulderLX = px + pw * 0.28;
-      const shoulderRX = px + pw * 0.72;
-      const shoulderY = py + ph * 0.32;
-      const hipLX = px + pw * 0.35;
-      const hipRX = px + pw * 0.65;
-      const hipY = py + ph * 0.65;
-      const footLX = px + pw * 0.32;
-      const footRX = px + pw * 0.68;
-      const footY = py + ph * 0.98;
-
-      let wristRX = px + pw * 0.75;
-      let wristRY = py + ph * 0.50;
-      if (p.is_hand_near_mouth || p.is_eating) {
-        wristRX = headX + Math.sin(time * 3) * 6;
-        wristRY = headY + 12 + Math.cos(time * 3) * 4;
+      if (p.is_eating) {
+        boxColor = "#ef4444";
+        tagText = `🚨 موظف #${p.track_id} [أكل / تذوق مرصود!]`;
+        tagBg = "rgba(220, 38, 38, 0.95)";
+      } else if (p.is_hand_near_mouth) {
+        boxColor = "#f59e0b";
+        tagText = `⚠️ موظف #${p.track_id} [حركة يد للفم: ${p.hand_dwell_sec.toFixed(1)}s]`;
+        tagBg = "rgba(217, 119, 6, 0.95)";
       }
 
-      const elbowRX = (shoulderRX + wristRX) / 2 + 15;
-      const elbowRY = (shoulderY + wristRY) / 2;
+      ctx.strokeStyle = boxColor;
+      ctx.lineWidth = p.is_eating ? 3.5 : 2.5;
+      ctx.strokeRect(x, y, bw, bh);
 
-      ctx.strokeStyle = p.is_eating ? "#f43f5e" : "#34d399";
+      ctx.fillStyle = tagBg;
+      ctx.fillRect(x, Math.max(0, y - 26), Math.min(bw, 230), 26);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 11.5px Cairo, sans-serif";
+      ctx.fillText(tagText, x + 6, Math.max(0, y - 26) + 18);
+    }
+
+    if (currentToggles.skeleton && p.kps) {
+      const kps = p.kps;
+      const bonePairs = [
+        ['nose', 'left_eye'], ['nose', 'right_eye'],
+        ['left_eye', 'left_ear'], ['right_eye', 'right_ear'],
+        ['nose', 'left_shoulder'], ['nose', 'right_shoulder'],
+        ['left_shoulder', 'right_shoulder'],
+        ['left_shoulder', 'left_elbow'], ['left_elbow', 'left_wrist'],
+        ['right_shoulder', 'right_elbow'], ['right_elbow', 'right_wrist'],
+        ['left_shoulder', 'left_hip'], ['right_shoulder', 'right_hip'],
+        ['left_hip', 'right_hip'],
+        ['left_hip', 'left_knee'], ['left_knee', 'left_ankle'],
+        ['right_hip', 'right_knee'], ['right_knee', 'right_ankle']
+      ];
+
+      ctx.strokeStyle = p.is_eating ? "#f43f5e" : (p.is_hand_near_mouth ? "#fbbf24" : "#34d399");
       ctx.lineWidth = 2.5;
 
-      const bones = [
-        [[headX, headY], [shoulderLX, shoulderY]],
-        [[headX, headY], [shoulderRX, shoulderY]],
-        [[shoulderLX, shoulderY], [shoulderRX, shoulderY]],
-        [[shoulderRX, shoulderY], [elbowRX, elbowRY]],
-        [[elbowRX, elbowRY], [wristRX, wristRY]],
-        [[shoulderLX, shoulderY], [hipLX, hipY]],
-        [[shoulderRX, shoulderY], [hipRX, hipY]],
-        [[hipLX, hipY], [hipRX, hipY]],
-        [[hipLX, hipY], [footLX, footY]],
-        [[hipRX, hipY], [footRX, footY]]
-      ];
-
-      bones.forEach(([p1, p2]) => {
-        ctx.beginPath();
-        ctx.moveTo(p1[0], p1[1]);
-        ctx.lineTo(p2[0], p2[1]);
-        ctx.stroke();
+      bonePairs.forEach(([k1, k2]) => {
+        const pt1 = kps[k1];
+        const pt2 = kps[k2];
+        if (pt1 && pt2 && pt1.score > 0.25 && pt2.score > 0.25) {
+          ctx.beginPath();
+          ctx.moveTo(pt1.x, pt1.y);
+          ctx.lineTo(pt2.x, pt2.y);
+          ctx.stroke();
+        }
       });
 
-      const joints = [
-        [headX, headY], [shoulderLX, shoulderY], [shoulderRX, shoulderY],
-        [elbowRX, elbowRY], [wristRX, wristRY],
-        [hipLX, hipY], [hipRX, hipY], [footLX, footY], [footRX, footY]
-      ];
-
-      joints.forEach(([jx, jy]) => {
-        ctx.fillStyle = "#ffffff";
-        ctx.beginPath();
-        ctx.arc(jx, jy, 3.5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = "#059669";
-        ctx.stroke();
+      Object.entries(kps).forEach(([name, pt]) => {
+        if (pt.score > 0.25) {
+          ctx.fillStyle = "#ffffff";
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = p.is_eating ? "#ef4444" : "#059669";
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
       });
 
       if (p.is_eating || p.is_hand_near_mouth) {
-        ctx.strokeStyle = "rgba(244, 63, 94, 0.8)";
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([4, 4]);
-        ctx.beginPath();
-        ctx.arc(headX, headY + 10, 28, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.setLineDash([]);
+        if (p.mouth) {
+          ctx.strokeStyle = "rgba(239, 68, 68, 0.9)";
+          ctx.lineWidth = 2;
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath();
+          ctx.arc(p.mouth.x, p.mouth.y, 24 + Math.sin(time * 6) * 4, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+        if (p.active_wrist) {
+          ctx.strokeStyle = "#ef4444";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(p.active_wrist.x, p.active_wrist.y);
+          ctx.lineTo(p.mouth.x, p.mouth.y);
+          ctx.stroke();
+        }
       }
     }
   });
 
+  // 3. Draw Live HUD
   if (currentToggles.hud) {
-    ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
-    ctx.fillRect(10, 10, 220, 48);
+    ctx.fillStyle = "rgba(15, 23, 42, 0.9)";
+    ctx.fillRect(12, 12, 230, 52);
     ctx.strokeStyle = "#334155";
-    ctx.strokeRect(10, 10, 220, 48);
+    ctx.lineWidth = 1;
+    ctx.strokeRect(12, 12, 230, 52);
 
     ctx.fillStyle = "#10b981";
-    ctx.font = "bold 11px Cairo, sans-serif";
-    ctx.fillText("🟢 REST-EYE AI SENTRY ACTIVE", 20, 28);
+    ctx.font = "bold 11.5px Cairo, sans-serif";
+    ctx.fillText("🟢 REST-EYE LIVE AI SENTRY", 22, 32);
     ctx.fillStyle = "#94a3b8";
     ctx.font = "10.5px Inter, sans-serif";
-    ctx.fillText(`FPS: 24.0 | Staff: ${clientPersons.length} | Alerts: ${clientAlerts.length}`, 20, 46);
+    ctx.fillText(`FPS: ${measuredFps > 0 ? measuredFps.toFixed(1) : '24.0'} | Staff: ${trackedPersons.length} | Alerts: ${clientAlerts.length}`, 22, 51);
   }
+}
+
+function updatePersonnelUi(persons) {
+  const container = document.getElementById("personnel-list");
+  const countBadge = document.getElementById("active-staff-badge");
+  const valCount = document.getElementById("val-person-count");
+  const valAlerts = document.getElementById("val-alert-count");
+  const statusEl = document.getElementById("val-status");
+
+  if (statusEl) {
+    statusEl.innerText = "ONLINE";
+    statusEl.style.color = "var(--accent-emerald)";
+  }
+  if (countBadge) countBadge.innerText = `${persons.length} نشط`;
+  if (valCount) valCount.innerText = persons.length.toString();
+  if (valAlerts) valAlerts.innerText = clientAlerts.length.toString();
+
+  if (!container) return;
+
+  if (persons.length === 0) {
+    container.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 24px 0; font-size: 13px;">جاري رصد الموظفين في كادر الكاميرا...</div>';
+    return;
+  }
+
+  container.innerHTML = persons.map(p => {
+    let tagClass = "tag-normal";
+    let statusText = "طبيعي (Normal)";
+    if (p.is_eating) {
+      tagClass = "tag-eating";
+      statusText = "🚨 أكل / تذوق مرصود!";
+    } else if (p.is_hand_near_mouth) {
+      tagClass = "tag-eating";
+      statusText = `⚠️ حركة يد للفم (${p.hand_dwell_sec.toFixed(1)}s)`;
+    }
+
+    const standingSec = Math.round(p.total_standing_sec || 0);
+    const zoneStr = (p.zones && p.zones.length > 0) ? p.zones.join(", ") : "المطبخ الرئيسي";
+
+    return `
+      <div class="person-card ${p.is_eating ? 'eating' : ''}">
+        <div class="person-header">
+          <div class="person-id">شيف / موظف #${p.track_id}</div>
+          <div class="person-tag ${tagClass}">${statusText}</div>
+        </div>
+        <div class="person-stats">
+          <div class="stat-item">الوضعية: <strong>واقف (${standingSec} ثانية)</strong></div>
+          <div class="stat-item">المنطقة: <strong style="color: var(--accent-amber)">${zoneStr}</strong></div>
+          <div class="stat-item">إجمالي الوقوف: <strong>${formatTime(standingSec)}</strong></div>
+          <div class="stat-item">إجمالي الجلوس: <strong>0 ثانية</strong></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function pointInPolygon(point, vs) {
+  const x = point[0], y = point[1];
+  let inside = false;
+  for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+    const xi = vs[i][0], yi = vs[i][1];
+    const xj = vs[j][0], yj = vs[j][1];
+    const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+    if (intersect) inside = !inside;
+  }
+  return inside;
+}
+
+function formatSeconds(sec) {
+  const m = Math.floor(sec / 60).toString().padStart(2, '0');
+  const s = Math.floor(sec % 60).toString().padStart(2, '0');
+  return `00:${m}:${s}`;
 }
 
 // Zone Drawing Tool
