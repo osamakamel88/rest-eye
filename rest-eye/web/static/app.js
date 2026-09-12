@@ -48,6 +48,64 @@ let clientAuditNotes = [
   }
 ];
 
+// Toast Notification Helper
+function showToast(message, type = "success") {
+  const container = document.getElementById("toast-container");
+  if (!container) return;
+  const toast = document.createElement("div");
+  toast.className = `toast-msg ${type}`;
+  toast.innerHTML = `<span>${type === 'success' ? '✅' : (type === 'warning' ? '🚨' : '⚠️')}</span> <span>${message}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transition = "opacity 0.4s";
+    setTimeout(() => toast.remove(), 400);
+  }, 4000);
+}
+
+// Tab Switcher
+function switchMainTab(tab) {
+  const landingTab = document.getElementById("landing-tab-content");
+  const demoTab = document.getElementById("demo-tab-content");
+  const landingBtn = document.getElementById("tab-landing-btn");
+  const demoBtn = document.getElementById("tab-demo-btn");
+
+  if (tab === "demo") {
+    if (landingTab) landingTab.classList.remove("active");
+    if (demoTab) demoTab.classList.add("active");
+    if (landingBtn) landingBtn.classList.remove("active");
+    if (demoBtn) demoBtn.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    initVideoAndCanvas();
+  } else {
+    if (demoTab) demoTab.classList.remove("active");
+    if (landingTab) landingTab.classList.add("active");
+    if (demoBtn) demoBtn.classList.remove("active");
+    if (landingBtn) landingBtn.classList.add("active");
+  }
+}
+
+// Interactive ROI Calculator
+function updateRoiCalc() {
+  const foodCost = parseFloat(document.getElementById("calc-food-cost").value) || 150000;
+  const staffCount = parseInt(document.getElementById("calc-staff-count").value) || 6;
+
+  const foodValEl = document.getElementById("calc-food-val");
+  if (foodValEl) foodValEl.innerText = `${foodCost.toLocaleString()} ج.م`;
+  const staffValEl = document.getElementById("calc-staff-val");
+  if (staffValEl) staffValEl.innerText = `${staffCount} موظفين`;
+
+  const foodSavings = foodCost * 0.15;
+  const productivitySavings = staffCount * 750;
+  const totalMonthlySavings = Math.round(foodSavings + productivitySavings);
+  const totalYearlySavings = totalMonthlySavings * 12;
+
+  const monthlyEl = document.getElementById("calc-savings-monthly");
+  if (monthlyEl) monthlyEl.innerText = `${totalMonthlySavings.toLocaleString()} ج.م`;
+  const yearlyEl = document.getElementById("calc-savings-yearly");
+  if (yearlyEl) yearlyEl.innerText = `${totalYearlySavings.toLocaleString()} ج.م`;
+}
+
 // Initialize TensorFlow.js MoveNet Model
 async function initPoseDetector() {
   try {
