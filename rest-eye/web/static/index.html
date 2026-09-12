@@ -359,6 +359,9 @@
       </div>
 
       <div class="demo-action-buttons">
+        <button class="btn-primary" style="background: #d97706;" onclick="openOcrModal()">
+          🔍 فاحص الصلاحية والبونات (OCR)
+        </button>
         <button class="btn-primary" style="background: #059669;" onclick="openUploadModal()">
           📤 رفع فيديو للفحص
         </button>
@@ -699,6 +702,52 @@
 
         <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px;">
           <button class="btn-toggle" onclick="closeSourceModal()">إلغاء</button>
+        </div>
+
+      </div>
+    </div>
+  <!-- Modal: OCR Scanner & Food Safety Inspector -->
+  <div class="modal-backdrop" id="ocr-modal">
+    <div class="modal-content" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3>🔍 فاحص الصلاحية وبونات المطبخ (OCR Inspector)</h3>
+        <button class="modal-close" onclick="closeOcrModal()">✕</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
+        
+        <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+          يقوم محرك الـ OCR بقراءة تواريخ الصلاحية، بونات الطلبات (KDS)، وشارات الموظفين من صور الكاميرا تلقائياً ومطابقتها مع معايير سلامة الغذاء.
+        </p>
+
+        <!-- Actions: Scan Frame or Upload Image -->
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn-primary" style="flex: 1; font-size: 12px;" onclick="scanCurrentVideoFrameOcr()">
+            📸 فحص الإطار الحالي من الكاميرا
+          </button>
+          <label class="btn-toggle" style="flex: 1; text-align: center; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+            📁 رفع صورة كرتونة / بون
+            <input type="file" id="ocr-file-input" accept="image/*" style="display: none;" onchange="handleOcrFileUpload(event)">
+          </label>
+        </div>
+
+        <!-- Preview & Results Container -->
+        <div id="ocr-result-box" style="display: none; background: #111827; border: 1px solid #374151; border-radius: 8px; padding: 12px;">
+          <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px;">
+            <img id="ocr-preview-img" src="" style="width: 100px; height: 100px; object-fit: cover; border-radius: 6px; border: 1px solid #374151;">
+            <div style="flex: 1;">
+              <div id="ocr-status-badge" style="display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 11.5px; font-weight: 700; margin-bottom: 6px;"></div>
+              <div id="ocr-expiry-text" style="font-size: 12.5px; color: #fff; font-weight: 700; margin-bottom: 4px;"></div>
+              <div id="ocr-alert-msg" style="font-size: 11.5px; color: #94a3b8;"></div>
+            </div>
+          </div>
+          <div>
+            <label style="font-size: 11px; color: #94a3b8; font-weight: 700; display: block; margin-bottom: 4px;">النص المستخرج (Extracted OCR Text):</label>
+            <pre id="ocr-raw-text" style="background: #0f172a; border: 1px solid #1e293b; padding: 8px; border-radius: 6px; font-size: 11px; color: #38bdf8; max-height: 120px; overflow-y: auto; white-space: pre-wrap; margin: 0;"></pre>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px;">
+          <button class="btn-toggle" onclick="closeOcrModal()">إغلاق</button>
         </div>
 
       </div>

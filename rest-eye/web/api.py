@@ -21,6 +21,7 @@ from core.auth.security import create_access_token, verify_password, get_passwor
 from core.auth.dependencies import get_current_user, get_current_tenant, get_optional_user
 from core.storage.storage_manager import storage_manager, StorageManager
 from core.notifications.notifier import alert_notifier, AlertNotifier
+from core.ocr_engine import ocr_engine
 
 # Initialize DB tables on startup
 init_db()
@@ -431,6 +432,81 @@ def update_toggles(req: ToggleRequest):
     if req.hud is not None:
         eng.show_hud = req.hud
     return {"status": "success"}
+
+# ==========================================
+# RESTAURANT OCR & FOOD SAFETY ENDPOINTS
+# ==========================================
+@app.post("/api/v2/ocr/scan-expiry")
+async def scan_expiry_endpoint(file: UploadFile = File(...)):
+    """Upload packaging/carton image to scan food expiration date and assess safety status."""
+    temp_path = UPLOADS_DIR / f"ocr_exp_{int(time.time()*1000)}_{file.filename}"
+    with open(temp_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    try:
+        res = ocr_engine.scan_expiry_dates(str(temp_path))
+        return {
+            "status": "success",
+            "filename": file.filename,
+            "data": res
+        }
+    finally:
+        if temp_path.exists():
+            temp_path.unlink()
+
+@app.post("/api/v2/ocr/scan-ticket")
+async def scan_ticket_endpoint(file: UploadFile = File(...)):
+    """Upload KDS or printed kitchen ticket to extract order details and prep times."""
+    temp_path = UPLOADS_DIR / f"ocr_tkt_{int(time.time()*1000)}_{file.filename}"
+    with open(temp_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    try:
+        res = ocr_engine.scan_kds_ticket(str(temp_path))
+        return {
+            "status": "success",
+            "filename": file.filename,
+            "data": res
+        }
+    finally:
+        if temp_path.exists():
+            temp_path.unlink()
+
+@app.post("/api/v2/ocr/scan-badge")
+async def scan_badge_endpoint(file: UploadFile = File(...)):
+    """Upload staff badge/uniform photo to extract employee ID number."""
+    temp_path = UPLOADS_DIR / f"ocr_bdg_{int(time.time()*1000)}_{file.filename}"
+    with open(temp_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    try:
+        res = ocr_engine.scan_staff_badge(str(temp_path))
+        return {
+            "status": "success",
+            "filename": file.filename,
+            "data": res
+        }
+    finally:
+        if temp_path.exists():
+            temp_path.unlink()
+
+@app.post("/api/v2/ocr/extract")
+async def extract_general_ocr_endpoint(file: UploadFile = File(...)):
+    """General OCR endpoint returning raw text blocks and bounding boxes."""
+    temp_path = UPLOADS_DIR / f"ocr_gen_{int(time.time()*1000)}_{file.filename}"
+    with open(temp_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    try:
+        res = ocr_engine.extract_text(str(temp_path))
+        return {
+            "status": "success",
+            "filename": file.filename,
+            "data": res
+        }
+    finally:
+        if temp_path.exists():
+            temp_path.unlink()
 
 # Serve static dashboard files
 STATIC_DIR = BASE_DIR / "web" / "static"
