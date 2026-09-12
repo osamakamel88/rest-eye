@@ -170,17 +170,20 @@ function playAlertBeep() {
     if (!audioContext) {
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
     }
+    if (audioContext.state === "suspended") {
+      audioContext.resume();
+    }
     const osc = audioContext.createOscillator();
     const gain = audioContext.createGain();
     osc.type = "sine";
     osc.frequency.setValueAtTime(880, audioContext.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(440, audioContext.currentTime + 0.3);
-    gain.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    osc.frequency.exponentialRampToValueAtTime(440, audioContext.currentTime + 0.35);
+    gain.gain.setValueAtTime(0.35, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.35);
     osc.connect(gain);
     gain.connect(audioContext.destination);
     osc.start();
-    osc.stop(audioContext.currentTime + 0.3);
+    osc.stop(audioContext.currentTime + 0.35);
   } catch (e) {}
 }
 
@@ -790,14 +793,30 @@ function startAiOverlayLoop() {
 }
 
 // Process real pose landmarks from neural network
+let bannerTimer = null;
+function showLiveIncidentBanner(title, detail) {
+  const banner = document.getElementById("live-incident-banner");
+  const titleEl = document.getElementById("banner-title");
+  const detailEl = document.getElementById("banner-detail");
+  if (!banner) return;
+  if (titleEl) titleEl.innerText = title;
+  if (detailEl) detailEl.innerText = detail;
+  banner.classList.add("show");
+  if (bannerTimer) clearTimeout(bannerTimer);
+  bannerTimer = setTimeout(() => {
+    banner.classList.remove("show");
+  }, 4500);
+}
+
 function processRealPoses(poses, canvasW, canvasH, videoEl) {
   const currentTime = Date.now();
   const scaleX = canvasW / (videoEl.videoWidth || canvasW);
   const scaleY = canvasH / (videoEl.videoHeight || canvasH);
 
-  const updatedPersons = [];
+  const matchedTrackIds = new Set();
+  const currentFramePersons = [];
 
-  poses.forEach((pose, idx) => {
+  poses.forEach((pose) => {
     const score = pose.score !== undefined ? pose.score : (pose.keypoints.reduce((acc, kp) => acc + (kp.score || 0), 0) / pose.keypoints.length);
     if (score < 0.2) return;
 
@@ -825,9 +844,11 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     const boxY = Math.max(0, minY - paddingY);
     const boxW = Math.min(canvasW - boxX, (maxX - minX) + paddingX * 2);
     const boxH = Math.min(canvasH - boxY, (maxY - minY) + paddingY * 2);
+    const centerX = boxX + boxW / 2;
+    const centerY = boxY + boxH / 2;
 
     // Calculate Eating / Hand-to-Mouth Detection
-    const nose = kps['nose'] || { x: (minX + maxX) / 2, y: minY, score: 0 };
+    const nose = kps['nose'] || { x: centerX, y: minY, score: 0 };
     const leftWrist = kps['left_wrist'] || { x: 0, y: 0, score: 0 };
     const rightWrist = kps['right_wrist'] || { x: 0, y: 0, score: 0 };
     const leftEye = kps['left_eye'] || { x: 0, y: 0, score: 0 };
@@ -835,52 +856,68 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     const leftShoulder = kps['left_shoulder'] || { x: 0, y: 0, score: 0 };
     const rightShoulder = kps['right_shoulder'] || { x: 0, y: 0, score: 0 };
 
-    let headSize = 50;
-    if (leftShoulder.score > 0.3 && rightShoulder.score > 0.3) {
-      headSize = Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.55;
-    } else if (leftEye.score > 0.3 && rightEye.score > 0.3) {
-      headSize = Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.2;
+    let headSize = 55;
+    if (leftShoulder.score > 0.25 && rightShoulder.score > 0.25) {
+      headSize = Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.60;
+    } else if (leftEye.score > 0.25 && rightEye.score > 0.25) {
+      headSize = Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.3;
     }
 
     const mouthX = nose.x;
-    const mouthY = nose.y + headSize * 0.25;
+    const mouthY = nose.y + headSize * 0.32;
 
     let isHandNearMouth = false;
     let activeWrist = null;
 
-    if (leftWrist.score > 0.25 && nose.score > 0.2) {
+    if (leftWrist.score > 0.2 && nose.score > 0.2) {
       const distL = Math.hypot(leftWrist.x - mouthX, leftWrist.y - mouthY);
-      if (distL < headSize * 1.35) {
+      if (distL < headSize * 1.45) {
         isHandNearMouth = true;
         activeWrist = leftWrist;
       }
     }
 
-    if (rightWrist.score > 0.25 && nose.score > 0.2) {
+    if (rightWrist.score > 0.2 && nose.score > 0.2) {
       const distR = Math.hypot(rightWrist.x - mouthX, rightWrist.y - mouthY);
-      if (distR < headSize * 1.35) {
+      if (distR < headSize * 1.45) {
         isHandNearMouth = true;
         activeWrist = rightWrist;
       }
     }
 
-    const centerX = boxX + boxW / 2;
-    const centerY = boxY + boxH / 2;
-    let matchedTrack = trackedPersons.find(t => Math.hypot(t.centerX - centerX, t.centerY - centerY) < 120);
+    // Robust multi-person tracking with minimum distance matching
+    let bestTrack = null;
+    let bestDist = 260; // Expanded threshold so person ID sticks across movements
 
-    let trackId = matchedTrack ? matchedTrack.track_id : (nextTrackId++);
-    let handDwellSec = matchedTrack ? (matchedTrack.hand_dwell_sec || 0) : 0;
-    let standingSec = matchedTrack ? (matchedTrack.total_standing_sec || 0) : 0;
-    let isEating = false;
+    trackedPersons.forEach(t => {
+      if (matchedTrackIds.has(t.track_id)) return;
+      const d = Math.hypot(t.centerX - centerX, t.centerY - centerY);
+      if (d < bestDist) {
+        bestDist = d;
+        bestTrack = t;
+      }
+    });
+
+    let trackId = bestTrack ? bestTrack.track_id : (nextTrackId++);
+    matchedTrackIds.add(trackId);
+
+    let handDwellSec = bestTrack ? (bestTrack.hand_dwell_sec || 0) : 0;
+    let standingSec = bestTrack ? (bestTrack.total_standing_sec || 0) : 0;
+    let stickyUntil = bestTrack ? (bestTrack.sticky_violation_until || 0) : 0;
+    let lastAlert = bestTrack ? (bestTrack.last_alert_time || 0) : 0;
 
     if (isHandNearMouth) {
       handDwellSec += 0.08;
-      if (handDwellSec >= 1.2) {
-        isEating = true;
+      // If hand near mouth for >= 0.35s (approx 7-9 frames), lock in a 6-second sticky violation hold
+      if (handDwellSec >= 0.35) {
+        stickyUntil = currentTime + 6000;
       }
     } else {
-      handDwellSec = Math.max(0, handDwellSec - 0.15);
+      handDwellSec = Math.max(0, handDwellSec - 0.03);
     }
+
+    // Person remains marked RED as long as hand dwell threshold is met OR sticky cooldown is active
+    const isEating = (handDwellSec >= 0.35) || (currentTime < stickyUntil);
 
     // Check Restricted Zones
     const personFeetNorm = [centerX / canvasW, (boxY + boxH) / canvasH];
@@ -899,6 +936,8 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
       is_hand_near_mouth: isHandNearMouth,
       is_eating: isEating,
       hand_dwell_sec: handDwellSec,
+      sticky_violation_until: stickyUntil,
+      last_alert_time: lastAlert,
       active_wrist: activeWrist,
       mouth: { x: mouthX, y: mouthY },
       posture: "STANDING",
@@ -907,21 +946,41 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
       lastSeen: currentTime
     };
 
-    if (isEating && (!matchedTrack || !matchedTrack.is_eating)) {
-      triggerRealIncidentAlert(personObj, videoEl);
+    // Trigger incident if violation occurs and hasn't alerted recently (6s cooldown per person)
+    if (isEating && (currentTime - lastAlert > 6000)) {
+      personObj.last_alert_time = currentTime;
+      triggerRealIncidentAlert(personObj, videoEl, canvasW, canvasH);
     }
 
-    updatedPersons.push(personObj);
+    currentFramePersons.push(personObj);
   });
 
-  trackedPersons = updatedPersons;
+  // Retain momentarily occluded tracks for 2 seconds to maintain continuity
+  trackedPersons.forEach(t => {
+    if (!matchedTrackIds.has(t.track_id) && (currentTime - t.lastSeen < 2000)) {
+      currentFramePersons.push(t);
+    }
+  });
+
+  trackedPersons = currentFramePersons;
   updatePersonnelUi(trackedPersons);
 }
 
-function triggerRealIncidentAlert(person, videoEl) {
+function triggerRealIncidentAlert(person, videoEl, canvasW, canvasH) {
   playAlertBeep();
-  showToast(`🚨 تم رصد مخالفة أكل/تذوق حقيقية من الشيف #${person.track_id}!`, "warning");
+  
+  const zoneName = person.zones[0] || "خط التجهيز والساندوتشات";
 
+  // 1. Show Top Video Banner
+  showLiveIncidentBanner(
+    `🚨 إنذار ذكاء اصطناعي: تم رصد وتوثيق واقعة أكل للشيف #${person.track_id}!`,
+    `المنطقة: ${zoneName} • تم التقاط إطار الواقعة وحفظه في سجل التجاوزات`
+  );
+
+  // 2. Show Toast Alert
+  showToast(`🚨 تم رصد واقعة أكل/تذوق موثقة للشيف #${person.track_id} في (${zoneName})!`, "warning");
+
+  // 3. Capture Annotated Video Snapshot
   let snapshotUrl = "assets/eating_detection_real.png";
   try {
     const snapCanvas = document.createElement("canvas");
@@ -929,14 +988,29 @@ function triggerRealIncidentAlert(person, videoEl) {
     snapCanvas.height = videoEl.videoHeight || 360;
     const snapCtx = snapCanvas.getContext("2d");
     snapCtx.drawImage(videoEl, 0, 0, snapCanvas.width, snapCanvas.height);
-    snapshotUrl = snapCanvas.toDataURL("image/jpeg", 0.85);
+
+    if (person.box && canvasW && canvasH) {
+      const sx = snapCanvas.width / canvasW;
+      const sy = snapCanvas.height / canvasH;
+      snapCtx.strokeStyle = "#ef4444";
+      snapCtx.lineWidth = 3.5;
+      snapCtx.strokeRect(person.box.x * sx, person.box.y * sy, person.box.w * sx, person.box.h * sy);
+
+      snapCtx.fillStyle = "rgba(220, 38, 38, 0.92)";
+      snapCtx.fillRect(person.box.x * sx, Math.max(0, (person.box.y - 28) * sy), Math.min(person.box.w * sx, 240 * sx), 28 * sy);
+      snapCtx.fillStyle = "#ffffff";
+      snapCtx.font = `bold ${Math.max(12, Math.round(14 * sy))}px Cairo, sans-serif`;
+      snapCtx.fillText(`🚨 موظف #${person.track_id} [أكل وتذوق]`, (person.box.x + 6) * sx, Math.max(0, (person.box.y - 28) * sy) + 20 * sy);
+    }
+    snapshotUrl = snapCanvas.toDataURL("image/jpeg", 0.88);
   } catch (e) {}
 
+  // 4. Save to clientAlerts Sidebar List
   const newAlert = {
     id: `alert-${Date.now()}`,
     type: "UNAUTHORIZED_EATING",
     person_id: person.track_id,
-    zone: person.zones[0] || "خط التجهيز والساندوتشات",
+    zone: zoneName,
     timestamp: new Date().toLocaleTimeString("ar-EG"),
     snapshot_url: snapshotUrl,
     video_url: ""
@@ -945,9 +1019,14 @@ function triggerRealIncidentAlert(person, videoEl) {
   clientAlerts.unshift(newAlert);
   renderAlerts(clientAlerts);
 
+  // 5. Update Total Alert Count Badge
+  const valAlertCount = document.getElementById("val-alert-count");
+  if (valAlertCount) valAlertCount.innerText = clientAlerts.length.toString();
+
+  // 6. Record Audit Note
   const newNote = {
     id: `note-${Date.now()}`,
-    note: `رصد واقعة تناول طعام حية من الشيف #${person.track_id} في (${person.zones[0]})`,
+    note: `رصد واقعة تناول طعام حية وموثقة من الشيف #${person.track_id} في (${zoneName})`,
     severity: "VIOLATION",
     timestamp: new Date().toLocaleTimeString("ar-EG"),
     time_offset: formatSeconds(videoEl.currentTime || 0)
