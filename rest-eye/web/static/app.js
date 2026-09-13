@@ -877,10 +877,33 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     }
   });
 
+  // Global Optimal Matrix Assignment to prevent track ID swapping
+  const assignments = [];
+  candidatePoses.forEach((cp, candIdx) => {
+    trackedPersons.forEach(t => {
+      const iou = computeIoU(cp.box, t.box);
+      const dist = Math.hypot(cp.centerX - t.centerX, cp.centerY - t.centerY);
+      if (dist < 280 || iou > 0.15) {
+        const cost = (1.0 - iou) * 250 + dist;
+        assignments.push({ candIdx, track: t, cost });
+      }
+    });
+  });
+
+  assignments.sort((a, b) => a.cost - b.cost);
+  const candToTrack = new Map();
   const matchedTrackIds = new Set();
+
+  assignments.forEach(({ candIdx, track }) => {
+    if (!candToTrack.has(candIdx) && !matchedTrackIds.has(track.track_id)) {
+      candToTrack.set(candIdx, track);
+      matchedTrackIds.add(track.track_id);
+    }
+  });
+
   const currentFramePersons = [];
 
-  candidatePoses.forEach(({ kps, box, centerX, centerY }) => {
+  candidatePoses.forEach(({ kps, box, centerX, centerY }, candIdx) => {
     const { x: boxX, y: boxY, w: boxW, h: boxH } = box;
 
     const nose = kps['nose'] || { x: centerX, y: boxY + boxH * 0.15, score: 0 };
@@ -895,42 +918,40 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     const leftShoulder = kps['left_shoulder'] || { x: 0, y: 0, score: 0 };
     const rightShoulder = kps['right_shoulder'] || { x: 0, y: 0, score: 0 };
 
-    // 1. Dynamic Head Size based on perspective and camera distance
+    // 1. Dynamic Head Size
     let headSize = 55;
     if (leftShoulder.score > 0.20 && rightShoulder.score > 0.20) {
-      headSize = Math.max(45, Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.65);
+      headSize = Math.max(45, Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.60);
     } else if (leftEye.score > 0.20 && rightEye.score > 0.20) {
-      headSize = Math.max(45, Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.4);
-    } else if (leftEar.score > 0.20 && rightEar.score > 0.20) {
-      headSize = Math.max(45, Math.hypot(leftEar.x - rightEar.x, leftEar.y - rightEar.y) * 1.6);
+      headSize = Math.max(45, Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.2);
     } else {
-      headSize = Math.max(45, Math.min(130, boxH * 0.24));
+      headSize = Math.max(40, Math.min(120, boxH * 0.22));
     }
 
-    // 2. Locate Precise Mouth/Lips Coordinates
+    // 2. Locate Precise Mouth/Lips Anchor
     const visibleFace = [nose, leftEye, rightEye, leftEar, rightEar].filter(p => p.score > 0.15);
     let mouthX = nose.score > 0.15 ? nose.x : (visibleFace.length > 0 ? visibleFace[0].x : centerX);
-    let mouthY = nose.score > 0.15 ? (nose.y + headSize * 0.28) : (visibleFace.length > 0 ? visibleFace[0].y + headSize * 0.35 : boxY + headSize * 0.65);
+    let mouthY = nose.score > 0.15 ? (nose.y + headSize * 0.25) : (visibleFace.length > 0 ? visibleFace[0].y + headSize * 0.32 : boxY + headSize * 0.60);
 
-    // 3. Locate Shoulder Baseline
+    // 3. Locate Shoulder Baseline (hands down cutting/cooking are well below this)
     const visibleShoulders = [leftShoulder, rightShoulder].filter(s => s.score > 0.20);
-    let shoulderY = visibleShoulders.length > 0 ? (visibleShoulders.reduce((acc, s) => acc + s.y, 0) / visibleShoulders.length) : (mouthY + headSize * 0.85);
+    let shoulderY = visibleShoulders.length > 0 ? (visibleShoulders.reduce((acc, s) => acc + s.y, 0) / visibleShoulders.length) : (mouthY + headSize * 0.80);
 
     let isHandNearMouth = false;
     let activeWrist = null;
     let minMouthDist = Infinity;
 
-    // 4. Evaluate all wrists in scene (own hands + cross-person tasting) using scale-invariant ratios
+    // 4. Precision Spatial Classifier (Mouth-Cone Rule)
     allSceneWrists.forEach(w => {
       const dMouth = Math.hypot(w.x - mouthX, w.y - mouthY);
       const dy = Math.abs(w.y - mouthY);
       const dx = Math.abs(w.x - mouthX);
 
-      // Scale-normalized vertical height: Hand must be at chin/lips/mouth height (NOT down at cutting board / stove)
-      const isAtLipsHeight = (dy <= headSize * 0.95) && (w.y <= shoulderY + headSize * 0.35);
+      // Rule 1: Hand/spoon must be strictly at lips/chin height (within 0.75x headSize vertically)
+      const isAtLipsHeight = (dy <= headSize * 0.75) && (w.y <= shoulderY + 10);
 
-      // Scale-normalized proximity: Hand must be within mouth contact perimeter
-      const isTouchingMouth = (dMouth <= headSize * 1.30) && (dx <= headSize * 1.10);
+      // Rule 2: Hand/spoon must be inside the mouth contact cone (within 0.90x headSize of mouth)
+      const isTouchingMouth = (dMouth <= headSize * 0.90) && (dx <= headSize * 0.75);
 
       if (isAtLipsHeight && isTouchingMouth) {
         isHandNearMouth = true;
@@ -941,7 +962,7 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
       }
     });
 
-    // 5. Forearm vector fallback for occluded hand right at mouth
+    // 5. Forearm vector check for self hand-to-mouth tasting
     const ownArms = [
       { wrist: leftWrist, elbow: leftElbow },
       { wrist: rightWrist, elbow: rightElbow }
@@ -950,8 +971,8 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     ownArms.forEach(({ wrist, elbow }) => {
       if (wrist.score > 0.10) {
         const dMouth = Math.hypot(wrist.x - mouthX, wrist.y - mouthY);
-        const isForearmUp = elbow.score > 0.15 ? (wrist.y < elbow.y + 20) : (wrist.y <= shoulderY + headSize * 0.30);
-        if (dMouth <= headSize * 1.30 && isForearmUp && (wrist.y <= shoulderY + headSize * 0.35)) {
+        const isForearmUp = elbow.score > 0.15 ? (wrist.y < elbow.y - 10) : (wrist.y <= shoulderY);
+        if (dMouth <= headSize * 0.90 && isForearmUp && (wrist.y <= shoulderY)) {
           isHandNearMouth = true;
           if (dMouth < minMouthDist) {
             minMouthDist = dMouth;
@@ -961,38 +982,25 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
       }
     });
 
-    // Robust multi-person tracking with minimum distance matching
-    let bestTrack = null;
-    let bestDist = 260;
-
-    trackedPersons.forEach(t => {
-      if (matchedTrackIds.has(t.track_id)) return;
-      const d = Math.hypot(t.centerX - centerX, t.centerY - centerY);
-      if (d < bestDist) {
-        bestDist = d;
-        bestTrack = t;
-      }
-    });
-
+    const bestTrack = candToTrack.get(candIdx);
     let trackId = bestTrack ? bestTrack.track_id : (nextTrackId++);
-    matchedTrackIds.add(trackId);
 
     let handDwellSec = bestTrack ? (bestTrack.hand_dwell_sec || 0) : 0;
     let standingSec = bestTrack ? (bestTrack.total_standing_sec || 0) : 0;
     let stickyUntil = bestTrack ? (bestTrack.sticky_violation_until || 0) : 0;
     let lastAlert = bestTrack ? (bestTrack.last_alert_time || 0) : 0;
 
-    // 4. Trigger Violation upon Hand-to-Mouth Contact with 6-Second Hold
+    // 6. Dwell Threshold & Sticky Hold
     if (isHandNearMouth) {
-      handDwellSec += 0.10;
-      if (handDwellSec >= 0.20) {
-        stickyUntil = currentTime + 6000;
+      handDwellSec += 0.12;
+      if (handDwellSec >= 0.15) {
+        stickyUntil = currentTime + 5000;
       }
     } else {
-      handDwellSec = Math.max(0, handDwellSec - 0.15);
+      handDwellSec = Math.max(0, handDwellSec - 0.20);
     }
 
-    const isEating = (handDwellSec >= 0.20) || (currentTime < stickyUntil);
+    const isEating = (handDwellSec >= 0.15) || (currentTime < stickyUntil);
 
     // Check Restricted Zones
     const personFeetNorm = [centerX / canvasW, (boxY + boxH) / canvasH];
