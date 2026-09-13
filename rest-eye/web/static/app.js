@@ -866,15 +866,19 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     }
   });
 
-  // Collect all valid wrists across the entire kitchen scene for cross-person tasting / feeding detection
+  // Collect all wrists across scene with low confidence threshold for food-occlusion tolerance
   const allSceneWrists = [];
   candidatePoses.forEach(cp => {
-    if (cp.kps['left_wrist'] && cp.kps['left_wrist'].score > 0.12) {
-      allSceneWrists.push({ ...cp.kps['left_wrist'], elbow: cp.kps['left_elbow'], shoulder: cp.kps['left_shoulder'] });
-    }
-    if (cp.kps['right_wrist'] && cp.kps['right_wrist'].score > 0.12) {
-      allSceneWrists.push({ ...cp.kps['right_wrist'], elbow: cp.kps['right_elbow'], shoulder: cp.kps['right_shoulder'] });
-    }
+    ['left_wrist', 'right_wrist'].forEach(wName => {
+      const w = cp.kps[wName];
+      if (w && (w.score > 0.04 || (w.x > 0 && w.y > 0))) {
+        allSceneWrists.push({
+          x: w.x, y: w.y, score: w.score,
+          elbow: cp.kps[wName === 'left_wrist' ? 'left_elbow' : 'right_elbow'],
+          shoulder: cp.kps[wName === 'left_wrist' ? 'left_shoulder' : 'right_shoulder']
+        });
+      }
+    });
   });
 
   // Global Optimal Matrix Assignment to prevent track ID swapping
@@ -919,39 +923,37 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     const rightShoulder = kps['right_shoulder'] || { x: 0, y: 0, score: 0 };
 
     // 1. Dynamic Head Size
-    let headSize = 55;
+    let headSize = 60;
     if (leftShoulder.score > 0.20 && rightShoulder.score > 0.20) {
-      headSize = Math.max(45, Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.60);
+      headSize = Math.max(45, Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.65);
     } else if (leftEye.score > 0.20 && rightEye.score > 0.20) {
-      headSize = Math.max(45, Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.2);
+      headSize = Math.max(45, Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.3);
     } else {
-      headSize = Math.max(40, Math.min(120, boxH * 0.22));
+      headSize = Math.max(45, Math.min(130, boxH * 0.24));
     }
 
     // 2. Locate Precise Mouth/Lips Anchor
-    const visibleFace = [nose, leftEye, rightEye, leftEar, rightEar].filter(p => p.score > 0.15);
-    let mouthX = nose.score > 0.15 ? nose.x : (visibleFace.length > 0 ? visibleFace[0].x : centerX);
-    let mouthY = nose.score > 0.15 ? (nose.y + headSize * 0.25) : (visibleFace.length > 0 ? visibleFace[0].y + headSize * 0.32 : boxY + headSize * 0.60);
+    const visibleFace = [nose, leftEye, rightEye, leftEar, rightEar].filter(p => p.score > 0.12);
+    let mouthX = nose.score > 0.12 ? nose.x : (visibleFace.length > 0 ? visibleFace[0].x : centerX);
+    let mouthY = nose.score > 0.12 ? (nose.y + headSize * 0.28) : (visibleFace.length > 0 ? visibleFace[0].y + headSize * 0.35 : boxY + headSize * 0.65);
 
-    // 3. Locate Shoulder Baseline (hands down cutting/cooking are well below this)
-    const visibleShoulders = [leftShoulder, rightShoulder].filter(s => s.score > 0.20);
-    let shoulderY = visibleShoulders.length > 0 ? (visibleShoulders.reduce((acc, s) => acc + s.y, 0) / visibleShoulders.length) : (mouthY + headSize * 0.80);
+    // 3. Locate Shoulder Baseline
+    const visibleShoulders = [leftShoulder, rightShoulder].filter(s => s.score > 0.18);
+    let shoulderY = visibleShoulders.length > 0 ? (visibleShoulders.reduce((acc, s) => acc + s.y, 0) / visibleShoulders.length) : (mouthY + headSize * 0.85);
 
     let isHandNearMouth = false;
     let activeWrist = null;
     let minMouthDist = Infinity;
 
-    // 4. Precision Spatial Classifier (Mouth-Cone Rule)
+    // 4. Check Scene Wrists (own hands + spoons from adjacent chefs)
     allSceneWrists.forEach(w => {
       const dMouth = Math.hypot(w.x - mouthX, w.y - mouthY);
       const dy = Math.abs(w.y - mouthY);
       const dx = Math.abs(w.x - mouthX);
 
-      // Rule 1: Hand/spoon must be strictly at lips/chin height (within 0.75x headSize vertically)
-      const isAtLipsHeight = (dy <= headSize * 0.75) && (w.y <= shoulderY + 10);
-
-      // Rule 2: Hand/spoon must be inside the mouth contact cone (within 0.90x headSize of mouth)
-      const isTouchingMouth = (dMouth <= headSize * 0.90) && (dx <= headSize * 0.75);
+      // Hand/utensil elevated at chin/mouth height
+      const isAtLipsHeight = (dy <= headSize * 1.10) && (w.y <= shoulderY + headSize * 0.40);
+      const isTouchingMouth = (dMouth <= headSize * 1.35) && (dx <= headSize * 1.20);
 
       if (isAtLipsHeight && isTouchingMouth) {
         isHandNearMouth = true;
@@ -962,22 +964,28 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
       }
     });
 
-    // 5. Forearm vector check for self hand-to-mouth tasting
+    // 5. Forearm Vector Ray Fallback (for occluded hands holding food in mouth)
     const ownArms = [
-      { wrist: leftWrist, elbow: leftElbow },
-      { wrist: rightWrist, elbow: rightElbow }
+      { wrist: leftWrist, elbow: leftElbow, shoulder: leftShoulder },
+      { wrist: rightWrist, elbow: rightElbow, shoulder: rightShoulder }
     ];
 
-    ownArms.forEach(({ wrist, elbow }) => {
-      if (wrist.score > 0.10) {
-        const dMouth = Math.hypot(wrist.x - mouthX, wrist.y - mouthY);
-        const isForearmUp = elbow.score > 0.15 ? (wrist.y < elbow.y - 10) : (wrist.y <= shoulderY);
-        if (dMouth <= headSize * 0.90 && isForearmUp && (wrist.y <= shoulderY)) {
-          isHandNearMouth = true;
-          if (dMouth < minMouthDist) {
-            minMouthDist = dMouth;
+    ownArms.forEach(({ wrist, elbow, shoulder }) => {
+      if (elbow.score > 0.15) {
+        // If elbow is below face and forearm points upward towards mouth:
+        const distElbowToMouth = Math.hypot(elbow.x - mouthX, elbow.y - mouthY);
+        const isElbowRaisedTowardsFace = (elbow.y > mouthY) && (distElbowToMouth < headSize * 2.8) && (Math.abs(elbow.x - mouthX) < headSize * 2.0);
+        
+        // If wrist exists near mouth OR forearm is acutely bent upward to face:
+        if (wrist.x > 0 && wrist.y > 0) {
+          const dMouth = Math.hypot(wrist.x - mouthX, wrist.y - mouthY);
+          if (dMouth <= headSize * 1.35 && (wrist.y <= shoulderY + headSize * 0.40)) {
+            isHandNearMouth = true;
             activeWrist = wrist;
           }
+        } else if (isElbowRaisedTowardsFace && (elbow.y <= shoulderY + headSize * 1.8)) {
+          isHandNearMouth = true;
+          activeWrist = { x: mouthX, y: mouthY, score: 0.8 };
         }
       }
     });
@@ -990,17 +998,17 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     let stickyUntil = bestTrack ? (bestTrack.sticky_violation_until || 0) : 0;
     let lastAlert = bestTrack ? (bestTrack.last_alert_time || 0) : 0;
 
-    // 6. Dwell Threshold & Sticky Hold
+    // 6. Fast Dwell Trigger (0.10s / ~2 frames) with 6-Second Hold
     if (isHandNearMouth) {
-      handDwellSec += 0.12;
-      if (handDwellSec >= 0.15) {
-        stickyUntil = currentTime + 5000;
+      handDwellSec += 0.10;
+      if (handDwellSec >= 0.10) {
+        stickyUntil = currentTime + 6000;
       }
     } else {
-      handDwellSec = Math.max(0, handDwellSec - 0.20);
+      handDwellSec = Math.max(0, handDwellSec - 0.15);
     }
 
-    const isEating = (handDwellSec >= 0.15) || (currentTime < stickyUntil);
+    const isEating = (handDwellSec >= 0.10) || (currentTime < stickyUntil);
 
     // Check Restricted Zones
     const personFeetNorm = [centerX / canvasW, (boxY + boxH) / canvasH];
