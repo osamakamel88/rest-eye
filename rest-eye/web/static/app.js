@@ -884,6 +884,10 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     const { x: boxX, y: boxY, w: boxW, h: boxH } = box;
 
     const nose = kps['nose'] || { x: centerX, y: boxY + boxH * 0.15, score: 0 };
+    const leftWrist = kps['left_wrist'] || { x: 0, y: 0, score: 0 };
+    const rightWrist = kps['right_wrist'] || { x: 0, y: 0, score: 0 };
+    const leftElbow = kps['left_elbow'] || { x: 0, y: 0, score: 0 };
+    const rightElbow = kps['right_elbow'] || { x: 0, y: 0, score: 0 };
     const leftEye = kps['left_eye'] || { x: 0, y: 0, score: 0 };
     const rightEye = kps['right_eye'] || { x: 0, y: 0, score: 0 };
     const leftEar = kps['left_ear'] || { x: 0, y: 0, score: 0 };
@@ -891,37 +895,68 @@ function processRealPoses(poses, canvasW, canvasH, videoEl) {
     const leftShoulder = kps['left_shoulder'] || { x: 0, y: 0, score: 0 };
     const rightShoulder = kps['right_shoulder'] || { x: 0, y: 0, score: 0 };
 
-    // 1. Locate Precise Mouth/Lips Coordinates
+    // 1. Dynamic Head Size based on perspective and camera distance
+    let headSize = 55;
+    if (leftShoulder.score > 0.20 && rightShoulder.score > 0.20) {
+      headSize = Math.max(45, Math.hypot(leftShoulder.x - rightShoulder.x, leftShoulder.y - rightShoulder.y) * 0.65);
+    } else if (leftEye.score > 0.20 && rightEye.score > 0.20) {
+      headSize = Math.max(45, Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y) * 2.4);
+    } else if (leftEar.score > 0.20 && rightEar.score > 0.20) {
+      headSize = Math.max(45, Math.hypot(leftEar.x - rightEar.x, leftEar.y - rightEar.y) * 1.6);
+    } else {
+      headSize = Math.max(45, Math.min(130, boxH * 0.24));
+    }
+
+    // 2. Locate Precise Mouth/Lips Coordinates
     const visibleFace = [nose, leftEye, rightEye, leftEar, rightEar].filter(p => p.score > 0.15);
     let mouthX = nose.score > 0.15 ? nose.x : (visibleFace.length > 0 ? visibleFace[0].x : centerX);
-    let mouthY = nose.score > 0.15 ? (nose.y + 14) : (visibleFace.length > 0 ? visibleFace[0].y + 20 : boxY + 35);
+    let mouthY = nose.score > 0.15 ? (nose.y + headSize * 0.28) : (visibleFace.length > 0 ? visibleFace[0].y + headSize * 0.35 : boxY + headSize * 0.65);
 
-    // 2. Locate Shoulder Baseline
+    // 3. Locate Shoulder Baseline
     const visibleShoulders = [leftShoulder, rightShoulder].filter(s => s.score > 0.20);
-    let shoulderY = visibleShoulders.length > 0 ? (visibleShoulders.reduce((acc, s) => acc + s.y, 0) / visibleShoulders.length) : (mouthY + 45);
+    let shoulderY = visibleShoulders.length > 0 ? (visibleShoulders.reduce((acc, s) => acc + s.y, 0) / visibleShoulders.length) : (mouthY + headSize * 0.85);
 
     let isHandNearMouth = false;
     let activeWrist = null;
     let minMouthDist = Infinity;
 
-    // 3. Check All Scene Wrists (own hands + adjacent tasting spoons / hands)
+    // 4. Evaluate all wrists in scene (own hands + cross-person tasting) using scale-invariant ratios
     allSceneWrists.forEach(w => {
       const dMouth = Math.hypot(w.x - mouthX, w.y - mouthY);
       const dy = Math.abs(w.y - mouthY);
       const dx = Math.abs(w.x - mouthX);
 
-      // Strict Eating Height: Hand MUST be at chin/lips level (within 42px vertically of mouth and above chest)
-      const isAtLipsHeight = (dy <= 42) && (w.y <= shoulderY + 15);
+      // Scale-normalized vertical height: Hand must be at chin/lips/mouth height (NOT down at cutting board / stove)
+      const isAtLipsHeight = (dy <= headSize * 0.95) && (w.y <= shoulderY + headSize * 0.35);
 
-      // Strict Eating Distance: Hand MUST be within 55px of mouth/lips
-      const isTouchingMouth = (dMouth <= 55) && (dx <= 45);
+      // Scale-normalized proximity: Hand must be within mouth contact perimeter
+      const isTouchingMouth = (dMouth <= headSize * 1.30) && (dx <= headSize * 1.10);
 
-      // Hands down cutting on table (e.g. dy > 70px or w.y > shoulderY + 40px) will strictly evaluate to FALSE
       if (isAtLipsHeight && isTouchingMouth) {
         isHandNearMouth = true;
         if (dMouth < minMouthDist) {
           minMouthDist = dMouth;
           activeWrist = w;
+        }
+      }
+    });
+
+    // 5. Forearm vector fallback for occluded hand right at mouth
+    const ownArms = [
+      { wrist: leftWrist, elbow: leftElbow },
+      { wrist: rightWrist, elbow: rightElbow }
+    ];
+
+    ownArms.forEach(({ wrist, elbow }) => {
+      if (wrist.score > 0.10) {
+        const dMouth = Math.hypot(wrist.x - mouthX, wrist.y - mouthY);
+        const isForearmUp = elbow.score > 0.15 ? (wrist.y < elbow.y + 20) : (wrist.y <= shoulderY + headSize * 0.30);
+        if (dMouth <= headSize * 1.30 && isForearmUp && (wrist.y <= shoulderY + headSize * 0.35)) {
+          isHandNearMouth = true;
+          if (dMouth < minMouthDist) {
+            minMouthDist = dMouth;
+            activeWrist = wrist;
+          }
         }
       }
     });
